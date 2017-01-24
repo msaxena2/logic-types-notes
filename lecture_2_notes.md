@@ -11,4 +11,24 @@
 
  Let WFF be the smalles set such that, p in P is in WFF if \phi and \phi' are in WFF, then (\phi /\ \phi'), (\phi \/ \phi') and (\not phi) are also in WFF. 
 
+#### Grammar for WFF - 
+```
+WFF ::= p | (p1 \/ p2) | \not p
 
+where p, p1 and p2 are in WFF.
+```
+
+Let W be the set of all sets that satisfied the property above, then the union of the sets is also a WFF, and is the smallest set. 
+
+#### Semantics of Propositional logic - 
+
+* Model : World that determines basic facts.
+
+* Valuation : A valuation v is a function from propositions to True/False.
+
+* A formula is vaild if it's true in all models.
+
+* A formula is satisfiable if it's true in some model.
+
+
+SAT problem is decidable, hence to check validity, negate formula and hand it to SAT solver to check for validity.
