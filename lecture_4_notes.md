@@ -23,3 +23,4 @@ Also, For every V = (Vi, Vj) => the two vertices of don't have adjacent veritice
 Using compactness theorem - X is unsat iff there is a finite subgraph Y \in X s.t. it is unsat. 
 
 But every Y \in X is sat (using 4 CT). So X is Sat, and G is 4 colorable.
+```
