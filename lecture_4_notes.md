@@ -38,6 +38,10 @@ Proving on the other hand, using rules to come up with the validity of a formula
 An axiom system is a finite set of axioms, and we prove formula modulo the axioms. Then we use inference rules (ways of proving facts from other facts, and must be sound), along with axioms to prove formulae. 
 
 
+##### Completeness - Any valid formula is provable in the proof system. 
+
+Continued in the next class.
+
 
 
 
