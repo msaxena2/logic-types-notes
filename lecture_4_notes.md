@@ -13,7 +13,11 @@
 We have an infinite planar graph i.e. V = {v0, v1, .....} is countable. E (set of edges) is a subset of V * V. 
 
 
-We choose a set of propositions - {C^i_R, C^i_G, ..., i \in N}. That is the ith node in the graph has the color from {R, G, B, Y}. Want to assign an evaluation such that - 
+We choose a set of propositions - {C^i_R, C^i_G, ..., i \in N}. 
+
+That is the ith node in the graph has the color from {R, G, B, Y}. 
+
+Want to assign an evaluation such that - 
 
 C^i_R \/ C^i_G .... and C^i_R => !C^i_G and so on. 
 
@@ -24,3 +28,18 @@ Using compactness theorem - X is unsat iff there is a finite subgraph Y \in X s.
 
 But every Y \in X is sat (using 4 CT). So X is Sat, and G is 4 colorable.
 ```
+
+#### Axiomatization
+
+A formula can be proven to be valid using computation i.e. by showing that a formula holds for all evaluations. 
+
+Proving on the other hand, using rules to come up with the validity of a formula.
+
+An axiom system is a finite set of axioms, and we prove formula modulo the axioms. Then we use inference rules (ways of proving facts from other facts, and must be sound), along with axioms to prove formulae. 
+
+
+
+
+
+
+
