@@ -28,5 +28,10 @@ Formula = C1 /\ C2 /\ C3 ... /\ Cn
 each Ci = d1 \/ d2 .... \/ dn
 
 
-Any formula can be normalized to CNF.
+Any formula can be normalized to CNF. However, not in P time. Exponential blowup may occur.
 
+
+### Resulution - 
+
+
+Satisfiablity and completeness of Resolution.
