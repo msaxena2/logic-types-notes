@@ -31,7 +31,7 @@ each Ci = d1 \/ d2 .... \/ dn
 Any formula can be normalized to CNF. However, not in P time. Exponential blowup may occur.
 
 
-### Resulution - 
+### Resolution - 
 
 
 Satisfiablity and completeness of Resolution.
