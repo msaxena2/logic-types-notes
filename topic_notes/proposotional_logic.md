@@ -44,9 +44,17 @@ are fast cars. Now, there may be a world (not this world), where that may be the
 as T, the other as F (how preposterous). The point is - evaluations and models go hand in hand, but they're not the same. This distinction will become useful later.
 
 
-We show that $\forall$ formulas i$\alpha$, $v_X \models \alpha$ iff $\alpha \in X$. 
+### Compactness - 
 
+Formally - $X \subseteq \Phi \models \alpha$, iff there exists a Y, $Y \subseteq_{fin} X, Y \models \alpha$. Intuitively, if a subset of propositional formulas $X \models \alpha$, i.e. in every model in which X holds, $\alpha$ also holds, then, there exists a finite subset of X, say Y, s.t. $Y \models \alpha$.
 
+The proof is given using Konig's Lemma, which states that infinite tree having nodes with finite degree has an infinite branch. 
 
+We first prove X is satisfiable, iff every finite subset of X is also satisfiable. 
 
+We unroll the evaluation of every atomic proposition in P. That is, consider all atomic proposition $\{p_0, p_1, \dots \}$, then the tree is a binary tree, which assigns $p_0$ to T along one branch, and F along the other. Then, we take $\alpha \in X$, we prune the tree, by removing 
+nodes in which $\alpha$ evaluates to F. That is we remove all nodes, in which $\alpha$ evaluates to $X$, except for the first such node encountered along a path. 
 
+Now, every leaf in the tree, corresponds to an evaluation, s.t. a fromula $\alpha \in X$ evaluates to F using the leaf. This is a contradiction, since 
+$X$ itself has to satisfiable. So, we know that there exists an infinite path along which X is satisfiable. If we assume the tree to be finite, 
+Then, every leaf in the tree would represent an evaluation of $\alpha$, in which $\alpha$ is unsat. 
