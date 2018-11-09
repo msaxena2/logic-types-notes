@@ -1,0 +1,18 @@
+Notes on Category Theory
+========================
+
+Category theory borrows notation from set theory.
+The source of an arrow is called a "domain", while the destination called
+"co-domain". The intuition behind set theory as category theory is objects
+are sets and an arrow f: A -> B represents a total function from set A to
+set B. Function composition arises naturally from composition of arrows.
+Moreorver, the identity arrow is the identity function `f(x) = x`.
+
+Issues
+------
+
+Need to prove that the identity arrow is indeed the identity function.
+Why can a function from A -> A not be an identity, given the domain and
+co-domain of the function are the same set?
+
+
