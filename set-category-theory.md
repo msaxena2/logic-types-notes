@@ -88,6 +88,7 @@ commute iff for any two nodes in the diagram, all paths
 from A to B are equal.
 
 For example,
+
 ```
     X
    / \
@@ -95,7 +96,36 @@ For example,
    \ /
     Y
 ```
+
 where arrows point from left to right is said
 to commute iff A -> X; X -> B = A -> Y ; Y -> B = B.
+
+
+Cones
+-----
+
+Given a category *C* and a diagram d(N,E) in said category,
+a cone is a pair (C, {x_i}, i \in N), with the property -
+  * x_i: C -> d(i) is a morphism in *C*
+  * For an i -> j edge in d, x_i; d(i) -> d(j) = x_j.
+
+A cone can be thought of as an operation on a diagram.
+When the diagram is thought of as a planar graph, the cone
+can be thought of as something outside the plane, with
+morphisms to edges in the plane.
+
+
+Limits
+------
+
+A limit of a diagram can be thought of as the maximal cone.
+Formally, a limit is a cone (C, {y_i}) s.t. for any other
+cone (C', {x_i}), i \in Nodes of d, there exists a unique
+morphism *h* from C' -> C, s.t. h;y_i = x_i. Any two limits
+in a diagram are isomorphic.
+
+
+
+
 
 
