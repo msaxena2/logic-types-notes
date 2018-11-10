@@ -13,6 +13,13 @@ Issues
 
 Need to prove that the identity arrow is indeed the identity function.
 Why can a function from A -> A not be an identity, given the domain and
-co-domain of the function are the same set?
-
+co-domain of the function are the same set? The identity arrow
+must have the following property:
+```
+  f : A -> B ; id_A = id_B ; f : A -> B
+```
+Where f can be any function from A -> B.
+So, f(i_a(x)) = i_b(f(a)) for any x \in A. Emitting the proof,
+it's the case that only when id_A and id_B are identity functions
+an A & B, the condition above holds.
 
