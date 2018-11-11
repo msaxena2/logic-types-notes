@@ -114,6 +114,10 @@ When the diagram is thought of as a planar graph, the cone
 can be thought of as something outside the plane, with
 morphisms to edges in the plane.
 
+Simply put, for all the nodes in the diagram add edges
+from C -> node. Then, if n1 -> n2 is an edge in the diagram
+`C -> n1; n1 -> n2 = C -> n2`. Pick any edge in the diagram -
+the cone is a diagram which commutes.
 
 Limits
 ------
