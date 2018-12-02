@@ -79,3 +79,10 @@ The basic idea is -
     E |- \forall X \x:s Ex =s->t E if x =/= FV(E)
     ```
 
+Models of Simply Typed Lambda Calculus
+--------------------------------------
+
+
+
+
+
