@@ -80,9 +80,21 @@ The basic idea is -
     ```
 
 Models of Simply Typed Lambda Calculus
---------------------------------------
+======================================
 
+Typed Indexed Set
+-----------------
 
+` M = {M_t}_{t \in types}.`
+Collection of sets, one for each type. No relationship among
+M_s, M_{s->t} and M_t.
 
+Environmennt {x:s, y:s, z:t} is a type indexed set
+s.t. M_s = {x, y} and M_t = {z}. All other sets are empty.
+
+Given a type assignment X, T(X) denotes it's type indexed set.
+
+Given type indexed sets M and N, a type indexed function
+is a collection of functions h : M_t -> N_t for each
 
 
