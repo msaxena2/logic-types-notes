@@ -1,9 +1,10 @@
 \documentclass{beamer}
 \usecolortheme{whale}
 \usepackage[utf8]{inputenc}
-\usepackage{dirtytalk}
-\usepackage{graphicx}
+\usepackage{dirtytalk,graphicx,amsmath,tikz}
+\usetikzlibrary{automata, positioning}
 \graphicspath{ {./images/} }
+\tikzset{->, initial text=$$}
 %Information to be included in the title page:
 \title{Logic and Hybrid Systems}
 \author{Manasvi Saxena}
@@ -54,9 +55,10 @@
   \item Nodes specify continuous dynamics. Edges describe discrete transitions.
   \item Intuitive, but not suitable for deductive verification.
 \end{itemize}
+    \pause
 \begin{figure}\label{fig:train-HA}
   \centering
-\includegraphics[scale=0.5]{train-HA}
+  \input{train-ha}
   \caption{Hybrid Automata (simplified) of a Train Control System}
 \end{figure}
 

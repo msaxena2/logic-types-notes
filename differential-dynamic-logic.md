@@ -40,7 +40,7 @@ Given a state v
    point p in the evolution domain, \phi(p) (which is a dL state) \entails x' =
    t & Q .
  - [[A \cup B]] = [[A]] \cup [[B]].
- - [[A; B]] = {(\omega, v) : (\omega, u) \in [[A]], (u,v) \in [[B]].
+ - [[A; B]] = {(\omega, v) : (\omega, u) \in [[A]], (u,v) \in [[B]]}.
  - [[A*]] = [[A]]*, transitive, reflexive closure of A.
 
 Interpretation of dL formulas in state \omega
@@ -50,8 +50,5 @@ Interpretation of dL formulas in state \omega
    v \entails \psi.
  - \omega \entails <\alpha>\psi iff there exists a (omega, v) in [[\alpha]],
    v \entails \psi.
-
-
-
 
 
