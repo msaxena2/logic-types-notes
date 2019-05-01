@@ -16,6 +16,9 @@
 %\setbeameroption{show notes on second screen=right} % Both
 \setbeamertemplate{note page}{\pagecolor{yellow!5}\insertnote}\usepackage{palatino}
 \setbeamerfont{caption}{size=\scriptsize}
+
+\newcommand{\dL}{\text{\upshape\textsf{d{\kern-0.05em}L}}}
+
 \begin{document}
 
 \frame{\titlepage}
@@ -32,7 +35,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Logic and Hybrid Sytems}
+  \frametitle{Differential Dynamic Logic (\dL)}
   \begin{itemize}
     \item Main focus - Differential Dynamic Logic for Hybrid Systems (Andre
       Platzer).
@@ -61,9 +64,39 @@
   \input{train-ha}
   \caption{Hybrid Automata (simplified) of a Train Control System}
 \end{figure}
+\end{frame}
 
+\begin{frame}{Differential Dynamic Logic}{Motivations}
+  \begin{itemize}
+    \item \textbf{First Order Logic} - No builtin means for referring to state
+      transitions.
+    \item \textbf{Temporal Logics} - Modal operators allow referring to state transitions.
+      But valid formulas only express generic facts.
+      \pause
+    \item \textbf{Dynamic Logic (DL)} - Combines operational system models with
+      operators for reasoning.
+      \begin{itemize}
+        \item Provides parameterized modal operators, $[\alpha]$,
+          $\langle\alpha\rangle$
+          that refer to states reachable by system $\alpha$.
+        \item $[\alpha]\phi$ expresses all states reachable by $\alpha$ satisfy
+          $\phi$, allowing reasoning about discrete systems.
+        \item Say $(b > 0) \to [a := -b] (a < 0) $ expresses a
+          discrete transition. Using DL's calculus, we get $(b > 0) \vdash (a < 0)
+          [ b / a ]$. Convenient for  reasoning about discrete behavior.
+        \pause
+        \item No built in notion for describing or reasoning about continuous dynamics.
+      \end{itemize}
+  \end{itemize}
+\end{frame}
 
-
+\begin{frame}{Differential Dynamic Logic}{Motivations}
+  \begin{itemize}
+    \item Generalize DL so operational models $\alpha$ can be
+      used in modal formulas like $[\alpha]\phi$. $\dL$ refers to
+      generalized models as \say{Hybrid Programs}.
+    \item A calculus also allowing for reasoning about continuous dynamics.
+  \end{itemize}
 \end{frame}
 
 \end{document}
