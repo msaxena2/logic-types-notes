@@ -95,8 +95,23 @@
     \item Generalize DL so operational models $\alpha$ can be
       used in modal formulas like $[\alpha]\phi$. $\dL$ refers to
       generalized models as \say{Hybrid Programs}.
-    \item A calculus also allowing for reasoning about continuous dynamics.
+    \item A compositional calculus for verification. Decompose
+      $[\alpha]\phi$ into an equivalent formula $[\alpha_1]\phi_1 \wedge
+      [\alpha_2]\phi_2$.
+    \item Prove subsystems and subproperties $[\alpha_i]\phi_i$ independently
+      and combine results conjuntively.
+    \item Complete relative to handling of differential equations.
   \end{itemize}
+\end{frame}
+
+\begin{frame}{Differential Dynamic Logic}{Syntax and Semantics}
+  \begin{description}
+    \item{} $\dL$ formulas built over $V$, set of real-valued logical variables and
+     signature $\Sigma$ containing functions, predicate symbols over reals, like
+     $0, 1, +, \geq$.
+  \item {}$\Sigma$ also contains \textit{System State Variables}. Unlike rigid
+   symbols, like $1, 2$, their interpretation can change from state to state.
+  \end{description}
 \end{frame}
 
 \end{document}
