@@ -23,6 +23,11 @@
 \newcommand{\HP}{\text{HP}}
 \newcommand{\accel}{\textit{accel}}
 \newcommand{\brake}{\textit{brake}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\val}[4]{\textit{val}_{#1, #2}(#3, #4)}
+\newcommand{\valDefault}[1]{\val{I}{\eta}{\nu}{#1}}
+\newcommand{\transRel}[3]{\rho_{#1, #2}(#3)}
+\newcommand{\transRelDef}[1]{\transRel{I}{\eta}{#1}}
 
 \begin{document}
 
@@ -169,6 +174,62 @@
     \end{equation*}
   }
     \end{columns}
+\end{frame}
+\begin{frame}{Differential Dynamic Logic}{Syntax and Semantics}
+  \begin{block}{$\dL$ Formulas}
+  \end{block}
+\end{frame}
+
+\begin{frame}{Differential Dynamic Logic}{Syntax and Semantics}
+  \begin{block}{Some Notation}
+    \begin{itemize}
+      \item Kripke semantics - states of the Kripke model represent hybrid system states.
+      \item Interpretation $I$ assigns functions and relations over Reals to
+        rigid symbols $\Sigma$.
+      \item A state is a map $\nu : \Sigma_{\textit{fl}} \to \R$.
+      \item Assignment of logical variables is a map $\eta : V \to \R$.
+      \item Note the difference between \textit{Logical} and \textit{State
+        Variables}. The evaluation of a state variable \say{evolves} across
+        states. Logical Variables can be quantified over, but not state
+        variables.
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}{Differential Dynamic Logic}{Syntax and Semantics}
+    \begin{block}{$\dL$ Valuation of $\dL$ Terms}
+      Say $\valDefault{\cdot}$ is evaluation w.r.t. interpretation $I$, assignment $\eta$ and state $\nu$.
+      \pause
+      \begin{itemize}
+      \item (State Variables) $\valDefault{a} = \nu(a), x \in \Sigma_{\textit{fl}}$
+        \pause
+      \item (Logical Variables) $\valDefault{x} = \eta(x), x \in V$
+        \pause
+      \item (Rigid Symbols) $\valDefault{f(\theta_1, \ldots, \theta_n)} =
+          f_I(\valDefault{\theta_1}, \ldots, \valDefault{\theta_n})$ \\
+          where $f$ is n-ary rigid symbol in $\Sigma$
+      \end{itemize}
+    \end{block}
+\end{frame}
+
+\begin{frame}{Differential Dynamic Logic}{Syntax and Semantics}
+    \begin{block}{Valuation of $\dL$ Formulas}
+      \begin{itemize}
+      \item $\valDefault{p(\theta_1, \ldots, \theta_n)} = p_I(\valDefault{\theta_1}, \ldots, \valDefault{\theta_n})$
+      \item $\valDefault{\varphi \wedge \psi} = \top$ iff
+        $\valDefault{\varphi} = \top \wedge \valDefault{\psi} = \top$.
+        Similarly for $\to, \neg, \vee$
+      \item $\valDefault{\exists x \ldotp \varphi} = \top$ iff
+        $\val{I}{\eta[x \mapsto d]}{\nu}{\varphi} = \top$ for some $d \in \R$
+      \pause
+      \item $\valDefault{[\alpha]\varphi} = \top$ iff
+        $\val{I}{\eta}{\omega}{\varphi} = \top$ for all states $\omega$ with $(\nu, \omega)
+        \in \transRelDef{\alpha}$.
+      \item $\valDefault{\langle\alpha\rangle\varphi} = \top$ iff
+        $\val{I}{\eta}{\omega}{\varphi} = \top$ for some state $\omega$ with $(\nu, \omega)
+        \in \transRelDef{\alpha}$.
+      \end{itemize}
+    \end{block}
 \end{frame}
 
 \end{document}
