@@ -184,15 +184,16 @@
 \begin{frame}{Differential Dynamic Logic}{Syntax and Semantics}
   \begin{block}{Some Notation}
     \begin{itemize}
-      \item Kripke semantics - states of the Kripke model represent hybrid system states.
       \item Interpretation $I$ assigns functions and relations over Reals to
-        rigid symbols $\Sigma$.
+        rigid symbols in $\Sigma$.
       \item A state is a map $\nu : \Sigma_{\textit{fl}} \to \R$.
       \item Assignment of logical variables is a map $\eta : V \to \R$.
       \item Note the difference between \textit{Logical} and \textit{State
         Variables}. The evaluation of a state variable \say{evolves} across
         states. Logical Variables can be quantified over, but not state
         variables.
+      \item The models of $\dL$ are Kripke Structures, where nodes are
+        hybrid system states.
     \end{itemize}
   \end{block}
 \end{frame}
@@ -261,5 +262,39 @@
   \end{block}
 \end{frame}
 
+\begin{frame}{Differential Dynamic Logic}{Syntax and Semantics}
+  \begin{block}{Transition Semantics of Hybrid Programs}
+      $(\nu, \omega) \in \transRelDef{(x_1' = \vartheta_1 \ldots x_n' =
+        \vartheta_n) \& \chi}$ iff there is a flow of some duration $r \geq 0$,
+        from $\nu$ to $\omega$ respecting the differential equations and evolution
+        domain. Formally, there is a function $f : [0,r] \to \text{Sta}(\Sigma)$ such that -
+        \begin{itemize}
+          \item $f(0) = \nu$ and $f(r) = \omega$.
+          \item $\forall \delta : [0,r] . \val{I}{\eta}{f(\delta)}{x_i}$ is
+            continuous and $\val{I}{\eta}{f(\delta)}{\chi} = \top$.
+          \item  $\forall \epsilon : (0,r) .
+            \val{I}{\eta}{f(\epsilon)}{\vartheta_i} = \dot{f}(\epsilon)$.
+          \item For any $ z \not \in \{x_1, x_2, \ldots, x_n\} $,
+            $\val{I}{\eta}{f(\zeta)}{z}$ remains constant for $\zeta \in [0,r]$.
+            In other words, all other state variables remain unchanged.
+        \end{itemize}
+  \end{block}
+\end{frame}
+\begin{frame}{Differential Dynamic Logic}{Syntax and Semantics}
+  \begin{columns}[c]
+    \column{.5\textwidth}
+      \begin{figure}
+        \centering
+        \includegraphics[scale=0.47]{unbounded-evolution}
+      \caption{Unbounded Evolution}
+      \end{figure}
+    \column{.5\textwidth}
+      \begin{figure}
+        \centering
+        \includegraphics[scale=0.45]{bounded-evolution}
+      \caption{Evolution bound by $\chi$}
+    \end{figure}
+    \end{columns}
+\end{frame}
 \end{document}
 
