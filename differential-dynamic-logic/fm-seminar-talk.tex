@@ -296,5 +296,39 @@
     \end{figure}
     \end{columns}
 \end{frame}
+
+\begin{frame}{Differential Dynamic Logic}{Examples}
+  \begin{block}{Some Intuition behind $\dL$}
+  \begin{itemize}
+    \item Generally, want to reason about Embedded Systems (ES) or Cyber Physical Systems (CPS).
+      \pause
+    \item Loosely speaking, an ES or CPS is built upon the integration of Computation (Controller) and
+      Physical Systems (Plant). Examples include autopilot, ABS (Anti Lock
+      Braking Systems), fly-by-wire (human interaction).
+    \item Expressed in $\dL$ as an HP $\alpha \equiv (ctrl ; \{plant\})^*$.
+      \pause
+    \item Formulas of interest are of the form $\varphi \to [\alpha]\psi$.
+    \item Formula above says that all states satisfying $\varphi$ will
+      always transition to states satisfying $\psi$, where $\alpha$ dictates
+      the transition relation.
+  \end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}{Differential Dynamic Logic}{Motivating Example}
+  \begin{block}{European Train Control System (ETCS)}
+    \begin{figure}
+      \centering
+      \includegraphics[scale=0.3]{etcs}
+    \end{figure}
+  \begin{itemize}
+    \item Goal of ECTS is to avoid collision and maximize throughput.
+    \item Discards usage of traditional fixed segments of track with mutual
+      exclusion. Instead uses decentralized Radio Block Controllers (RBCs) for
+      access.
+
+  \end{itemize}
+\end{block}
+\end{frame}
 \end{document}
 
