@@ -6,6 +6,7 @@
 \usetikzlibrary{automata, positioning}
 \graphicspath{ {./images/} }
 \tikzset{->, initial text=$$}
+\DeclareMathAlphabet{\mathpzc}{OT1}{pzc}{m}{it}
 %Information to be included in the title page:
 \title{Logic and Hybrid Systems}
 \author{Manasvi Saxena}
@@ -137,8 +138,8 @@
   \HP(\Sigma,V)$
     Set $\HP(\Sigma,V)$, is defined inductively as -
     \begin{itemize}
-      \item  $(x_1 := \theta_1, \ldots , x_n = \theta_n) \in \HP(\Sigma,V)$
-      \item $ (x'_1 = \vartheta_i, \ldots , x'_n = \theta_n)\, \& \, \chi \in
+      \item  $(x_1 := \theta_1, \ldots , x_n := \theta_n) \in \HP(\Sigma,V)$
+      \item $ (x'_1 = \vartheta_i, \ldots , x'_n = \vartheta_n)\, \& \, \chi \in
         \HP(\Sigma,V)$. $x'_i = \vartheta_i$ is a differential equation where
         $x'_i$ is the first order time derivative of $x_i$.
       \item $(?\chi) \in \HP(\Sigma,V)$.
@@ -230,6 +231,34 @@
         \in \transRelDef{\alpha}$.
       \end{itemize}
     \end{block}
+\end{frame}
+
+\begin{frame}{Differential Dynamic Logic}{Syntax and Semantics}
+  \begin{block}{Transition Semantics of Hybrid Programs}
+    Evaluation $\transRelDef{\alpha}$ of HP $\alpha$. $(\nu, \omega) \in
+    \transRelDef{\alpha}$ means state $\omega$ is reachable from $\nu$ by
+    operations of $\alpha$.
+    \begin{itemize}
+      \item $(\nu, \omega) \in \transRelDef{x_1 := \theta_1, \dots, x_n := \theta_n}$
+        iff $\nu[x_1 \mapsto \valDefault{\theta_1}, \ldots, x_n \mapsto
+        \valDefault{\theta_n}]
+       = \omega$ and $\forall y \in (\Sigma_{\textit{fl}} - \{x_1, \ldots,
+       x_n\}). \val{I}{\eta}{\nu}{y} = \val{I}{\eta}{\omega}{y}$.
+       \pause
+     \item $\transRelDef{\alpha \cup \beta} = \transRelDef{\alpha} \cup
+       \transRelDef{\beta}$
+       \pause
+     \item $\transRelDef{?\chi} = \{(\nu,\nu) : \valDefault{\chi} = \top \}$
+       \pause
+     \item $\transRelDef{\alpha ; \beta} = \{(\nu,\omega) : (\nu, \mathpzc{Z}) \in
+         \transRelDef{\alpha} \wedge (\mathpzc{Z},\omega) \in \transRelDef{\beta}
+       \text{ for some state } \mathpzc{Z}\}$
+       \pause
+     \item $ (\nu, \omega) \in \transRelDef{\alpha^*}$ iff for $n \in
+       \mathbb{N}$, there are states $\nu = \nu_0,\ldots,\nu_n = \omega$ s.t.
+       $(\nu_i, \nu_{i+1}) \in \transRelDef{\alpha}$ for $0 \leq i < n$.
+    \end{itemize}
+  \end{block}
 \end{frame}
 
 \end{document}
