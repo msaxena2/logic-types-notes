@@ -1,0 +1,30 @@
+
+  \node[state,initial, scale=0.85] (accel)   {%
+  $\begin{aligned}
+      \textit{accel} \\
+      z' = v \\
+      v' = a \\
+  \end{aligned}$
+  };
+
+  \node[state,scale=0.70] (brake) [below of = accel] {%
+  $\begin{aligned}
+      \textit{brake} \\
+      z' = v \\
+      v' = a \\
+      v \geq 0
+  \end{aligned}$
+   };
+
+   \draw (accel) edge[bend left, left] node[right,scale=0.7](t1) {%
+     $\begin{aligned}
+       a := -b \\
+       v \geq 10
+     \end{aligned}$
+   } (brake) ;
+   \draw (brake) edge[bend left, right] node[left,scale=0.7](t2) {%
+     $\begin{aligned}
+       a := a + 5 \\
+       v \leq 1
+     \end{aligned}$
+   }(accel);

@@ -1,5 +1,4 @@
 
-\begin{tikzpicture}[shorten >=1pt,node distance=5cm,on grid,auto]
   \node[state,initial, scale=0.85] (accel)   {%
   $\begin{aligned}
       \textit{accel} \\
@@ -21,4 +20,3 @@
    node[midway,above,scale=0.7] {$v \geq 10$} (brake);
    \draw (brake) edge[bend left, below] node[midway,below,scale=0.7] {$a := a+5$}
    node[midway,above,scale=0.7] {$v \leq 1$} (accel);
-\end{tikzpicture}

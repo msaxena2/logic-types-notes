@@ -1,7 +1,8 @@
 \documentclass{beamer}
 \usecolortheme{whale}
 \usepackage[utf8]{inputenc}
-\usepackage{dirtytalk,graphicx,amsmath,tikz}
+\usepackage{dirtytalk,amsmath,tikz,mathtools,amsmath}
+\usepackage{resizegather}
 \usetikzlibrary{automata, positioning}
 \graphicspath{ {./images/} }
 \tikzset{->, initial text=$$}
@@ -18,6 +19,10 @@
 \setbeamerfont{caption}{size=\scriptsize}
 
 \newcommand{\dL}{\text{\upshape\textsf{d{\kern-0.05em}L}}}
+\newcommand{\Trm}{\text{Trm}}
+\newcommand{\HP}{\text{HP}}
+\newcommand{\accel}{\textit{accel}}
+\newcommand{\brake}{\textit{brake}}
 
 \begin{document}
 
@@ -61,7 +66,9 @@
     \pause
 \begin{figure}\label{fig:train-HA}
   \centering
-  \input{train-ha}
+  \begin{tikzpicture}[shorten >=1pt,node distance=5cm,on grid,auto]
+    \input{train-ha}
+  \end{tikzpicture}
   \caption{Hybrid Automata (simplified) of a Train Control System}
 \end{figure}
 \end{frame}
@@ -82,9 +89,8 @@
         \item $[\alpha]\phi$ expresses all states reachable by $\alpha$ satisfy
           $\phi$, allowing reasoning about discrete systems.
         \item Say $(b > 0) \to [a := -b] (a < 0) $ expresses a
-          discrete transition. Using DL's calculus, we get $(b > 0) \vdash (a < 0)
-          [ b / a ]$. Convenient for  reasoning about discrete behavior.
-        \pause
+          discrete transition. We can prove $(b > 0) \vdash (a < 0) [ b / a ]$
+          using DL's calculus.
         \item No built in notion for describing or reasoning about continuous dynamics.
       \end{itemize}
   \end{itemize}
@@ -105,13 +111,64 @@
 \end{frame}
 
 \begin{frame}{Differential Dynamic Logic}{Syntax and Semantics}
-  \begin{description}
-    \item{} $\dL$ formulas built over $V$, set of real-valued logical variables and
+    $\dL$ formulas built over
+    \begin{itemize}
+      \item $V$, set of real-valued logical variables and
      signature $\Sigma$ containing functions, predicate symbols over reals, like
      $0, 1, +, \geq$.
-  \item {}$\Sigma$ also contains \textit{System State Variables}. Unlike rigid
+   \item Signature $\Sigma$ containing functions and predicates, like $0, 1
+     \geq$.  $\Sigma$ also contains \textit{System State Variables}. Unlike rigid
    symbols, like $1, 2$, their interpretation can change from state to state.
-  \end{description}
+ \item Set $\text{Trm}(\Sigma,V)$ of \textit{terms} defined as classical FOL polynomial (or
+   rational) expressions over $V$ with additional skolem terms $s(X_1, \dots,
+   X_n)$, where $X_1, \dots, X_n \in V$.
+ \end{itemize}
+\end{frame}
+
+\begin{frame}{Differential Dynamic Logic}{Syntax and Semantics}
+  \begin{block}{Hybrid Programs}
+  Consider $x_i \in \Sigma$, $\theta_i, \vartheta_i \in \Trm(\Sigma, V)$ for
+  $1 \leq i \leq n$, $\chi$ a $(\Sigma,V)$ FOL-formula, $\alpha, \beta \in
+  \HP(\Sigma,V)$
+    Set $\HP(\Sigma,V)$, is defined inductively as -
+    \begin{itemize}
+      \item  $(x_1 := \theta_1, \ldots , x_n = \theta_n) \in \HP(\Sigma,V)$
+      \item $ (x'_1 = \vartheta_i, \ldots , x'_n = \theta_n)\, \& \, \chi \in
+        \HP(\Sigma,V)$. $x'_i = \vartheta_i$ is a differential equation where
+        $x'_i$ is the first order time derivative of $x_i$.
+      \item $(?\chi) \in \HP(\Sigma,V)$.
+      \item $\alpha \cup \beta \in \HP(\Sigma, V)$.
+      \item $\alpha;\beta \in \HP(\Sigma, V)$.
+      \item $\alpha^* \in \HP(\Sigma, V)$.
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+
+\begin{frame}{Differential Dynamic Logic}{Hybrid Program Example}
+    \begin{columns}
+    \uncover<1,2>{%
+    \column{.4\textwidth}
+      \begin{figure}
+      \begin{tikzpicture}[shorten >=1pt,node distance=4cm,on grid,auto]
+        \input{train-ha-vertical}
+      \end{tikzpicture}
+      \caption{Hybrid Automata of Simple Train Control System}
+      \end{figure}
+    }
+    \uncover<2>{%
+    \column{.6\textwidth}
+    \begin{equation*}
+    \begin{split}
+      & q := \accel; \\
+      & ( (?q = \accel; z' = v,v' = a) \\
+      &  \cup (?q = \accel \wedge z \geq s; a := - b; q:=\brake; ?v \geq 0) \\
+      &  \cup (?q = \brake; z' = v,v' =a \& v \geq 0) \\
+      &  \cup (?q = \brake \wedge \leq 1; a := a + 5; q:=\accel) )*
+      \end{split}
+    \end{equation*}
+  }
+    \end{columns}
 \end{frame}
 
 \end{document}
