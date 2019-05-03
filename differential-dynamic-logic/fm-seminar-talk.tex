@@ -354,5 +354,154 @@
   \end{block}
   \end{frame}
 
+\begin{frame}{Differential Dynamic Logic}{Motivating Example}
+  \begin{block}{European Train Control System (ETCS)}
+    Say we have a train -
+    \begin{itemize}
+      \item with MA granted upto some track position $m$
+      \item at position $\z$, heading with initial speed $v$ towards $m$
+      \item point SB as safety distance $s$ relative to $m$, i.e. $m-s = SB$
+    \end{itemize}
+    \pause
+    The following formula expresses that the train remains in its MA under precondition $\psi$.
+    \begin{figure}
+      \includegraphics[scale=0.4]{ects-safety}
+    \end{figure}
+  \end{block}
+  \end{frame}
+
+\begin{frame}{Differential Dynamic Logic}{Motivating Example}
+  \begin{block}{European Train Control System (ETCS)}
+    \begin{figure}
+      \includegraphics[scale=0.4]{ects-safety}
+    \end{figure}
+  \end{block}
+  \begin{block}{ECTS Safety Verification}
+    In order to verify safety, we need
+    \begin{enumerate}
+      \item Deduce precondition $\psi$, using the calculus.
+      \item Use the calculus to verify safety, allowing exploration of the
+        calculus' rules.
+      \end{enumerate}
+  \end{block}
+\end{frame}
+
+\begin{frame}{Differential Dynamic Logic}{Proof Calculus}
+  \begin{block}{Preliminaries}
+    \begin{itemize}
+      \item $\phi_{x_1}^{\theta_1}, \ldots, \phi_{x_n}^{\theta_n}$ denotes
+        simultaneous substitution of $x_i$ for $\theta_i$ in $\phi$.
+      \item $\forall^{\alpha}\phi$ denotes the universal closure of $\phi$
+        w.r.t. all state variables bound by $\alpha$. Note
+        quantification over state variables is definable
+        via auxillary logical variables as $\forall X [x := X] \phi$
+      \item The calculus consists of propositional (P), first order (F),
+        global (G), dynamic modality (D) rules.
+      \item The calculus has 32 rules.
+    \end{itemize}
+  \end{block}
+\end{frame}
+\begin{frame}{Differential Dynamic Logic}{Proof Calculus}
+  \begin{block}{Discrete Dynamics}
+  \begin{figure}
+    \centering
+    \includegraphics[scale=0.5]{D-discrete-rule}
+  \end{figure}
+\end{block}
+  \begin{block}{Continuous Dynamics}
+  \begin{figure}
+    \centering
+    \includegraphics[scale=0.5]{D-continuous-rule}
+  \end{figure}
+  \begin{itemize}
+    \item $t$ and $\tilde{t}$ are fresh logical variables. $\langle S_t \rangle$ is the jump set
+      $\langle x_1 := y_1(t), \dots x_n := y_n(t) \rangle$, with simultaneous
+      solutions $y_1, \ldots, y_n$ of the respective differential equations with
+      constant symbols $x_i$ as symbolic initial values.
+  \end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}{Differential Dynamic Logic}{Proof Calculus}
+  \begin{block}{F Rules}
+  \begin{figure}
+    \centering
+    \includegraphics[scale=0.5]{F-existential-rule}
+  \end{figure}
+  $X$ is a new logical variable.
+  \begin{figure}
+    \centering
+    \includegraphics[scale=0.5]{F-universal-rule}
+  \end{figure}
+  $X_1, \ldots, X_n$ are all free logical variables of $\forall x \phi(x)$
+  \end{block}
+  F rules are based on Tableuax methods for FOL.
+\end{frame}
+
+
+\begin{frame}{Differential Dynamic Logic}{Proof Calculus}
+  \begin{block}{F Rules}
+  \begin{figure}
+    \centering
+    \includegraphics[scale=0.5]{F-reintroduce-forall-rule}
+  \end{figure}
+    $X$ is a new logical variable
+  \begin{figure}
+    \centering
+    \includegraphics[scale=0.5]{F-introduce-existential-rule}
+  \end{figure}
+  Logical variable $X$ only occurs in $\Phi_i \vdash \Psi_i$
+  \end{block}
+\end{frame}
+
+\begin{frame}{Differential Dynamic Logic}{Proof Calculus}
+  \begin{block}{G Rules}
+  \begin{figure}
+    \centering
+    \includegraphics[scale=0.5]{G-introduce-precondition}
+  \end{figure}
+  \begin{figure}
+    \centering
+    \includegraphics[scale=0.5]{G-model-precondition}
+  \end{figure}
+  \end{block}
+\end{frame}
+\begin{frame}{Differential Dynamic Logic}{Proof Calculus Application}
+  \begin{block}{European Train Control System (ETCS)}
+    \begin{figure}
+      \includegraphics[scale=0.4]{ects-safety}
+    \end{figure}
+  \end{block}
+  \begin{block}{Deduction modulo for MA violation in braking mode}
+    \begin{figure}
+      \includegraphics[scale=0.4]{ects-precondition-violation}
+    \end{figure}
+  \end{block}
+\end{frame}
+
+\begin{frame}{Differential Dynamic Logic}{Proof Calculus Application}
+  \begin{block}{European Train Control System (ETCS) Safety}
+    Having discovered the precondition, we prove safety
+    \begin{figure}
+      \includegraphics[scale=0.4]{ects-safety-1}
+    \end{figure}
+  \end{block}
+\end{frame}
+
+\begin{frame}{Differential Dynamic Logic}{Proof Calculus Application}
+  \begin{block}{European Train Control System (ETCS) Safety}
+    \begin{figure}
+      \includegraphics[scale=0.4]{ects-safety-2}
+    \end{figure}
+  \end{block}
+\end{frame}
+
+\begin{frame}{Differential Dynamic Logic}{Proof Calculus Application}
+  \begin{block}{European Train Control System (ETCS) Safety}
+    \begin{figure}
+      \includegraphics[scale=0.4]{ects-safety-3}
+    \end{figure}
+  \end{block}
+\end{frame}
 \end{document}
 
