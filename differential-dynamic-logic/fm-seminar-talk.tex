@@ -166,7 +166,7 @@
     \begin{split}
       & q := \accel; \\
       & ( (?q = \accel; z' = v,v' = a) \\
-      &  \cup (?q = \accel \wedge z \geq s; a := - b; q:=\brake; ?v \geq 0) \\
+      &  \cup (?q = \accel \wedge v \geq 10; a := - b; q:=\brake; ?v \geq 0) \\
       &  \cup (?q = \brake; z' = v,v' =a \& v \geq 0) \\
       &  \cup (?q = \brake \wedge \leq 1; a := a + 5; q:=\accel) )*
       \end{split}
