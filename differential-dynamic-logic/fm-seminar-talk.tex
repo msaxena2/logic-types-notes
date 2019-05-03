@@ -306,7 +306,7 @@
     \item Loosely speaking, an ES or CPS is built upon the integration of Computation (Controller) and
       Physical Systems (Plant). Examples include autopilot, ABS (Anti Lock
       Braking Systems), fly-by-wire (human interaction).
-    \item Expressed in $\dL$ as an HP $\alpha \equiv (ctrl ; \{plant\})^*$.
+    \item Expressed in $\dL$ as an HP $\alpha \equiv (ctrl ; plant)^*$.
       \pause
     \item Formulas of interest are of the form $\varphi \to [\alpha]\psi$.
     \item Formula above says that all states satisfying $\varphi$ will
@@ -379,7 +379,8 @@
   \begin{block}{ECTS Safety Verification}
     In order to verify safety, we need
     \begin{enumerate}
-      \item Deduce precondition $\psi$, using the calculus.
+      \item Use the calculus to analyze conditions of safety violation. Will
+        provide some intuition about the safety precondition.
       \item Use the calculus to verify safety, allowing exploration of the
         calculus' rules.
       \end{enumerate}
@@ -391,6 +392,10 @@
     \begin{itemize}
       \item $\phi_{x_1}^{\theta_1}, \ldots, \phi_{x_n}^{\theta_n}$ denotes
         simultaneous substitution of $x_i$ for $\theta_i$ in $\phi$.
+      \item Substitution must be \say{admissible}. Given term $t$ and
+        substitution $\sigma$, variables of $t$ or $\sigma(t)$ must not occur in
+        the scope of a quantifier or modality binding. $\alpha$ conversion for
+        renaming is assumed and used when needed.
       \item $\forall^{\alpha}\phi$ denotes the universal closure of $\phi$
         w.r.t. all state variables bound by $\alpha$. Note
         quantification over state variables is definable
@@ -435,7 +440,8 @@
   \end{figure}
   $X_1, \ldots, X_n$ are all free logical variables of $\forall x \phi(x)$
   \end{block}
-  F rules are based on Tableuax methods for FOL.
+  F rules are inspired from Tableuax methods for FOL, introducing decision
+  procedures into the proof system itself.
 \end{frame}
 
 
@@ -450,7 +456,10 @@
     \centering
     \includegraphics[scale=0.5]{F-introduce-existential-rule}
   \end{figure}
-  Logical variable $X$ only occurs in $\Phi_i \vdash \Psi_i$
+  Logical variable $X$ only occurs in $\Phi_i \vdash \Psi_i$. The intution
+  is variable $X$ was introduced via skolemization (at some point in the proof
+  tree). The rule reintroduces existentiality over $X$, allowing for Quantifier
+  Elimination (QE) over the existentially quantified terms.
   \end{block}
 \end{frame}
 
@@ -466,42 +475,82 @@
   \end{figure}
   \end{block}
 \end{frame}
+
 \begin{frame}{Differential Dynamic Logic}{Proof Calculus Application}
-  \begin{block}{European Train Control System (ETCS)}
-    \begin{figure}
-      \includegraphics[scale=0.4]{ects-safety}
-    \end{figure}
-  \end{block}
+ \begin{block}{European Train Control System (ETCS)}
+   \begin{figure}
+     \includegraphics[scale=0.4]{ects-safety}
+   \end{figure}
+ \end{block}
+ \begin{block}{Deduction modulo for MA violation in braking mode}
+   \begin{figure}
+     \includegraphics[scale=0.4]{ects-precondition-violation}
+   \end{figure}
+ \end{block}
+\end{frame}
+
+\begin{frame}{Differential Dynamic Logic}{Proof Calculus Application}
   \begin{block}{Deduction modulo for MA violation in braking mode}
     \begin{figure}
-      \includegraphics[scale=0.4]{ects-precondition-violation}
+      \includegraphics[scale=0.35]{ects-precondition-violation}
+    \end{figure}
+    \begin{figure}
+      \includegraphics[scale=0.35]{ects-quantifier-elimination}
     \end{figure}
   \end{block}
 \end{frame}
 
 \begin{frame}{Differential Dynamic Logic}{Proof Calculus Application}
   \begin{block}{European Train Control System (ETCS) Safety}
-    Having discovered the precondition, we prove safety
-    \begin{figure}
-      \includegraphics[scale=0.4]{ects-safety-1}
-    \end{figure}
+    \begin{itemize}
+      \item Invariant $\phi \equiv v^2 \leq 2b(m-z) \wedge b > 0 \wedge A \geq
+        0$ can be deduced in the manner of finding the violation condition.
+      \item The safety proof can then be completed by showing
+        \begin{itemize}
+          \item Invariant holds initially $\psi \vdash \phi$
+          \item $ \phi \to [(ctrl;drive)^*] \phi$ holds.
+          \item $\phi \to \varphi_{\textit{post}}$. where
+            $\varphi_{\textit{post} \equiv (\mathpzc \leq m)}$.
+        \end{itemize}
+    \end{itemize}
+    % \begin{figure}
+    %   \includegraphics[scale=0.4]{ects-safety-1}
+    % \end{figure}
   \end{block}
 \end{frame}
 
-\begin{frame}{Differential Dynamic Logic}{Proof Calculus Application}
-  \begin{block}{European Train Control System (ETCS) Safety}
-    \begin{figure}
-      \includegraphics[scale=0.4]{ects-safety-2}
-    \end{figure}
-  \end{block}
+\begin{frame}{Differential Dynamic Logic}{Beyond Deductive Verification}
+  \begin{itemize}
+    \item Verification of a Hybrid System still doesn't guarantee the physical
+      system behaves as intended.
+    \item Hybrid System involve interaction with real world physics, which can
+      never be captured fully by any model.
+    \item Runtime monitoring used to obtain real world compliance.
+  \end{itemize}
 \end{frame}
 
-\begin{frame}{Differential Dynamic Logic}{Proof Calculus Application}
-  \begin{block}{European Train Control System (ETCS) Safety}
-    \begin{figure}
-      \includegraphics[scale=0.4]{ects-safety-3}
-    \end{figure}
-  \end{block}
+\begin{frame}{Differential Dynamic Logic}{Beyond Deductive Verification}
+  \begin{block}{Runtime Monitoring (ModelPlex)}
+  \begin{itemize}
+    \item ModelPlex (Mitsch et al.) used $\dL$ for runtime validation of
+      systems verified in $\dL$.
+    \item Uses $\dL$ to obtain monitoring conditions over Reals (which can be
+      checked via SMT solvers)
+      \begin{figure}
+        \centering
+        \includegraphics{modelplex}
+      \end{figure}
+    \item Generate sandbox controller with strong safety guarantees.
+  \end{itemize}
+\end{block}
 \end{frame}
+%
+% \begin{frame}{Differential Dynamic Logic}{Proof Calculus Application}
+%   \begin{block}{European Train Control System (ETCS) Safety}
+%     \begin{figure}
+%       \includegraphics[scale=0.4]{ects-safety-3}
+%     \end{figure}
+%   \end{block}
+% \end{frame}
 \end{document}
 
