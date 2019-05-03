@@ -41,7 +41,7 @@
 \begin{itemize}
   \item Dynamical Systems exhibiting both discrete (jump) and continuous (flow) behaviors.
   \item Physical systems - thermostats, airplanes and trains.
-  \item Continuous dynamics specified using Differential Equations.
+  \item Continuous dynamics generally specified using Differential Equations.
 \end{itemize}
 
 \end{frame}
@@ -55,7 +55,6 @@
     \item Practical deductive verification of hybrid systems.
     \item Introduces Hybrid Program - program notation for hybrid systems.
     \item Dynamic Logic for Hybrid Programs, a generalization of Dynamic Logic.
-    \item Suited for automation.
   \end{itemize}
 
 \end{frame}
@@ -83,8 +82,10 @@
       transitions.
     \item \textbf{Temporal Logics} - Modal operators allow referring to state transitions.
       But valid formulas only express generic facts.
-      \pause
-    \item \textbf{Dynamic Logic (DL)} - Combines operational system models with
+      \end{itemize}
+\end{frame}
+\begin{frame}
+    \textbf{Dynamic Logic (DL)} - Combines operational system models with
       operators for reasoning.
       \begin{itemize}
         \item Provides parameterized modal operators, $[\alpha]$,
@@ -97,7 +98,6 @@
           using DL's calculus.
         \item No built in notion for describing or reasoning about continuous dynamics.
       \end{itemize}
-  \end{itemize}
 \end{frame}
 
 \begin{frame}{Differential Dynamic Logic}{Motivations}
@@ -105,26 +105,16 @@
     \item Generalize DL so operational models $\alpha$ can be
       used in modal formulas like $[\alpha]\phi$. $\dL$ refers to
       generalized models as \say{Hybrid Programs}.
-    \item A compositional calculus for verification. Decompose
-      $[\alpha]\phi$ into an equivalent formula $[\alpha_1]\phi_1 \wedge
-      [\alpha_2]\phi_2$.
-    \item Prove subsystems and subproperties $[\alpha_i]\phi_i$ independently
-      and combine results conjuntively.
-    \item Complete relative to handling of differential equations.
   \end{itemize}
 \end{frame}
 
 \begin{frame}{Differential Dynamic Logic}{Syntax and Semantics}
     $\dL$ formulas built over
     \begin{itemize}
-      \item $V$, set of real-valued logical variables and
-     signature $\Sigma$ containing functions, predicate symbols over reals, like
-     $0, 1, +, \geq$.
-   \item Signature $\Sigma$ containing functions and predicates, like $0, 1
-     \geq$.  $\Sigma$ also contains \textit{System State Variables}. Unlike rigid
-   symbols, like $1, 2$, their interpretation can change from state to state.
- \item Set $\text{Trm}(\Sigma,V)$ of \textit{terms} defined as classical FOL polynomial (or
-   rational) expressions over $V$ with additional skolem terms $s(X_1, \dots,
+      \item $V$, set of real-valued logical variables.
+      \item Signature $\Sigma = \Sigma_{\text{rigid}} \cup \Sigma_{\text{fl}}$
+      \item Set $\text{Trm}(\Sigma,V)$ of \textit{terms} - classical FOL polynomial
+        expressions over $V$ with additional skolem terms $s(X_1, \dots,
    X_n)$, where $X_1, \dots, X_n \in V$.
  \end{itemize}
 \end{frame}
@@ -133,7 +123,7 @@
   \begin{block}{Hybrid Programs}
   Consider $x_i \in \Sigma$, $\theta_i, \vartheta_i \in \Trm(\Sigma, V)$ for
   $1 \leq i \leq n$, $\chi$ a $(\Sigma,V)$ FOL-formula, $\alpha, \beta \in
-  \HP(\Sigma,V)$
+  \HP(\Sigma,V)$.
     Set $\HP(\Sigma,V)$, is defined inductively as -
     \begin{itemize}
       \item  $(x_1 := \theta_1, \ldots , x_n := \theta_n) \in \HP(\Sigma,V)$
@@ -164,9 +154,9 @@
     \column{.6\textwidth}
     \begin{equation*}
     \begin{split}
-      & q := \accel; \\
-      & ( (?q = \accel; z' = v,v' = a) \\
-      &  \cup (?q = \accel \wedge v \geq 10; a := - b; q:=\brake; ?v \geq 0) \\
+      & q := \accel ; \\
+      & ( (?q = \accel ; z' = v, v' = a \& v \leq 11) \\
+      &  \cup (?q = \accel \wedge v \geq 10 ; a := - b; q:=\brake ; ?v \geq 0) \\
       &  \cup (?q = \brake; z' = v,v' =a \& v \geq 0) \\
       &  \cup (?q = \brake \wedge \leq 1; a := a + 5; q:=\accel) )*
       \end{split}
@@ -187,7 +177,7 @@
         $\exists x . \phi, \forall x.\phi \in \text{Fml}(\Sigma,V)$
       \item If $\phi \in \text{Fml}(\Sigma,V)$ and $\alpha \in
         \text{HP}(\Sigma,V)$  then
-        $ [\alpha], \langle \alpha \rangle \in \text{Fml}(\Sigma,V)$
+        $ [\alpha]\phi, \langle \alpha \rangle\phi \in \text{Fml}(\Sigma,V)$
     \end{itemize}
   \end{block}
 \end{frame}
@@ -195,15 +185,10 @@
 \begin{frame}{Differential Dynamic Logic}{Syntax and Semantics}
   \begin{block}{Some Notation}
     \begin{itemize}
-      \item Interpretation $I$ assigns functions and relations over Reals to
-        rigid symbols in $\Sigma$.
+      \item Interpretation $I: \Sigma_text{rigid} \to \mathbb{R}$
       \item A state is a map $\nu : \Sigma_{\textit{fl}} \to \R$.
       \item Assignment of logical variables is a map $\eta : V \to \R$.
-      \item Note the difference between \textit{Logical} and \textit{State
-        Variables}. The evaluation of a state variable \say{evolves} across
-        states. Logical Variables can be quantified over, but not state
-        variables.
-      \item The models of $\dL$ are Kripke Structures, where nodes are
+      \item The models are Kripke Structures, where nodes are
         hybrid system states.
     \end{itemize}
   \end{block}

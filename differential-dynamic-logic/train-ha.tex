@@ -1,9 +1,10 @@
 
-  \node[state,initial, scale=0.85] (accel)   {%
+  \node[state,initial, scale=0.70] (accel)   {%
   $\begin{aligned}
       \textit{accel} \\
       z' = v \\
       v' = a \\
+      v \leq 11
   \end{aligned}$
   };
 
@@ -16,7 +17,7 @@
   \end{aligned}$
    };
 
-   \draw (accel) edge[bend left, above] node[midway,below,scale=0.7] {$a := -b$}
+   \draw (accel) edge[bend left, above] node[midway,below,scale=0.7] {$a := -B$}
    node[midway,above,scale=0.7] {$v \geq 10$} (brake);
    \draw (brake) edge[bend left, below] node[midway,below,scale=0.7] {$a := a+5$}
    node[midway,above,scale=0.7] {$v \leq 1$} (accel);
