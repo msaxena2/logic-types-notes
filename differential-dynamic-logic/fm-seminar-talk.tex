@@ -322,13 +322,20 @@
       \includegraphics[scale=0.3]{etcs}
     \end{figure}
   \begin{itemize}
-    \item Goal of ECTS is to avoid collision and maximize throughput.
-    \item Discards usage of traditional fixed segments of track with mutual
-      exclusion. Instead uses decentralized Radio Block Controllers (RBCs) for
-      access.
-
+    \item <only@1> Discards traditional fixed segments of track with mutual
+      exclusion. Instead uses decentralized Radio Block Controllers (RBCs)
+    \item <only@1> Trains dynamically issues Movement Authorization (MAs).
+    \item <only@1> At the end of MA, agent requests MA extension (negotation).
+      If request is denied, train breaks before exiting old MA
+      zone.
+     \item <only@2> Train controller is responsible for staying in MA.
+     \item <only@2> Controller has to determine point SB (Start Braking). Before SB,
+      train can move freely (maximizing throughput).
+    \item <only@2> Beyond SB (correction phase) start braking such that
+      train remains in MA if RBC refuses extension.
   \end{itemize}
-\end{block}
-\end{frame}
+  \end{block}
+  \end{frame}
+
 \end{document}
 
