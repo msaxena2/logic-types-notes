@@ -40,7 +40,7 @@
 
 \begin{itemize}
   \item Dynamical Systems exhibiting both discrete (jump) and continuous (flow) behaviors.
-  \item Serve as models of physical systems, from thermostats to trains.
+  \item Physical systems - thermostats, airplanes and trains.
   \item Continuous dynamics specified using Differential Equations.
 \end{itemize}
 
@@ -53,11 +53,8 @@
       Platzer).
       \pause
     \item Practical deductive verification of hybrid systems.
-      \pause
     \item Introduces Hybrid Program - program notation for hybrid systems.
-      \pause
     \item Dynamic Logic for Hybrid Programs, a generalization of Dynamic Logic.
-      \pause
     \item Suited for automation.
   \end{itemize}
 
@@ -179,6 +176,19 @@
 \end{frame}
 \begin{frame}{Differential Dynamic Logic}{Syntax and Semantics}
   \begin{block}{$\dL$ Formulas}
+    The set $\text{Fml}(\Sigma,V)$ of $\dL$ formulas is defined as -
+    \begin{itemize}
+      \item If $p$ is a n-ary predicate symbol in $\Sigma$ and $\theta_1,
+        \ldots, \theta_n \in \text{Trm}(\Sigma,V)$, then $p(\theta_1, \ldots,
+        \theta_n) \in \text{Fml}(\Sigma,V)$
+      \item If $\phi, \psi \in \text{Fml}(\Sigma,V)$ then $\phi \vee \psi, \phi
+        \to \psi, \phi \wedge \psi \in \text{Fml}(\Sigma,V)$
+      \item If $\phi \in \text{Fml}(\Sigma,V)$ and $x \in V$  then
+        $\exists x . \phi, \forall x.\phi \in \text{Fml}(\Sigma,V)$
+      \item If $\phi \in \text{Fml}(\Sigma,V)$ and $\alpha \in
+        \text{HP}(\Sigma,V)$  then
+        $ [\alpha], \langle \alpha \rangle \in \text{Fml}(\Sigma,V)$
+    \end{itemize}
   \end{block}
 \end{frame}
 
@@ -399,7 +409,7 @@
       \item $\forall^{\alpha}\phi$ denotes the universal closure of $\phi$
         w.r.t. all state variables bound by $\alpha$. Note
         quantification over state variables is definable
-        via auxillary logical variables as $\forall X [x := X] \phi$
+        via auxiliary logical variables as $\forall X [x := X] \phi$
       \item The calculus consists of propositional (P), first order (F),
         global (G), dynamic modality (D) rules.
       \item The calculus has 32 rules.
@@ -456,7 +466,7 @@
     \centering
     \includegraphics[scale=0.5]{F-introduce-existential-rule}
   \end{figure}
-  Logical variable $X$ only occurs in $\Phi_i \vdash \Psi_i$. The intution
+  Logical variable $X$ only occurs in $\Phi_i \vdash \Psi_i$. The intuition
   is variable $X$ was introduced via skolemization (at some point in the proof
   tree). The rule reintroduces existentiality over $X$, allowing for Quantifier
   Elimination (QE) over the existentially quantified terms.
@@ -509,8 +519,8 @@
         \begin{itemize}
           \item Invariant holds initially $\psi \vdash \phi$
           \item $ \phi \to [(ctrl;drive)^*] \phi$ holds.
-          \item $\phi \to \varphi_{\textit{post}}$. where
-            $\varphi_{\textit{post} \equiv (\mathpzc \leq m)}$.
+          \item $\phi \to \varphi_{\textit{post}}$, where
+          $\varphi_{\textit{post}} \equiv (\z \leq m)$.
         \end{itemize}
     \end{itemize}
     % \begin{figure}
@@ -538,7 +548,7 @@
       checked via SMT solvers)
       \begin{figure}
         \centering
-        \includegraphics{modelplex}
+        \includegraphics[scale = 0.5]{modelplex}
       \end{figure}
     \item Generate sandbox controller with strong safety guarantees.
   \end{itemize}
@@ -547,7 +557,7 @@
 
 \begin{frame}{Logic and Hybrid System}{Conclusion}
   \begin{itemize}
-    \item $\dL$ provides Hybrid Programs - concise and succint notation for Hybrid Systems.
+    \item $\dL$ provides Hybrid Programs - concise notation for Hybrid Systems.
       \pause
     \item A proof calculus suited for verification of CPS and Embedded Systems.
       \pause
