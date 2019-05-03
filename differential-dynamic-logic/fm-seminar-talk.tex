@@ -29,6 +29,7 @@
 \newcommand{\valDefault}[1]{\val{I}{\eta}{\nu}{#1}}
 \newcommand{\transRel}[3]{\rho_{#1, #2}(#3)}
 \newcommand{\transRelDef}[1]{\transRel{I}{\eta}{#1}}
+\newcommand{\z}{\mathpzc{Z}}
 
 \begin{document}
 
@@ -334,6 +335,22 @@
     \item <only@2> Beyond SB (correction phase) start braking such that
       train remains in MA if RBC refuses extension.
   \end{itemize}
+  \end{block}
+  \end{frame}
+
+\begin{frame}{Differential Dynamic Logic}{Motivating Example}
+  \begin{block}{European Train Control System (ETCS)}
+    Say we have a train -
+    \begin{itemize}
+      \item with MA granted upto some track position $m$
+      \item at position $\z$, heading with initial speed $v$ towards $m$
+      \item point SB as safety distance $s$ relative to $m$, i.e. $m-s = SB$
+    \end{itemize}
+    \pause
+    The following formula expresses that the train remains in its MA under precondition $\psi$.
+    \begin{figure}
+      \includegraphics[scale=0.4]{ects-safety}
+    \end{figure}
   \end{block}
   \end{frame}
 
