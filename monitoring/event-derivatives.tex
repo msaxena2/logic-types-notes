@@ -1,0 +1,79 @@
+\documentclass[11pt]{article}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{dirtytalk}
+\usepackage{mathbbol}
+\usepackage{xfrac}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{hyperref}
+
+\newcommand{\derivative}[2]{\delta_{#1} #2}
+\newcommand{\until}{\ \mathcal{U}\ }
+\newcommand{\Prop}{\mathcal{P}}
+
+\begin{document}
+
+\title{Monitoring via Rewriting}
+
+\section{Formula Based Monitoring}
+
+\subsection{Problem Statement}
+Given a finite trace $\pi = e_1,e_2,\ldots$, and an propositional LTL formula
+$\varphi$, we need an algorithm for checking satisfaction that uses the formula
+itself as the \say{state} of the monitor.
+
+\subsection{Derivatives}
+We take derivatives of the formula of interest to derive a new formula that the
+remainder of the trace must satisfy. Formally,  $e\tau \vdash \varphi$ iff $\tau
+\vdash \derivative{e}{\varphi}$. For propositional LTL, derivatives are defined
+as follows -
+\begin{equation}
+\begin{split}
+  \derivative{e}{\circ \varphi} &= \varphi \\
+  \derivative{e}{\square \varphi} &= \derivative{e}{\varphi} \wedge (\square \varphi) \\
+  \derivative{e}{\lozenge \varphi} &= \derivative{e}{\varphi} \vee (\lozenge \varphi) \\
+  \derivative{e}{\varphi \until \psi} &= \derivative{e}{\varphi} \vee
+  \derivative{e}{\psi} \wedge \varphi \until \psi
+\end{split}
+\end{equation}
+
+For propositional LTL, where an event is a set of true propositions, we further
+have
+
+\begin{equation}
+  \begin{split}
+  \derivative{ \{ p \} }{ \Prop } &=
+    \begin{cases}
+      \top & \; \text{if}\, p = \Prop \\
+      \bot & \; \text{otherwise}
+    \end{cases} \\
+    \derivative{ \{ p \} \cup \textit{R} }{ \Prop } &=
+    \begin{cases}
+      \top & \; \text{if}\, p = \Prop \\
+      \derivative{ \textit{R} }{\Prop} & \; \text{otherwise}
+    \end{cases} \\
+  \end{split}
+\end{equation}
+
+So for example, if we have $\pi = b , a b , a^*$, and $\varphi = \square (\lozenge a ) $
+then the monitoring algorithm world work as -
+\begin{align*}
+  &\null b, a b , a^*              &\null \vdash \; &\null \square (\lozenge a ) \\
+  \leftrightarrow &\null \; a b, a^* &\null \vdash \; &\null \derivative{b}{\lozenge a} \wedge (\square \lozenge a)  \\
+  \leftrightarrow &\null \; a b, a^* &\null \vdash \; &\null (\bot \vee
+  \lozenge(a) = \lozenge(a))  \wedge (\square \lozenge a)  \\
+  \leftrightarrow &\null \;  a^* &\null \vdash \; &\null \derivative{a b }{\lozenge a} \wedge \derivative{a b}{\lozenge a} \wedge  (\square \lozenge a)  \\
+  \leftrightarrow &\null \;  a^* &\null \vdash \; &\null \derivative{a b }{a}  \wedge  (\square \lozenge a)  \\
+  \leftrightarrow &\null \;  a^* &\null \vdash \; &\null \top  \wedge  (\square \lozenge a)  \\
+  \leftrightarrow &\null \; a^* &\null \vdash \; &\null \derivative{a^*}{\lozenge a} \wedge
+   (\square \lozenge a) \\
+  &\null = \top
+\end{align*}
+
+\subsection{Next Step}
+Move away from propositional LTL to First-order LTL.
+
+\end{document}
