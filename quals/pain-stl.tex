@@ -1,0 +1,55 @@
+\documentclass{beamer}
+\usetheme{CambridgeUS}
+\usecolortheme{dolphin}
+\usepackage[utf8]{inputenc}
+\usepackage{dirtytalk,amsmath,tikz,mathtools,amsmath, empheq}
+\usepackage{resizegather}
+\usetikzlibrary{automata, positioning}
+\graphicspath{ {./images/} }
+\tikzset{->, initial text=$$}
+\DeclareMathAlphabet{\mathpzc}{OT1}{pzc}{m}{it}
+
+%Information to be included in the title page:
+\title[Parameter Invariant Monitoring for STL]{Parameter Invariant Monitoring for Signal Temporal Logic}
+\subtitle{Nima Roohi, Ramneet Kaur, James Weimer, Oleg Sokolsky, Insup Lee}
+\author{Manasvi Saxena}
+
+%\setbeameroption{hide notes} % Only slides
+%\setbeameroption{show only notes} % Only notes
+%\setbeameroption{show notes on second screen=right} % Both
+%\setbeamertemplate{note page}{\pagecolor{yellow!5}\insertnote}\usepackage{palatino}
+\setbeamerfont{caption}{size=\scriptsize}
+\date{}
+
+
+\begin{document}
+
+\frame{\titlepage}
+
+\section{Introduction}
+\subsection{Motivation}
+
+\begin{frame}
+    \frametitle{Motivations}
+
+    Challenges in monitoring Real Time Systems -
+    \begin{itemize}
+        \item \textit{Partially Observable} States.
+        \item \textit{Partially Observable} Traces.
+        \item \textit{High Computation} Cost.
+    \end{itemize}
+
+    \pause
+
+    Extends Parameter Invariant (PAIN) tests to -
+    \begin{itemize}
+        \item STL to support continuous systems
+        \item Efficiently monitor STL online.
+    \end{itemize}
+
+\end{frame}
+
+\end{document}
+
+
+
