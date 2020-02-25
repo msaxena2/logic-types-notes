@@ -3,6 +3,7 @@
 \usecolortheme{dolphin}
 \usepackage[utf8]{inputenc}
 \usepackage{dirtytalk,amsmath,tikz,mathtools,amsmath, empheq}
+\usepackage{fixltx2e}
 \usepackage{resizegather}
 \usetikzlibrary{automata, positioning}
 \graphicspath{ {./images/} }
@@ -24,6 +25,14 @@
 
 \newcommand{\always}[1]{\square_{#1}}
 \newcommand{\eventually}[1]{\lozenge_{#1}}
+
+\newcommand{\typeTime}{\mathbb{R}_{\geq 0}}
+\newcommand{\typeReal}{\mathbb{R}}
+
+% text versions
+\newcommand{\Z}{\text{Z}}
+\newcommand{\f}{\text{f}}
+\newcommand{\varT}{\text{t}}
 
 \begin{document}
 
@@ -86,7 +95,32 @@
         \item Furthermore, use \textit{maximally invariant} statistics
             to derive \textit{probabilistic beliefs}
     \end{itemize}
+\end{frame}
 
+\section{Preliminaries}
+\subsection{Signal Temporal Logic (STL)}
+\frametitle{Notation}
+\begin{frame}
+    \begin{block}{Signals}
+        Given a finite set of variables $\Z$, signal
+        $f : \typeTime \to \typeReal^{\Z}$ is a mapping
+        from a point in \textit{time} to a \textit{valuation} of $\Z$.
+    \end{block}
+    \pause
+    \begin{block}{Formulas over Signals}
+        \begin{itemize}
+            \item An formula $\theta : \typeReal^{\Z} \to \typeReal$
+                  maps a \textit{valuation} to a real value.
+            \item Function $\theta \circ f : \typeTime \to \typeReal$
+                  maps points in time to values defined by $\theta$.
+            \item At time $t \in \typeTime$, signal $f$ is \textit{true}
+                w.r.t. $\theta$ whenever $\theta(f (t)) > 0 $.
+                Conversely, $f$ is \textit{false} w.r.t $\theta$
+                w.r.t. $\theta$ whenever $\theta(f (t)) < 0 $.
+            \item Whenever, $\theta(f (t)) = 0$, value of $f$
+                is \textit{unknown} on $\theta$ at time $t$.
+        \end{itemize}
+    \end{block}
 \end{frame}
 
 \end{document}
