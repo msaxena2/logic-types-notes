@@ -22,6 +22,9 @@
 \date{}
 
 
+\newcommand{\always}[1]{\square_{#1}}
+\newcommand{\eventually}[1]{\lozenge_{#1}}
+
 \begin{document}
 
 \frame{\titlepage}
@@ -45,6 +48,43 @@
     \begin{itemize}
         \item STL to support continuous systems
         \item Efficiently monitor STL online.
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Example}
+    \framesubtitle{Monitoring a Diabetic Patient}
+
+    STL formula, \say{If patient has a meal (M), then (s)he
+    either recieved bolus $t_1$ units ago, or will recieve one in $t_2$ units}
+        $$ \always{ [ t_1, \infty )}
+    \left( \left (M > c_1 \right ) \to \eventually{\left(-t_1, t_2 \right)}
+    \left( B > c_2 \right ) \right)$$.
+    \pause
+    \begin{itemize}
+        \item \textit{State} variables not directly Observable.
+        \item \textit{Output} variables affected by sensor and environment noise.
+        \item Models are \textit{parametric}. Estimating (\textit{nuissance}) parameters is not
+            feasible.
+    \end{itemize}
+\end{frame}
+\begin{frame}
+    \frametitle{Example}
+    \framesubtitle{Monitoring a Diabetic Patient}
+
+    STL formula, \say{If patient has a meal (M), then (s)he
+    either recieved bolus $t_1$ units ago, or will recieve one in $t_2$ units}
+    \begin{itemize}
+        \item B (Bolus) is observable, but M (Meal) is not. Furthermore, B
+            can be affected by noise.
+        \pause
+        \item Avoid relying on exact models of the system.
+        \item Rely on \textit{probabilistic beliefs} about
+            system state at a given point in time.
+        \pause
+        \item Furthermore, use \textit{maximally invariant} statistics
+            to derive \textit{probabilistic beliefs}
     \end{itemize}
 
 \end{frame}
