@@ -114,11 +114,15 @@
             \item Function $\theta \circ f : \typeTime \to \typeReal$
                   maps points in time to values defined by $\theta$.
             \item At time $t \in \typeTime$, signal $f$ is \textit{true}
-                w.r.t. $\theta$ whenever $\theta(f (t)) > 0 $.
+                w.r.t. $\theta$ whenever $\theta(f(t)) > 0 $.
                 Conversely, $f$ is \textit{false} w.r.t $\theta$
-                w.r.t. $\theta$ whenever $\theta(f (t)) < 0 $.
+                w.r.t. $\theta$ whenever $\theta(f(t)) < 0 $.
             \item Whenever, $\theta(f (t)) = 0$, value of $f$
                 is \textit{unknown} on $\theta$ at time $t$.
+            \item $\theta(f(t))$, is the \textit{robustness degree}.
+                Larger \textit{robustness degree} values signify
+                greater \textit{belief} about signals' adherence
+                to a formula.
         \end{itemize}
     \end{block}
 \end{frame}
