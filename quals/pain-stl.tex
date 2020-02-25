@@ -3,7 +3,9 @@
 \usecolortheme{dolphin}
 \usepackage[utf8]{inputenc}
 \usepackage{dirtytalk,amsmath,tikz,mathtools,amsmath, empheq}
-\usepackage{fixltx2e}
+\usepackage{stackengine}
+\usepackage{stmaryrd}
+\usepackage{graphicx}
 \usepackage{resizegather}
 \usetikzlibrary{automata, positioning}
 \graphicspath{ {./images/} }
@@ -28,12 +30,24 @@
 
 \newcommand{\typeTime}{\mathbb{R}_{\geq 0}}
 \newcommand{\typeReal}{\mathbb{R}}
+\newcommand{\typeNat}{\mathbb{N}}
+
+
+\newcommand{\until}{\mathcal{U}}
+\newcommand{\release}{\mathcal{R}}
+\newcommand{\interval}{\mathcal{I}}
 
 % text versions
 \newcommand{\Z}{\text{Z}}
 \newcommand{\f}{\text{f}}
 \newcommand{\varT}{\text{t}}
 
+%satisfaction
+\newcommand{\discrete}{\raisebox{-0.1ex}{\scalebox{0.25}{\textrm{DSC}}}}
+\newcommand{\cont}{\raisebox{-0.1ex}{\scalebox{0.25}{\textrm{CNT}}}}
+\newcommand{\discreteSatisfy}{\ \stackMath\stackunder[0pt]{\vDash}{\hspace*{0.3em}\discrete}\ }
+\newcommand{\contSatisfy}{\ \stackMath\stackunder[0pt]{\vDash}{\hspace*{0.3em}\cont}\ }
+\newcommand{\robustAssign}{\; := \;}
 \begin{document}
 
 \frame{\titlepage}
@@ -99,8 +113,8 @@
 
 \section{Preliminaries}
 \subsection{Signal Temporal Logic (STL)}
-\frametitle{Notation}
 \begin{frame}
+    \frametitle{Signal Temporal Logic}
     \begin{block}{Signals}
         Given a finite set of variables $\Z$, signal
         $f : \typeTime \to \typeReal^{\Z}$ is a mapping
@@ -121,12 +135,113 @@
                 is \textit{unknown} on $\theta$ at time $t$.
             \item $\theta(f(t))$, is the \textit{robustness degree}.
                 Larger \textit{robustness degree} values signify
-                greater \textit{belief} about signals' adherence
-                to a formula.
+                greater \textit{belief} about signal's adherence to $\theta$.
         \end{itemize}
     \end{block}
 \end{frame}
 
+\begin{frame}
+    \frametitle{Signal Temporal Logic}
+    \begin{block}{Syntax}
+        \begin{itemize}
+            \item $ \varphi ::= \top \;|\; \bot \;|\; \Theta \;|\; \neg \Theta
+                \; | \; \varphi \wedge \varphi \;|\; \varphi\ \until_{\interval_{\geq 0}}\ \varphi
+                \; | \; \varphi \release_{\interval_{\geq 0}} \varphi $
+            \item $\eventually{\interval} \varphi \equiv \top\ \until_{\interval}\ \varphi$
+            \item $\always{\interval} \varphi \equiv \bot \release_{\interval} \varphi$
+            \item Law of Excluded Middle not assumed. Robustness 0 means
+                signal neither satisfies nor not satisfies a formula.
+                It is possible for $\varphi \vee \neg \varphi$ to not
+                be true.
+            \item Law of non contradiction still holds. It is not possible
+                for both $\varphi$ and $\neg \varphi$ to be true.
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Semantics}
+    \begin{block}{Continuous Semantics}
+        Given signal $f$ and a point in time $r : \typeTime$,
+        Continuous time STL semantics are given inductively as -
+        \begin{align*}
+              f, r &\contSatisfy \top       \robustAssign \infty &
+              f, r &\contSatisfy \bot       \robustAssign -\infty \\
+              f, r &\contSatisfy \theta     \robustAssign \theta(f(r)) &
+              f, r &\contSatisfy \neg\theta \robustAssign -\theta(f(r)) \\
+              f, r &\contSatisfy \theta     \robustAssign \theta(f(r)) &
+              f, r &\contSatisfy \neg\theta \robustAssign -\theta(f(r)) \\
+        \end{align*}
+        \vspace{-1.6cm}
+        \begin{align*}
+            f, r \contSatisfy \phi \vee \psi  \robustAssign  f, r \contSatisfy \phi \; \sqcup \; f,r \contSatisfy \psi \\
+            f, r \contSatisfy \phi \wedge \psi  \robustAssign  f, r \contSatisfy \phi \; \sqcap \; f,r \contSatisfy \psi \\
+        \end{align*}
+    \end{block}
+    where $\sqcup$ and $\sqcap$ represent $\text{sup}$, $\text{inf}$ respectively.
+\end{frame}
+
+\begin{frame}
+    \frametitle{Semantics}
+    \begin{block}{Continuous Semantics}
+        Given signal $f$ and point in time $r : \typeTime$,
+        Continuous time STL semantics are given inductively as -
+        \begin{align*}
+            f, r \contSatisfy \phi\ \until_{\interval}\ \psi
+           \robustAssign \bigsqcup_{t: r+\interval}\left( f, t \contSatisfy \psi
+           \sqcap \bigsqcap_{r \leq t' \leq t} \left( f, t' \contSatisfy \psi
+            \right ) \right) \\
+            f, r \contSatisfy \phi\ \release_{\interval}\ \psi
+           \robustAssign \bigsqcap_{t: r+\interval}\left( f, t \contSatisfy \psi
+           \sqcup \bigsqcup_{r \leq t' \leq t} \left( f, t' \contSatisfy \psi
+            \right ) \right)
+        \end{align*}
+    \end{block}
+    where $\sqcup$ and $\sqcap$ represent $\text{sup}$, $\text{inf}$ respectively.
+\end{frame}
+
+\begin{frame}
+    \frametitle{Semantics}
+    \begin{block}{Discrete Semantics}
+        Given signal $f$ and sampling function $\tau : \typeNat
+        \to \typeTime$, discrete time semantics for $g := f \circ \tau : \typeNat
+        \to  \typeReal^{\Z}$ at step $n:\typeNat$ are given inductively as -
+        \begin{align*}
+              g, n &\discreteSatisfy \top       \robustAssign \infty &
+              g, n &\discreteSatisfy \bot       \robustAssign -\infty \\
+              g, n &\discreteSatisfy \theta     \robustAssign \theta(g(n)) &
+              g, n &\discreteSatisfy \neg\theta \robustAssign -\theta(g(n)) \\
+              g, n &\discreteSatisfy \theta     \robustAssign \theta(g(n)) &
+              g, n &\discreteSatisfy \neg\theta \robustAssign -\theta(g(n)) \\
+        \end{align*}
+        \vspace{-1.6cm}
+        \begin{align*}
+            g, n \discreteSatisfy \phi \vee \psi  \robustAssign  g, n \discreteSatisfy \phi \; \sqcup \; g, n\discreteSatisfy \psi \\
+            g, n \discreteSatisfy \phi \wedge \psi  \robustAssign  g, n \discreteSatisfy \phi \; \sqcap \; g, n \discreteSatisfy \psi \\
+        \end{align*}
+    \end{block}
+    where $\sqcup$ and $\sqcap$ represent $\text{sup}$, $\text{inf}$ respectively.
+\end{frame}
+
+\begin{frame}
+    \frametitle{Semantics}
+    \begin{block}{Discrete Semantics}
+        Given signal $f$ and sampling function $\tau : \typeNat
+        \to \typeTime$, discrete time semantics for $g := f \circ \tau : \typeNat
+        \to  \typeReal^{\Z}$ at step $n:\typeNat$ are given inductively as -
+        \begin{align*}
+            g, n \contSatisfy \phi\ \until_{\interval}\ \psi
+            \robustAssign \bigsqcup_{i: \tau^{-1}(\tau((n) +\interval)}\left( g, i \contSatisfy \psi
+           \sqcap \bigsqcap_{n \leq j \leq i} \left( g, j \contSatisfy \psi
+            \right ) \right) \\
+            g, n \contSatisfy \phi\ \release_{\interval}\ \psi
+           \robustAssign \bigsqcap_{i: \tau^{-1}(\tau((n) +\interval)} \left( g, i \contSatisfy \psi
+           \sqcup \bigsqcup_{n \leq j \leq i} \left( g, n' \contSatisfy \psi
+            \right ) \right)
+        \end{align*}
+    \end{block}
+    where $\sqcup$ and $\sqcap$ represent $\text{sup}$, $\text{inf}$ respectively.
+\end{frame}
 \end{document}
 
 
