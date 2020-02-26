@@ -31,11 +31,17 @@
 \newcommand{\typeTime}{\mathbb{R}_{\geq 0}}
 \newcommand{\typeReal}{\mathbb{R}}
 \newcommand{\typeNat}{\mathbb{N}}
+\newcommand{\typeProb}{\mathbb{P}}
+
+\newcommand{\dom}{\text{dom}}
 
 
 \newcommand{\until}{\mathcal{U}}
 \newcommand{\release}{\mathcal{R}}
 \newcommand{\interval}{\mathcal{I}}
+\newcommand{\observe}{\mathcal{O}}
+\newcommand{\K}{\mathcal{K}}
+\newcommand{\A}{\mathcal{A}}
 
 % text versions
 \newcommand{\Z}{\text{Z}}
@@ -288,8 +294,86 @@
         \item $f \circ \tau\ \discreteSatisfy\ \neg\varphi^{\Delta\tau} \implies f
         \contSatisfy \varphi < 0 $.
     \end{itemize}
-    Thus, instead of proving $f \contSatisfy \varphi > 0 $, prove
+    Instead of proving $f \contSatisfy \varphi > 0 $, prove
     $f, \tau \discreteSatisfy \varphi^{\Delta\tau} > \delta$.
+\end{frame}
+
+\subsection{Parameter Invariant Test Statisitc}
+
+\begin{frame}
+    \frametitle{Partially Observable States}
+    Say we have test functions $\Theta$, signal $f$
+    and sampling time $\tau$. For $\theta : \Theta$, $\theta \circ f$ cannot
+    be directly observed.
+    \begin{itemize}
+        \item $\observe(\theta, f, t) = F\mu + \theta^+(f(t))G_0\rho_0
+                + \theta^{-}(f(t))G_1\rho_1 + \sigma n$
+        \item $Y$ is a set of \textit{observable} variables.
+        \item $\mu : \dom(\mu) \to \typeReal, \rho_0 : \dom(\rho_i) \to
+            \typeReal$ for $i \in \{0, 1\}$ are \textit{unknown nuissance} vectors.
+        \item $F : \typeReal^{Y \times \dom(\mu)}$,
+            $G_i : \typeReal^{Y \times \dom(\rho_i)}$ for $i \in \{0, 1\}$ are
+            \textit{known signal matrices}.
+        \item $\sigma$ is unkown noise multiplier, $n$ is random noise.
+    \end{itemize}
+\end{frame}
+
+\subsection{Parameter Invariant Test Statisitc}
+
+\begin{frame}
+    \frametitle{Partially Observable States}
+    \begin{itemize}
+        \item It is assumed that for each \textit{test function}
+            $\theta, \theta' \in \Theta$, $\theta \neq \theta' \implies
+            Y_{\theta} \cup Y_{\theta'} = \emptyset$. In other words,
+            different test functions use \textit{disjoint observable variables}.
+        \item $\observe(f, t)$ - random variable corresponding to
+            the observation of signal $f$ at time $t$ is \textit{uniquely determined}
+            by $\observe(\theta, f, t)$ for each $\theta \in \Theta$.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Invariance to Transformations}
+    \begin{itemize}
+        \item Given $\Omega$, the sampling space
+            of a probabily-space and $\K \subseteq \Omega \to \Omega$
+            a group of transformations.
+        \item Let $\eta : \Omega \to \Omega'$ be a statistic.
+        \item $\eta$ is said to be \textit{invariant} to
+            group of transformations $\K$ iff
+            $$ \forall \omega : \Omega, k : \K . \eta(\omega) = \eta(k(\omega))$$
+        \item $\eta$ is said to be \textit{maximally invariant} to
+            group of transformations $\K$ iff
+            $$ \forall \omega, \omega' : \Omega . \eta(\omega) = \eta(\omega')
+            \implies (\exists k : \K . \omega = k(\omega'))$$
+    \end{itemize}
+\end{frame}
+
+\section{Parameter Invariance Monitoring For STL}
+\subsection{Parameter Invariant Estimates}
+
+
+\begin{frame}
+\frametitle{Parameter Invariant Estimation of Atomic Propositions}
+
+\begin{block}{Using Parameter Invariant Procedures for Estimation}
+    Given $\Omega_{f, \tau}: \typeNat \to \typeReal^{X}$, the space
+    of all observations, $x: \Omega_{f, \tau}$,  test function $\theta \in \Theta$,
+    error and indifference bounds $\alpha', \delta' :\typeReal^{+}$.
+
+    One can find a algorithm $\A(x, \tau, \theta, \alpha', \delta')$ such that -
+    \begin{itemize}
+        \item $\A$ is \textit{terminating} and returns value $r:\typeReal$.
+        \item $\typeProb({\mid (\theta \circ f \circ \tau)(0) - r \mid > \delta'}) < \alpha'$
+        \item $r$ is an estimate for the \textit{robustness degree} of the
+            signal $f$ on $\theta$
+        \item The \textit{Probability} that $r$ (i.e. the \textit{robustness degree estimate}
+            returned by $\A$) is more than $\delta'$ away from the real value of
+            $f \circ \tau \discreteSatisfy \theta$ is less than $\alpha'$.
+    \end{itemize}
+
+\end{block}
 \end{frame}
 \end{document}
 
