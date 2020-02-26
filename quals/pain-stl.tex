@@ -242,6 +242,55 @@
     \end{block}
     where $\sqcup$ and $\sqcap$ represent $\text{sup}$, $\text{inf}$ respectively.
 \end{frame}
+
+\begin{frame}
+    \frametitle{Strengthening STL Formulas}
+    For STL formula $\varphi$, and $\delta : \typeTime$,
+    $\varphi^{\delta}$ (strengthening) is defined as -
+    \begin{itemize}
+        \item $\bot^{\delta} := \bot \;\;\;\; \top^{\delta} := \top   \;\;\;\; p^{\delta} := p
+            \;\;\;\; (\neg p)^{\delta} := \neg p$
+        \item $(\varphi \vee \psi)^{\delta} := \varphi^{\delta} \vee \psi^{\delta}
+            \;\;\;\; (\varphi \wedge \psi)^{\delta} := \varphi^{\delta} \wedge \psi^{\delta}$
+        \item $(\varphi\ \until_{\interval}\ \psi)^{\delta} := \varphi^{\delta} \
+            \until_{\left (\underline{\interval} + \delta, \overline{\interval}
+            - \delta \right)}\ \psi^{\delta}$
+        \item $(\varphi\ \release_{\interval}\ \psi)^{\delta} := \varphi^{\delta} \
+            \release_{\left ((\underline{\interval} - \delta)^{+}, \overline{\interval}
+            + \delta \right)}\ \psi^{\delta}$
+    \end{itemize}
+    Intuitvely, strengthening slightly shortens (lengthens) intervals
+    for $\until (\release) $. Along with conditions about the signal
+    and sampling function, strengthening allows using discrete-time
+    STL to reason about continuous-time STL.
+\end{frame}
+
+\begin{frame}
+    \frametitle{Discrete to Continuous Time STL}
+    Given signal $f$, formula $\varphi$, \textit{strictly increasing} sampling function
+    $\tau$, where $\Delta \tau = \sqcup_{n : \typeNat}(\tau(n+1) - \tau(n))$,
+    and $\delta : \typeTime$, where
+    \begin{itemize}
+        \item $\exists \lambda:\typeReal_{+}$ such
+            that for $\theta : \Theta$, $\theta \circ f$ is
+            $\lambda$-\textit{Lipschitz} continuous.
+        \item $\delta$ is sufficiently large - $\lambda \Delta\tau < \delta$.
+        \item Sampling is sufficient - $\Delta\tau < \frac{1}{3}
+            \text{min}_{\interval:\interval_{\varphi}}(\overline{\interval} -
+            \underline{\interval})$, where $\interval_{\varphi}$ are intervals
+            in temporal operators of $\varphi$.
+        \item Sampling started early - $\tau(0) < \Delta\tau$
+    \end{itemize}
+    guarantees the following hold -
+    \begin{itemize}
+        \item $f \circ \tau\ \discreteSatisfy\ \varphi^{\Delta\tau} \implies f
+        \contSatisfy \varphi > 0 $.
+        \item $f \circ \tau\ \discreteSatisfy\ \neg\varphi^{\Delta\tau} \implies f
+        \contSatisfy \varphi < 0 $.
+    \end{itemize}
+    Thus, instead of proving $f \contSatisfy \varphi > 0 $, prove
+    $f, \tau \discreteSatisfy \varphi^{\Delta\tau} > \delta$.
+\end{frame}
 \end{document}
 
 
