@@ -2,7 +2,7 @@
 \usetheme{CambridgeUS}
 \usecolortheme{dolphin}
 \usepackage[utf8]{inputenc}
-\usepackage{dirtytalk,amsmath,tikz,mathtools,amsmath, empheq}
+\usepackage{dirtytalk,amssymb,tikz,mathtools,amsmath, empheq}
 \usepackage{stackengine}
 \usepackage{stmaryrd}
 \usepackage{graphicx}
@@ -24,7 +24,13 @@
 \setbeamerfont{caption}{size=\scriptsize}
 \date{}
 
-
+%\newcommand\restr[2]{{% we make the whole thing an ordinary symbol
+%  \left.\kern-\nulldelimiterspace % automatically resize the bar with \right
+%  #1 % the function
+%  \vphantom{\big|} % pretend it's a little taller at normal size
+%  \right|_{#2} % this is the delimiter
+%  }}
+\renewcommand{\restriction}{\mathord{\upharpoonright}}
 \newcommand{\always}[1]{\square_{#1}}
 \newcommand{\eventually}[1]{\lozenge_{#1}}
 
@@ -41,6 +47,7 @@
 \newcommand{\interval}{\mathcal{I}}
 \newcommand{\observe}{\mathcal{O}}
 \newcommand{\K}{\mathcal{K}}
+\newcommand{\kk}{\mathcal{k}}
 \newcommand{\A}{\mathcal{A}}
 
 % text versions
@@ -355,26 +362,127 @@
 
 
 \begin{frame}
-\frametitle{Parameter Invariant Estimation of Atomic Propositions}
+\frametitle{Parameter Invariant Rosustness Estimation of Atomic Propositions}
 
-\begin{block}{Using Parameter Invariant Procedures for Estimation}
-    Given $\Omega_{f, \tau}: \typeNat \to \typeReal^{X}$, the space
-    of all observations, $x: \Omega_{f, \tau}$,  test function $\theta \in \Theta$,
-    error and indifference bounds $\alpha', \delta' :\typeReal^{+}$.
-
+    Suppose we have
+    \begin{itemize}
+        \item $\Omega_{f, \tau}: \typeNat \to \typeReal^{X}$, be the space
+        of all observations at different sample time
+        \item A sequence $x: \Omega_{f, \tau}$ test function $\theta \in \Theta$,
+        error and indifference bounds $\alpha', \delta' :\typeReal^{+}$.
+    \end{itemize}
     One can find a algorithm $\A(x, \tau, \theta, \alpha', \delta')$ such that -
     \begin{itemize}
         \item $\A$ is \textit{terminating} and returns value $r:\typeReal$.
         \item $\typeProb({\mid (\theta \circ f \circ \tau)(0) - r \mid > \delta'}) < \alpha'$
-        \item $r$ is an estimate for the \textit{robustness degree} of the
-            signal $f$ on $\theta$
         \item The \textit{Probability} that $r$ (i.e. the \textit{robustness degree estimate}
             returned by $\A$) is more than $\delta'$ away from the real value of
             $f \circ \tau \discreteSatisfy \theta$ is less than $\alpha'$.
     \end{itemize}
 
-\end{block}
 \end{frame}
+
+\begin{frame}
+
+\frametitle{Parameter Invariant Robustness Estimation of Atomic Propositions}
+    \begin{itemize}
+        \item If \textit{statistic} used in $\A$ is \textit{Maximally
+            Invariant}, then $r$, is invariant to nuissance parameters.
+        \item A change in the \textit{noise} in sensor measurements
+            will not affect $r$.
+        \item Use $\A$ to obtain
+             estimates that are \textit{(maximally) invariant}
+             to nuissance parameters.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+
+\frametitle{Parameter Invariant Estimation For Atomic Formulas}
+    \begin{itemize}
+        \item Using $\A$, we get \textit{robustness estimates}
+            for atomic proposition $\theta \in \Theta$.
+        \item Furthermore, if the estimate in $\A$ is derived
+            using a \textit{maximally invariant} test statistic,
+            the estimate is \textit{invariant} to \textit{nuissance}
+            parameters (like noise).
+        \item For example, robustness estimate will be invariant
+            to sensor noise.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Parameter Invariant Estimation For Atomic Formulas}
+    \begin{itemize}
+        \item For given $\theta$, say $Y_{\theta}$ it the
+            set of \textit{observable variables} of $\theta$.
+        \item Let $\K_{\theta, f, \tau(n)} \subseteq \typeReal^{Y_{\theta}} \to \typeReal^{Y_{\theta}}$ be
+            group of transformations affecting $\theta$.
+        \item Let $\K_{f, \tau(n)} \subseteq \typeReal^{Y}\to \typeReal^{Y}$
+           be group of transformations for $f$ at step $n$.
+        \item For $v \in \typeReal^{Y}$, $\theta \in \Theta$, function
+            $k \in  \K_{f, \tau(n)}$ maps $v \restriction^{Y_{\theta}}$ to some
+            $k_{\theta}(v \restriction^{Y_{\theta}})$
+           where $k_{\theta} \in \K_{\theta, f, \tau(n)}$.
+       \item $\K_{f, \tau(n)}$ is \textit{completely determined}
+           by $\K_{\theta, f, \tau(n)}$ since
+            $\theta \neq \theta' \implies Y_{\theta}\cap Y_{\theta'}=\emptyset$
+
+        %\item $\K_{f, \tau(n)} \subseteq \typeReal^{Y_{\theta}} \to
+        %    \typeReal^{Y_{\theta}}$ is \textit{uniquely determined} by $\K_{\theta, f, \tau(n)}$
+        %    since for $\theta_1, \theta_2 \in \Theta . Y_{\theta_1} \cap Y_{\theta_2} = \emptyset$.
+        %\item Thus, if $\eta_{\theta, f, \tau(n)} : \typeReal^{Y} \to
+        %    \Omega_{\theta, f, \tau(n)}$, such that $\eta_{\theta, f, \tau_n}$
+        %    is invariant to $\K_{\theta, f, \tau_n}$
+
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Parameter Invariant Estimation For Atomic Formulas}
+    \begin{itemize}
+        \item Let $\eta_{\theta} : \typeReal^{Y_{\theta}} \to \typeReal$
+            be statistics that produces \textit{estimates} for $\theta \in \Theta$.
+        \item Define $\eta:\typeReal^{Y} \to \typeReal$ such
+            that for $v \in \typeReal^{Y}$,
+            $\eta(v) = \eta_{\theta}(v\restriction^{Y_{\theta}})$ for $\theta \in \Theta$.
+        \item Suppose $\eta_{\theta}$ is invariant to $\K_{\theta, f, \tau(n)}$
+            for each $\theta \in \Theta$.
+        \item Formally, for $v : \typeReal^{Y}$ and
+         $k_{\theta} \in \K_{\theta, f, \tau(n)}$,
+            $\eta_{\theta}(v\restriction^{Y_{\theta}})
+            = \eta_{\theta}(k_{\theta}(v\restriction^{Y_{\theta}}))$
+        \item For $k \in \K_{f, \tau(n)}$, $k(v) =
+            k_{\theta}(v\restriction^{Y_{\theta}})$.
+        \item $\eta(k(v)) = \eta_{\theta}(k(v)) = \eta_{\theta}(k_{\theta}(v\restriction^{\typeReal^{Y_{\theta}}}))$,
+            for each $\theta \in \Theta$.
+        \item We get $\eta(k(v))
+            = \eta_{\theta}(k_{\theta}(v \restriction^{Y_{\theta}}))$
+            $=\eta_{\theta}(v\restriction^{Y_{\theta}})$ for each $\theta \in
+            \Theta$.
+        \item Thus, $\eta$ is invariant to $\K_{f, \tau(n)}$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Parameter Invariant Estimation For Atomic Formulas}
+    \begin{itemize}
+        \item We proved $\eta$ is invariant to $\K_{f, \tau(n)}$. Moreover,
+            if $\eta_{\theta}$ is \textit{maximally invariant},
+            to $\K_{f, \tau(n)}$, then $\eta$ is also
+            \textit{maximally invariant}.
+        \item Thus, using \textit{maximally invariant} estimates
+            for \textit{atomic propositions}, we get
+            a \textit{maximally invariant} estimate for the
+            entire signal at a point in time.
+        \item Recall $\A$ gives us an \textit{estimate}
+            for $\theta \in \Theta$. If $\A$ uses a
+            \textit{maximally invariant} statistic, we
+            get a \textit{maximally invariant} estimate for
+            each \textit{atomic proposition} in an STL formula.
+    \end{itemize}
+\end{frame}
+
 \end{document}
 
 
