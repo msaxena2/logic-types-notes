@@ -13,6 +13,9 @@
 \newcommand{\derivative}[2]{\delta_{#1} #2}
 \newcommand{\until}{\ \mathcal{U}\ }
 \newcommand{\Prop}{\mathcal{P}}
+\newcommand{\State}{\textit{State}}
+\newcommand{\Transition}{\textit{Transition}}
+\newcommand{\unsafe}{\textit{unsafe}}
 
 \begin{document}
 
@@ -73,7 +76,19 @@ then the monitoring algorithm world work as -
   &\null = \top
 \end{align*}
 
-\subsection{Next Step}
-Move away from propositional LTL to First-order LTL.
+\subsection{Generalizing to ML formulas over Transition Systems}
+Consider a theory $\mathbb{\Sigma}^{\text{TS}} =
+(\{\State,\Transition\}, \bullet \in \Sigma_{\Transition \, \State, \State})$.
+
+Given sort $\textit{State}$, an event is a concrete value
+$e \in M_{\State}$, where $M_{\State}$ is the carrier set of sort $\State$.
+
+Using reachability, safety can be
+expressed as
+$ \psi_\textit{safety} = \varphi_{\textit{init}} \to \lozenge \varphi_{\unsafe}$.
+
+\begin{align*}
+  \derivative{e}{\varphi} &= \lceil e \to \varphi \rceil  \\
+\end{align*}
 
 \end{document}

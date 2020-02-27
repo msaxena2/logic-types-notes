@@ -1,6 +1,7 @@
 \documentclass{beamer}
 \usetheme{CambridgeUS}
 \usecolortheme{dolphin}
+\setbeamertemplate{page number in head/foot}{}
 \usepackage[utf8]{inputenc}
 \usepackage{dirtytalk,amssymb,tikz,mathtools,amsmath, empheq}
 \usepackage{stackengine}
@@ -209,11 +210,11 @@
         \begin{align*}
             f, r \contSatisfy \phi\ \until_{\interval}\ \psi
            \robustAssign \bigsqcup_{t: r+\interval}\left( f, t \contSatisfy \psi
-           \sqcap \bigsqcap_{r \leq t' \leq t} \left( f, t' \contSatisfy \psi
+           \sqcap \bigsqcap_{r \leq t' < t} \left( f, t' \contSatisfy \varphi
             \right ) \right) \\
             f, r \contSatisfy \phi\ \release_{\interval}\ \psi
            \robustAssign \bigsqcap_{t: r+\interval}\left( f, t \contSatisfy \psi
-           \sqcup \bigsqcup_{r \leq t' \leq t} \left( f, t' \contSatisfy \psi
+           \sqcup \bigsqcup_{r \leq t' < t} \left( f, t' \contSatisfy \varphi
             \right ) \right)
         \end{align*}
     \end{block}
@@ -250,11 +251,11 @@
         \begin{align*}
             g, n \contSatisfy \phi\ \until_{\interval}\ \psi
             \robustAssign \bigsqcup_{i: \tau^{-1}(\tau((n) +\interval)}\left( g, i \contSatisfy \psi
-           \sqcap \bigsqcap_{n \leq j \leq i} \left( g, j \contSatisfy \psi
+           \sqcap \bigsqcap_{n \leq j < i} \left( g, j \contSatisfy \psi
             \right ) \right) \\
             g, n \contSatisfy \phi\ \release_{\interval}\ \psi
            \robustAssign \bigsqcap_{i: \tau^{-1}(\tau((n) +\interval)} \left( g, i \contSatisfy \psi
-           \sqcup \bigsqcup_{n \leq j \leq i} \left( g, n' \contSatisfy \psi
+           \sqcup \bigsqcup_{n \leq j < i} \left( g, n' \contSatisfy \psi
             \right ) \right)
         \end{align*}
     \end{block}
