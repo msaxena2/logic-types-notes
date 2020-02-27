@@ -6,11 +6,16 @@
 \usepackage{stackengine}
 \usepackage{stmaryrd}
 \usepackage{graphicx}
+\usepackage[noend]{algpseudocode,algorithm}
 \usepackage{resizegather}
 \usetikzlibrary{automata, positioning}
 \graphicspath{ {./images/} }
 \tikzset{->, initial text=$$}
 \DeclareMathAlphabet{\mathpzc}{OT1}{pzc}{m}{it}
+
+\makeatletter
+\algrenewcommand\ALG@beginalgorithmic{\footnotesize}
+\makeatother
 
 %Information to be included in the title page:
 \title[Parameter Invariant Monitoring for STL]{Parameter Invariant Monitoring for Signal Temporal Logic}
@@ -41,12 +46,16 @@
 
 \newcommand{\dom}{\text{dom}}
 
+\newcommand{\accept}{\text{accept}}
+\newcommand{\reject}{\text{reject}}
+\newcommand{\unknown}{\text{unknown}}
 
 \newcommand{\until}{\mathcal{U}}
 \newcommand{\release}{\mathcal{R}}
 \newcommand{\interval}{\mathcal{I}}
 \newcommand{\observe}{\mathcal{O}}
 \newcommand{\K}{\mathcal{K}}
+\newcommand{\M}{\mathcal{M}}
 \newcommand{\kk}{\mathcal{k}}
 \newcommand{\A}{\mathcal{A}}
 
@@ -182,8 +191,6 @@
               f, r &\contSatisfy \bot       \robustAssign -\infty \\
               f, r &\contSatisfy \theta     \robustAssign \theta(f(r)) &
               f, r &\contSatisfy \neg\theta \robustAssign -\theta(f(r)) \\
-              f, r &\contSatisfy \theta     \robustAssign \theta(f(r)) &
-              f, r &\contSatisfy \neg\theta \robustAssign -\theta(f(r)) \\
         \end{align*}
         \vspace{-1.6cm}
         \begin{align*}
@@ -222,8 +229,6 @@
         \begin{align*}
               g, n &\discreteSatisfy \top       \robustAssign \infty &
               g, n &\discreteSatisfy \bot       \robustAssign -\infty \\
-              g, n &\discreteSatisfy \theta     \robustAssign \theta(g(n)) &
-              g, n &\discreteSatisfy \neg\theta \robustAssign -\theta(g(n)) \\
               g, n &\discreteSatisfy \theta     \robustAssign \theta(g(n)) &
               g, n &\discreteSatisfy \neg\theta \robustAssign -\theta(g(n)) \\
         \end{align*}
@@ -483,7 +488,232 @@
     \end{itemize}
 \end{frame}
 
+\section{Algorithm}
+\subsection{PAIN Monitoring for STL Algorithm}
+\begin{frame}
+    \frametitle{Assumptions}
+    Given a signal $f$, sampling-time function $\tau$,
+    STL formula $\varphi$, such that $\tau$ is strictly
+    increasing. $g = f \circ \tau$ is \textit{piecewise continuous}
+    \begin{itemize}
+        \item $\M$ is an algorithm for monitoring $g$ against $\varphi$ and -
+        \begin{itemize}
+            \item needs a \textit{complete mapping} of all \textit{atomic propositions}
+            in $\varphi$ to \textit{robustness degrees}.
+            \item takes \textit{input} a pair $(v, t)$,
+            where v is a \textit{complete mapping} of \textit{atomic propositions}
+            to \textit{robustness} and $t$ is time.
+        \item return interval $[a, b]$ - the $\text{inf}$ and $\text{sup}$
+            respectively of all possible robustness degrees if
+            the observed sequence was arbitrarily extended.
+        \end{itemize}
+        \item Main Algorithm (following slides) join
+            $\A$, $\M$ to have a Parameter Invariant Monitor
+            for STL.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Algorithm}
+    \begin{itemize}
+        \item (\textbf{Inputs}) signal $f$, formula $\varphi$
+    Lipschitz constant $\lambda$, indifference region $\delta$ and an error parameter $\alpha$.
+        \item (\textbf{Output}) $\accept, \reject$ or $\unknown$
+        \item Has 3 functions -
+            \begin{itemize}
+                \item \textbf{MAIN} - Initializes the algorithm,
+                    runs main loop, and checks termination conditions.
+                \item \textbf{ESTIMATE} - Uses $\A$ to
+                    estimate values for each atomic proposition of $\varphi$.
+                \item \textbf{OBSERVE} - Auxilliary function used
+                    by estimate to obtain $\textit{estimates}$ for
+                    atomic propositions.
+            \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Algorithm}
+    \framesubtitle{Main Function}
+        \begin{algorithmic}
+            \State $x \gets \text{nil}$ \Comment{Sequence of observations}
+            \State $n \gets 0$ \Comment{Current Step}
+
+            \Function{main}{}
+                \State $\M_1 \gets \text{initialize $\M$ for} \varphi^{\Delta\tau}$
+                \State $\M_2 \gets \text{Initialize $\M$ for} \neg(\varphi)^{\Delta\tau}$
+
+                \State $[a_1, b_1] \gets (-\infty, \infty)$
+                \State $[a_2, b_2] \gets (-\infty, \infty)$
+
+                %\While{a_1 \leq \delta \wedge a_2 \leq \delta \wedge (\delta < b_1 \wedge \delta < b_2)}
+                \While{$a_1 \leq \delta\wedge a_2 \leq \delta \wedge (\delta <
+                b_1 \wedge \delta < b_2)$}
+                    \State $(t,v) \gets \Call{estimate}{}$
+                    \State $[a_1, b_1] \gets \M_1(v, t)$
+                    \State $[a_2, b_2] \gets \M_2(v, t)$
+                    \State $n \gets n+1$
+                \EndWhile
+            \EndFunction
+            \If{$a_1 > \delta$}
+                \Return{accept}
+            \EndIf
+            \If{$a_2 > \delta$}
+                \Return{reject}
+            \EndIf
+            \State \Return{unknown}
+        \end{algorithmic}
+\end{frame}
+
+\begin{frame}
+    ESTIMATE uses $\A$ to calculate estimates for each atomic proposition
+    $\theta$.
+    \frametitle{Algorithm}
+    \framesubtitle{Estimation Function}
+        \begin{algorithmic}
+            \Function{estimate}{}
+            \State $v : R^{\Theta}$
+            \ForAll{$\theta \in \Theta$}
+                \State $a \gets \A(\text{OBSERVE}, \theta, \alpha', \delta')$
+                \If{$a - \delta' > 0$}
+                    \State $v(\theta) \gets a - \delta'$
+                \ElsIf{$a + \delta' < 0$}
+                    \State $v(\theta) \gets a + \delta'$
+                \Else
+                    \State $v(\theta) \gets 0$
+                \EndIf
+            \EndFor
+            \State{// Recall $x$ is global list containing observations}
+            \State $(t,\_) \gets \textit{pop}(x)$
+            \State \Return {$(t, v)$}
+            \EndFunction
+        \end{algorithmic}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Algorithm}
+    \framesubtitle{Observation Function}
+        \begin{algorithmic}
+            \Function{observe}{$n:\typeNat$}
+            \While{$|x| \leq n$}
+                \State $v : \typeReal^{Y}$
+                \State $t \gets \text{current time}$
+            \ForAll{$\theta \in \Theta$}
+                \State $v\restriction^{Y_{\theta}} \gets \text{Sensor reading for } \theta$
+            \EndFor
+                \State $x \gets x + (t, v)$
+            \EndWhile
+            \State $(t, v) \gets \text{n}^{\text{th}} \text{ element of } x$
+            \State \Return{$(t, v\restriction^{Y_\theta})$}
+            \EndFunction
+        \end{algorithmic}
+    \begin{itemize}
+        \item $OBSERVE$ allows $ESTIMATE$ to observe multiple
+            sensor readings at a given point in time.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Algorithm}
+    \framesubtitle{Execution Flow}
+    \begin{itemize}
+        \item MAIN initializes $\M$ for $\varphi^{\Delta\tau}$ and its negation.
+        \item $\M$ is stateful. After initialization, every
+            call to $\M$ with observation-time pair $(v,t)$
+            makes $\M$ record pair.
+        \item ESTIMATE returns \textit{robustness degrees}
+            for each atomic proposition, using sensor readings.
+        \item If $\A$ uses a \textit{maximally invariant}
+            statistic to calculate \textit{robustness estimate},
+            then \textit{estimate} is invariant to noise.
+    \end{itemize}
+\end{frame}
+
+\section{Evaluation}
+\subsection{T1 Diabetic Patient}
+\begin{frame}
+    \frametitle{Example}
+    \framesubtitle{Monitoring a Diabetic Patient}
+
+    STL formula, \say{If patient has a meal (M), then (s)he
+    either recieved bolus $t_1$ units ago, or will recieve one in $t_2$ units}
+     $$ \always{ [ t_1, \infty )}
+    \left( \left (M > c_1 \right ) \to \eventually{\left(-t_1, t_2 \right)}
+    \left( B > c_2 \right ) \right)$$.
+    \pause
+    Formula above not strictly STL (uses past time). Equivalently-
+        $$ \always{[ t_1, \infty )}
+        \left( \eventually{(0, t_1 + t_2)} \left( B > c_2 \right)
+    \vee \always{[t_1, t_1 + t_2)} \left(\left(M > c_1\right)
+            \to \eventually{(0, t_2)}\left( \left( B > c_2 \right ) \right)
+            \right) \right)$$
+    \say{At all points $r:\typeReal_{\geq 0}$, either patient recieved Bolus
+    or if meal is taken, then Bolus should be taken no later than $t_2$ units}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Example}
+    \framesubtitle{Monitoring a Diabetic Patient}
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.4\textwidth]{t1d-patient}
+    \end{figure}
+    \begin{itemize}
+        \item $t_1 = t_2 = 30 (minutes)$
+        \item Plot shows $b_1$ for $\varphi$ and $a_2$ for $\neg\varphi$
+        \item Meal occurs at $t=421$, but no bolus detected in
+            $391 \leq t \leq 421$. Thus, when t slightly above $451$
+            formula is \textit{rejected}, as $a_2 > \delta$.
+        \item Noisy \textit{B (bolus)} signal, unobservable \textit{M (meal)}
+            variable
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Example}
+    \framesubtitle{Monitoring a Diabetic Patient}
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.4\textwidth]{false-alarms}
+    \end{figure}
+    \begin{itemize}
+        \item Data for 61 patients, each monitored for different time lengths.
+        \item Plot shows \textit{alarms} vs \textit{number of observations}
+            for each patient.
+        \item Evidence technique scales well for real world applications
+    \end{itemize}
+\end{frame}
+
+\section{Conclusion}
+\begin{frame}
+    \frametitle{Conclusions}
+    \begin{itemize}
+        \item Introduce Parameteric Invariant Monitoring
+            for Signal Temporal Logic
+        \item Using \textit{robustness estimates} for
+            single atomic propositions, derive \textit{robustness estimates}
+            for entire formula.
+        \item If \textit{robustness estimates} for
+            atomic propositions is \textit{maximally invariant}
+            then test procedure for entire formula is also
+            \textit{maximally invariant} to nuissance paramters.
+        \item Demonstrate real-world applications on monitoring
+            an STL formula with patients having $T1-Diabetes$.
+    \end{itemize}
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \end{document}
-
-
 
