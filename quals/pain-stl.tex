@@ -208,11 +208,11 @@
         Given signal $f$ and point in time $r : \typeTime$,
         Continuous time STL semantics are given inductively as -
         \begin{align*}
-            f, r \contSatisfy \phi\ \until_{\interval}\ \psi
+            f, r \contSatisfy \varphi\ \until_{\interval}\ \psi
            \robustAssign \bigsqcup_{t: r+\interval}\left( f, t \contSatisfy \psi
            \sqcap \bigsqcap_{r \leq t' < t} \left( f, t' \contSatisfy \varphi
             \right ) \right) \\
-            f, r \contSatisfy \phi\ \release_{\interval}\ \psi
+            f, r \contSatisfy \varphi\ \release_{\interval}\ \psi
            \robustAssign \bigsqcap_{t: r+\interval}\left( f, t \contSatisfy \psi
            \sqcup \bigsqcup_{r \leq t' < t} \left( f, t' \contSatisfy \varphi
             \right ) \right)
@@ -249,13 +249,13 @@
         \to \typeTime$, discrete time semantics for $g := f \circ \tau : \typeNat
         \to  \typeReal^{\Z}$ at step $n:\typeNat$ are given inductively as -
         \begin{align*}
-            g, n \contSatisfy \phi\ \until_{\interval}\ \psi
-            \robustAssign \bigsqcup_{i: \tau^{-1}(\tau((n) +\interval)}\left( g, i \contSatisfy \psi
-           \sqcap \bigsqcap_{n \leq j < i} \left( g, j \contSatisfy \psi
+            g, n \discreteSatisfy \varphi\ \until_{\interval}\ \psi
+            \robustAssign \bigsqcup_{i: \tau^{-1}(\tau((n) +\interval)}\left( g, i \discreteSatisfy \psi
+           \sqcap \bigsqcap_{n \leq j < i} \left( g, j \discreteSatisfy \varphi
             \right ) \right) \\
-            g, n \contSatisfy \phi\ \release_{\interval}\ \psi
-           \robustAssign \bigsqcap_{i: \tau^{-1}(\tau((n) +\interval)} \left( g, i \contSatisfy \psi
-           \sqcup \bigsqcup_{n \leq j < i} \left( g, n' \contSatisfy \psi
+            g, n \discreteSatisfy \varphi\ \release_{\interval}\ \psi
+           \robustAssign \bigsqcap_{i: \tau^{-1}(\tau((n) +\interval)} \left( g, i \discreteSatisfy \psi
+           \sqcup \bigsqcup_{n \leq j < i} \left( g, n' \contSatisfy \varphi
             \right ) \right)
         \end{align*}
     \end{block}
@@ -300,6 +300,7 @@
             in temporal operators of $\varphi$.
         \item Sampling started early - $\tau(0) < \Delta\tau$
     \end{itemize}
+    \pause
     guarantees the following hold -
     \begin{itemize}
         \item $f \circ \tau\ \discreteSatisfy\ \varphi^{\Delta\tau} \implies f
@@ -368,7 +369,7 @@
 
 
 \begin{frame}
-\frametitle{Parameter Invariant Rosustness Estimation of Atomic Propositions}
+\frametitle{Parameter Invariant Robustness Estimation of Atomic Propositions}
 
     Suppose we have
     \begin{itemize}
@@ -377,6 +378,7 @@
         \item A sequence $x: \Omega_{f, \tau}$ test function $\theta \in \Theta$,
         error and indifference bounds $\alpha', \delta' :\typeReal^{+}$.
     \end{itemize}
+    \pause
     One can find a algorithm $\A(x, \tau, \theta, \alpha', \delta')$ such that -
     \begin{itemize}
         \item $\A$ is \textit{terminating} and returns value $r:\typeReal$.
@@ -454,6 +456,7 @@
             $\eta(v) = \eta_{\theta}(v\restriction^{Y_{\theta}})$ for $\theta \in \Theta$.
         \item Suppose $\eta_{\theta}$ is invariant to $\K_{\theta, f, \tau(n)}$
             for each $\theta \in \Theta$.
+        \pause
         \item Formally, for $v : \typeReal^{Y}$ and
          $k_{\theta} \in \K_{\theta, f, \tau(n)}$,
             $\eta_{\theta}(v\restriction^{Y_{\theta}})
@@ -495,7 +498,7 @@
     \frametitle{Assumptions}
     Given a signal $f$, sampling-time function $\tau$,
     STL formula $\varphi$, such that $\tau$ is strictly
-    increasing. $g = f \circ \tau$ is \textit{piecewise continuous}
+    increasing. $g = f \circ \tau$ is \textit{discretized signal}
     \begin{itemize}
         \item $\M$ is an algorithm for monitoring $g$ against $\varphi$ and -
         \begin{itemize}
