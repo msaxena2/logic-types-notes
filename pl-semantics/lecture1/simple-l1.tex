@@ -60,8 +60,9 @@
 \begin{figure}[h]
     \includegraphics[width=0.6\textwidth]{increment}
 
-    \pause
     \begin{itemize}
+        \item lvalue described in the next slide
+        \pause
         \item Wrap \textit{increment Exp} into an auxilliary \text{lvalue} construct.
         \item Once \text{lvalue} evaluates to \textit location \text{loc(L)},
               perform increment.
@@ -122,7 +123,6 @@
             expressions handled in array offset?
         \pause
         \item what is \text{anywhere}?
-        \pause
     \end{itemize}
 \end{frame}
 
@@ -210,6 +210,62 @@
     \end{figure}
 \end{frame}
 
+\begin{frame}{Concurrency}{Spawn}
+    \begin{figure}[H]
+        \centering
+    \includegraphics[width=0.6\textwidth]{thread-creation} \\
+    \end{figure}
+\end{frame}
+\begin{frame}{Concurrency}{Termination \& Joining}
+    \begin{figure}[H]
+        \centering
+    \includegraphics[width=0.6\textwidth]{thread-termination} \\
+    \includegraphics[width=0.3\textwidth]{thread-join} \\
+    \end{figure}
+\end{frame}
+\begin{frame}{Concurrency}{Acquire Locks}
+    \begin{figure}[H]
+        \centering
+    \includegraphics[width=0.6\textwidth]{acquire-lock.png} \\
+    \end{figure}
+    \pause
+    \begin{itemize}
+        \item Assume re-entrace. Same thread can acquire a lock
+            again.
+    \end{itemize}
+\end{frame}
+\begin{frame}{Concurrency}{Release Locks}
+    \begin{figure}[H]
+        \centering
+    \includegraphics[width=0.6\textwidth]{release-lock.png} \\
+    \end{figure}
+    \pause
+    \begin{itemize}
+        \item A lock is considered release only when $n$ release
+            calls match with $n$-acquires calls.
+    \end{itemize}
+\end{frame}
+\begin{frame}{Concurrency}{Rendezvous}
+    \begin{figure}[H]
+        \centering
+    \includegraphics[width=0.6\textwidth]{rendezvous.png}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Auxilliary Constructs}{Declarations, Lookups \& Restoring Environments}
+    \begin{figure}[H]
+        \centering
+    \includegraphics[width=0.4\textwidth]{declarations} \\
+    \includegraphics[width=0.4\textwidth]{lookup}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Auxilliary Constructs}{Restoring Environments}
+    \begin{figure}[H]
+        \centering
+    \includegraphics[width=0.4\textwidth]{restore-env}
+    \end{figure}
+\end{frame}
 % \begin{frame{Simple Configuration}}
 %     \begin{itemize}
 %         \item A textit{Global Environment} and
