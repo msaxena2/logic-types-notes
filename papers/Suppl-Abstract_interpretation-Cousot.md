@@ -4,6 +4,8 @@ subtitle: Notes on Abstract Interpretation (POPL'77)
 author: Patric Cousot
 header-includes: |
   \usepackage{mathtools}
+  \usepackage{stmaryrd}
+  \usepackage{dirtytalk}
 ---
 
 
@@ -57,6 +59,8 @@ for a complete lattice.
 
 ### Galois Connections
 
+#### Definitions
+
 Let $L_1(\leq_1)$ and $L_2(\leq_2)$ be POSETS.
 $(\alpha, \gamma)$ is a Galois connection iff $\alpha \in L_1 \to L_2$
 and $\gamma \in L_2 to L_1$, and
@@ -65,6 +69,8 @@ $$ \forall x \in L_1, y \in L_2, \alpha(x) \leq_2 y \Longleftrightarrow x \leq_1
 
 $L_1 \xrightleftharpoons[\gamma]{\alpha} L_2$ is a Galois connection where
 $L_1$ is the concrete lattice and $L_2$ is the abstract lattice.
+
+#### Properties
 
 For a state $x$, abstraction followed by concretization results
 in a state that's less than $x$.
@@ -83,6 +89,66 @@ This means that *abstraction* followed by *concretization* leads to
 less information than what you started with since
 $(\overbrace{\gamma}^{\textit{abstraction}} \circ
 \underbrace{\alpha}_{\textit{concretization}})(x) \leq_1 x$
+
+
+Computation of Abstract Semantics
+---------------------------------
+
+Abstract semantics can be computed from concrete semantics,
+which presents a big advantage for abstract interpretation.
+
+
+Consider following example language:
+
+$$ Expr ::= Id \mid \mathbb{N} \mid Expr + Expr  \mid Expr \geq Expr $$
+$$ Stmt ::=  \mid Id := Expr \mid \say{begin} \mid \say{end} \mid \say{if}  Expr  \say{goto} \textit{PC} $$
+
+
+##### Sorts
+
+ * $\textit{PC} \equiv \mathbb{N}$
+
+ * $\textit{Env} \equiv Id \to \mathbb{N}$. Also written $\rho$
+
+ * $\textit{State} \equiv (\textit{PC} \times \textit{Env})$
+
+
+#### Semantics of Expressions
+
+ * $\llbracket x \rrbracket_{\rho} = \rho(x)$
+
+ * $\llbracket E_1 + E_2 \rrbracket_{\rho} = \llbracket E \rrbracket_{\rho} +
+   \llbracket E_2 \rrbracket_{\rho}$
+
+
+#### Semantics of Statments
+
+$\textit{pc}, \rho \to \textit{pc} + 1, \rho'$ defined as:
+
+ * $\textit{pc}(Stmt) = x := E$ then $\rho' = \rho[\llbracket E \rrbracket_{\rho} / x]$
+
+ * $\textit{pc}(Stmt) = "if" E "goto" n$ then $\textit{pc} = \textit{pc} + 1$ if $\llbracket E \rrbracket_{\rho} = \top$ else $\textit{pc} = n$
+
+ * ... and so on
+
+
+#### Collecting Semantics
+
+Semantics that collects the set of all possible traces
+
+The set of all traces of all states order by inclusion forms
+a lattice
+
+
+ * For the language in previous section, $\mathbb{Z}$ forms
+   the domain. $\mathcal{P}(\mathbb{Z})$ gives the collecting semantics
+   with $\subseteq$.
+
+ * The abstract lattice simply becomes $\mathcal{P}(\mathbb{Z})$ with $\leq
+   \equiv \subseteq$.
+
+
+
 
 
 
