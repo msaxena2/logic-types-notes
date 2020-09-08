@@ -66,3 +66,19 @@ in all executions going through the arc. Recall a state
 is a tuple in sort *Arc X Env*, and an execution is simply
 a sequence of states.
 
+A **Context Vector** is simply a mapping from Arcs to Contexts.
+
+Semantics relate context of an `arc(r)` with an arc `q` adjacent
+to `r` (`origin(r) = end(q)`) as `Cv(r) = n-context(r, Cv)` where
+`n-context` is defined as:
+
+```
+  n-context(cv, r) =
+    case origin(r) in
+      Entries => { \bot$ }
+      (Assignment | Test | Junction) =>
+        // All next states of previous arc q
+```
+
+
+
