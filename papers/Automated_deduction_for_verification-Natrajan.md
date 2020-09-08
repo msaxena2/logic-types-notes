@@ -1,6 +1,6 @@
 ---
 title: Automated Deduction for Verification
-  subtitile: Notes on deductive verification by Natrajan Shankar
+subtitile: Notes on deductive verification by Natrajan Shankar
 
 ---
 
