@@ -3,6 +3,7 @@ title: Abstract Interpretation
 subtitle: Notes on Abstract Interpretation (POPL'77)
 author: Patric Cousot
 header-includes: |
+  \include{commands}
   \usepackage{mathtools}
   \usepackage{stmaryrd}
   \usepackage{dirtytalk}
@@ -32,6 +33,27 @@ type without actually needing to run the program concretely.
 Preliminaries
 -------------
 
+### Relations
+
+A binary relation $R$ on set $S$ is basically a member of $\powerset{S \times S}$.
+
+A **pre-order** $\sqsubseteq$ on a set $S$ is
+a *reflexive* ($\forall x \in S . s \sqsubseteq s$)  and *transitive*
+($\forall x, y, z \in S . (x \sqsubseteq y) \wedge (y \sqsubseteq z) \implies (x \sqsubseteq z)$)
+relation.
+
+A **partial-order** is an *anti-symmetric pre-order*
+
+A **linear order** is a *total partial-order* i.e.
+($\forall x, y \in S . (x \sqsubseteq y) \vee (y \sqsubseteq x)$)
+
+A **chain** of set $S$ is a subset $X \subseteq S$
+such that $\sqsubseteq$ is a *linear order* on $X$
+
+A **Complete Partial Order (CPO)** is a partial order
+such that every increasing chain has a *least upper bound*.
+A *Strict CPO* is one where every chain also has an infimum.
+
 ### POSET
 
 A *reflexive*, *anti-symmetric* and *transitive*  relation
@@ -51,26 +73,78 @@ but may not be defined for infinite subsets.
 For any subset $L' \subseteq L$, glb, lub are defined.
 In other words, even inifinite subsets have glb, lub defined.
 
-
 ##### Example
 
 For any set $S$, $(\mathcal{P}(S), \varnothing, \subseteq, \cup, \cap)$
 for a complete lattice.
 
+## Relations on POSETs
+
+Given a poset $P(\leq)$ and $Q(\preceq)$, A relation $\varphi \in P \to Q$
+is monotone iff $\forall x, y \in P . x \leq y \implies \varphi(x) \preceq
+\varphi(y)$. Given a cpo, a relation $\varphi$ is order preserving if
+it's monotone and preserves the least upper bound ($\sqcup \{x_1, x_2, \dots \} =
+\vee \{\varphi(x_1), \varphi(x_2), \dots \}$).
+
+
+## Tarski's Theorem
+
+States that for a complete lattice $L$ and
+monotone order preserving function $\varphi$,
+the fixed points of $\varphi$ form a complete lattice.
+
+
+### Applications of Tarski's Theorem
+
+Given an $\omega$ upper continuous mapping $\varphi$.
+The least fixed point ($\lfp$) is given by:
+
+$$\lfp(\varphi) = \glb_{i \in \Nat}(\varphi^{n}(\bot))$$
+
+where $\glb$ is the greatest lower bound operation
+
 ### Galois Connections
+
+
+### Approximation of Concrete Properties by Abstract Properties
+
+For a given program $P$, let $\concrete{P}(\concrete{\preceq})$ be
+a POSET representing the set of concrete
+properties. Say $\concrete{p}_1 \concrete{\preceq} \concrete{p}_2$ to mean $\concrete{p}_1$ is
+*more precise* than $\concrete{p}_2$. Similary,
+$\abstr{P}(\abstr{\preceq})$ be the POSET of abstract
+properties. Precision can basically mean the set
+of states satisfied by the property is smaller.
+For example say $\concrete{p}_1$ is the property $=0$
+and $\concrete{p}_2$ is $\geq 0$,
+then $\concrete{p}_1 \concrete{\preceq} \concrete{p}_2$.
+Say $\abstr{p}_1 = \alpha(\concrete{p}_1)$ and $\concrete{p_1} \concrete{\preceq} \concrete{p}_2$
+Then $\abstr{p}_2$ is less precise than $\abstr{p}_1$.
+
 
 #### Definitions
 
-Let $L_1(\leq_1)$ and $L_2(\leq_2)$ be POSETS.
-$(\alpha, \gamma)$ is a Galois connection iff $\alpha \in L_1 \to L_2$
-and $\gamma \in L_2 to L_1$, and
+The pair $(\alpha, \gamma)$ forms a Galois connection iff
 
-$$ \forall x \in L_1, y \in L_2, \alpha(x) \leq_2 y \Longleftrightarrow x \leq_1 \gamma(y)$$
+$$ \forall \concrete{p} \in \concrete{P}, \abstr{p} \in \abstr{P}.
+  (\alpha(\concrete{p}) \abstr{\preceq} \abstr{p}) \Leftrightarrow
+    (\concrete{p} \concrete{\preceq} \gamma(\abstr{p})) $$
 
-$L_1 \xrightleftharpoons[\gamma]{\alpha} L_2$ is a Galois connection where
-$L_1$ is the concrete lattice and $L_2$ is the abstract lattice.
+Some more properties of the Galois connections:
 
-#### Properties
+$$ \forall \concrete{p} \in \concrete{P} . \concrete{p} \concrete{\preceq} \gamma(\alpha(\concrete{p}))$$
+$$ \forall \abstr{p} \in \abstr{P} . \alpha(\gamma(\abstr{p})) \abstr{\preceq} \abstr{p}$$
+
+The Galois connectiontion $(\alpha, \gamma)$ can be used as:
+
+$$ (\textit{\textbf{Concretization}})\ \ \gamma(\abstr{p}) \in \concrete{P}$$
+$$ (\textit{\textbf{Abstraction}})\ \  \alpha(\concrete{p}) \in \abstr{P}$$
+
+Thus, $\alpha$ is a monotone function in $\concrete{P}(\concrete{\preceq})
+ \to \abstr{P}(\abstr{\preceq})$
+and $\gamma$ is a monotone function in  $\abstr{P}(\concrete{\preceq}) \to
+\concrete{P}(\concrete{\preceq})$
+
 
 For a state $x$, abstraction followed by concretization results
 in a state that's less than $x$.
@@ -89,6 +163,25 @@ This means that *abstraction* followed by *concretization* leads to
 less information than what you started with since
 $(\overbrace{\gamma}^{\textit{abstraction}} \circ
 \underbrace{\alpha}_{\textit{concretization}})(x) \leq_1 x$
+
+#### Composition of Galois Connections
+
+Say $(\alpha_1, \gamma_1)$ and $(\alpha_2, \gamma_2)$ are Galois connections.
+
+Then $(\alpha_1 \circ \alpha_2, \gamma_1 \circ \gamma_2)$ is also a Galois
+connection.
+
+#### Partitioning and Local Invariants
+
+Given a set $S$ of states, properties can also be
+represented via the sets of states on which they
+hold. In other words, $\concrete{P} = \powerset{S}$.
+Given $\concrete{p}$, an asbtraction can be defined
+as $\abstr{p}[c] = \{ \rho \mid \langle c, \rho \rangle \in \concrete{p}\}$
+for all control states ($c \in C$).
+On the other hand the concretization can be defined as $\gamma(\abstr{p}) = \{ \langle c, \rho \rangle \mid \rho \in
+  \abstr{p}[c]\}$ for all $c \in C$.
+
 
 
 Computation of Abstract Semantics
@@ -146,9 +239,5 @@ a lattice
 
  * The abstract lattice simply becomes $\mathcal{P}(\mathbb{Z})$ with $\leq
    \equiv \subseteq$.
-
-
-
-
 
 

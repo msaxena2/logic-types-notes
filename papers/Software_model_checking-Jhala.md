@@ -4,6 +4,7 @@ subtitle: Notes on Model Checking
 author: Ranjit Jhala
 header-includes: |
   \include{commands}
+  \usepackage{stmaryrd}
 ---
 
 
@@ -86,11 +87,52 @@ There are two main ares of research:
 
 2. Compositional approaches involve proving safety on smaller sub
    programs to compose a proof for the main program. Basically
-   corresponds to the Hoare logic composition rule, which say
+   corresponds to the Hoare logic composition rule, which says
 
-   {A1} P1 {G1}     {A2} P2 {G2}        G1 -> A2
-   ---------------------------------------------
-            {A1} P1 ; P2 {G2}
+```
+            {A1} P1 {G1}     {A2} P2 {G2}     G1 -> A2
+            ------------------------------------------
+                        {A1} P1 ; P2 {G2}
+```
+
+
+#### Sytematic State Space Exploration
+
+All non determinism is factored into two sources: input from environment
+and scheduling choices. In contrast to exhaustive exploration, systematic
+exploration proceeds by iterating over the space of all possible schedules
+and simply executing the process under each schedule. The advantage is
+that the need for a formal executable semantics is eliminated.
+Mostly used in conjunction with a test harness. While a regular test
+simply executes the program with some fixed schedule, a systematic
+exploration based tool would execute the program with the same input
+but with all possible schedules. Challeneges include a mechanism
+that's needed to keep track of states, generation of schedules,
+discovering executions where states are the same regardless of schedule.
+
+#### Stateless Search
+
+The key idea behind "stateless search" is to
+not store the set of visited states while performing the search.
+
+
+### Symbolic Concrete Model Checking
+
+Instead of the enumerative approach that relies on
+enumerating concrete states, symbolic model checking
+uses an *abstract data type* symreg to represent states.
+An interpretation function $\llbracket \_ \rrbracket : \text{symreg} \to
+\powerset{v.X}$. The advantage is amplified by advances in constraint solvers.
+
+
+
+
+
+
+
+
+
+
 
 
 

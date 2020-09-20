@@ -2,6 +2,8 @@
 title: Abstract Interpretation
 subtitle: Notes on Abstract Interpretation (POPL'77)
 author: Patric Cousot
+header-includes: |
+  \include{commands}
 ---
 
 
@@ -80,5 +82,17 @@ to `r` (`origin(r) = end(q)`) as `Cv(r) = n-context(r, Cv)` where
         // All next states of previous arc q
 ```
 
+Intuitively, it's easiest to think in terms of context
+vectors being summaries of different points in the program.
+Furthermore, context vectors form a complete lattice
+under a "union" operator that takes the union of
+the contexts for every arc, and an ordering operation
+that says $\cv_1 \leq \cv_2$ iff for every arc $r$, $\cv_1(r) \subseteq
+\cv_2(r)$. Thus, context vectors form a complete lattice,
+and since the function $\Fcont \equiv \lambda r . \nContext(cv, r)$
+is order preserving, it has fixed points (using Tarski's lfp theorem).
+For reference, Tarski's theorem says that for an order preserving (monotone)
+function over a complete lattice, the fixed points also form a complete
+lattice.
 
 

@@ -106,7 +106,3 @@ yields `[]p => [][]p`.
 
  - Logical curcuits modeled via modal logics.
 
-
-
-
-
