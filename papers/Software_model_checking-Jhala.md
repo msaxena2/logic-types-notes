@@ -126,6 +126,50 @@ An interpretation function $\llbracket \_ \rrbracket : \text{symreg} \to
 
 
 
+#### Example: Propositional Logic
+
+Consider finite domains. To simplify, we assume n boolean variables.
+A boolean vector of length n can represent the state space.
+A symbolic state is represented via a function that
+returns true iff the representative vector is in the
+symbolic state. This basically boils down to the Mathching Logic's representation
+of states, where for given concrete state $c$ and symbolic pattern
+$\varphi$, $c$ is in the symbolic state iff $\rho(c) \in \rho(\varphi)$,
+where $\rho$ is the interpretation into the finite domain.
+
+Note that the focus here is on the representation of states. An enumerative
+representation will require $2^n$ states, but a symbolic representation
+requires just $\top$ to represent the set of all states.
+
+#### Example: First Order Logic
+
+In this case we're dealing with programs with infinite domains.
+A symbolic region's representation involves a formula $varhpi$ with free variables
+that correspond to program variables. The interpretation is given $\llbracket
+\varphi \rrbracket = \{s \mid  s \vDash \varphi \}$.
+
+### Invariants and Synthesis
+
+The set of reachable states $R$ is defined as the smallest set closed under the
+Post operation. In other words $\Post(R) \subseteq R$. Safety w.r.t to a label
+$\epsilon$ is guaranteed as long as $\epsilon$ does not appear in $R$.
+Instead of calculating $R$, one could calculate $R'$ such that (1) set of
+initial states is contained in $R'$ and (2) $R'$ is closed under the Post
+operation. If $\epsilon$ doesn't appear in $R'$, then the program is still
+safe, even though the $R'$ may be an over approximation of $R$.
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
