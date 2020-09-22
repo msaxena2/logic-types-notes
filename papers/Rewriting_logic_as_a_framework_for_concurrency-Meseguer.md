@@ -34,3 +34,22 @@ is the set of $E$-equivalent terms.
 A rewrite theory is given by $\mathcal{R} = (\Sigma, E, L, R)$
 where $(\Sigma, E)$ is the signature, $L$ is a set of labels on
 rules and $R$ are axioms (rewrite sequents of the form shown above).
+
+Say $\RTheory \vdash \equivClass{t}{} \to \equivClass{t'}{}$
+iff the statement can be deduced using the following rules -
+
+1) Reflexivity - For any $t \in T_{\Sigma,E}(X)$, $\RTheory \vdash t \to t$.
+
+2) Congruence -
+
+```
+            [a] -> [a'] .... [n] -> [n']
+  ------------------------------------------------
+   [f(a, b, ..., n)] -> [f'(a', b', c', ..., n')]
+
+```
+
+3) transitivity - Omitted as self explanatory
+
+4) Replacement - If a -> a' , b -> b'4) Replacement - If a -> a' , b -> b' then
+f[a/x]  -> f[a'/x] and so on.
