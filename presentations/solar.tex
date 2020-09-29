@@ -1,0 +1,64 @@
+\documentclass{beamer}
+\usetheme{Madrid}
+\setbeamertemplate{page number in head/foot}{}
+
+%Information to be included in the title page:
+\title[]{Summary-Based Symbolic Execution for Smart Contracts}
+\subtitle{Yu Feng, Emina Torlak \& Ratislav Bodik}
+\author{Manasvi Saxena}
+
+\setbeamerfont{caption}{size=\scriptsize}
+\date{}
+\begin{document}
+
+\frame{\titlepage}
+
+\section{Motivation}
+
+\begin{frame}
+  \frametitle{Motivation}
+  \begin{itemize}
+    \item \textit{Smart Contracts} find increasing adoption.
+      Ethereum has ~45M contracts in
+      \textit{finance}, \textit{gaming}, \textit{e-commerce}.
+    \item Code on the blockchain \textit{immutable}. Critical
+      issues cannot be \textit{patched} after deployment.
+    \item Successful attacks have serious consequences:
+      \begin{itemize}
+        \item In 2016 \textit{Reentrace} bug lead to loss of ~\$150M and a hard
+          fork.
+        \item In 2017, \textit{Incorrect Permissions} lead to a loss of ~\$30M
+        \item In 2018, \textit{Overflow} errors caused multiple tokens to shutdown
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Challenges}
+  \begin{itemize}
+    \item Vulnerabilities may be \textit{intra}-contract or
+      \textit{inter}-contract.
+      \begin{itemize}
+        \item Need to analyze both contract and
+          interations with external accounts.
+      \end{itemize}
+    \item Multiple High Level Languages (Solidity, Vyper) compile to a
+      stack based instruction set (EVM)
+      \begin{itemize}
+        \item Rapidly evolving ecosytem makes \textit{platform indepenence}
+          imperative.
+      \end{itemize}
+    \item Widespread adoption requires a balance of
+      \textit{strong guarantees}, \textit{ease of use} and \textit{automation}
+      \begin{itemize}
+        \item Complete verification may be too expensive in
+          some cases. Tool shouldn't require experts in Formal Methods to be
+          effective.
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+
+
+\end{document}
+
