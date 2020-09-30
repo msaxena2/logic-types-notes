@@ -1,9 +1,12 @@
 \documentclass{beamer}
-\usetheme{Madrid}
+\usetheme{Copenhagen}
 \setbeamertemplate{page number in head/foot}{}
+\usepackage{dirtytalk}
+\usepackage{listings}
+\input{solidity_support}
 
 %Information to be included in the title page:
-\title[]{Summary-Based Symbolic Execution for Smart Contracts}
+\title[]{Summary-Based Symbolic Execution for Smart Contracts (ASE'20)}
 \subtitle{Yu Feng, Emina Torlak \& Ratislav Bodik}
 \author{Manasvi Saxena}
 
@@ -13,7 +16,7 @@
 
 \frame{\titlepage}
 
-\section{Motivation}
+\section{Introduction}
 
 \begin{frame}
   \frametitle{Motivation}
@@ -46,19 +49,156 @@
       stack based instruction set (EVM)
       \begin{itemize}
         \item Rapidly evolving ecosytem makes \textit{platform indepenence}
-          imperative.
+          important.
       \end{itemize}
     \item Widespread adoption requires a balance of
       \textit{strong guarantees}, \textit{ease of use} and \textit{automation}
       \begin{itemize}
-        \item Complete verification may be too expensive in
-          some cases. Tool shouldn't require experts in Formal Methods to be
-          effective.
+        \item Verification may not be feasible due to lack of expertise
+      \end{itemize}
+    \item \textit{Configurable} and \textit{scalable} to detect multiple kinds of bugs
+      in non-trivial contracts
+      \begin{itemize}
+        \item Checking for common anti-patterns alongside
+          tests increase confidence in correctness
+        \item Performance should not act as a bottleneck
+          in development cycle.
       \end{itemize}
   \end{itemize}
 \end{frame}
 
 
+\begin{frame}
+  \frametitle{Contributions}
+  \textit{SOLAR} Synthesis tool for adversarial contracts
+  to expose vulnerabilities
+  \begin{itemize}
+    \item Uses \say{Summary-Based Symbolic Execution} for \textit{Scalablity}
+    \begin{itemize}
+      \item Summaries drastically cuts execution instructions
+    \end{itemize}
+    \item Handles \textit{inter-contract} interactions
+    \item Mostly \textit{automated}, though may require intervention
+      in some cases
+    \item Can be configured to detect different classes of vulnerabilities.
+   \item \textit{Platform Independent} as it works over the bytecode
+      instead of HLL like \textit{Solidity}, \textit{Serpent}
+  \end{itemize}
+\end{frame}
+
+\section{Background}
+\subsection{Smart Contracts and EVM}
+\begin{frame}
+  \frametitle{Background}
+  \begin{block}{Smart Contracts}
+    \begin{itemize}
+      \item Program on a blockchain that are executed
+        during transactions.
+      \item Characteristic feature of \say{second generation}
+        ecosystems like Ethereum.
+      \item Typically have associated \textit{persistent storage}
+    and hold \textit{coins}.
+    \end{itemize}
+  \end{block}
+  \pause
+  \begin{block}{Ethereum}
+    \begin{itemize}
+      \item \textit{Ethereum Virtual Machine} Network nodes
+        understand a low level stack based language called \textit{EVM}
+      \item Contracts are written in High Level Languages (HLL) like
+        Solidity and compiled to EVM.
+      \item A \say{call} to a contract's function is a transaction to an
+        account. Function name and arguments are passed via transaction's
+        payload.
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\subsection{Examples}
+\begin{frame}[fragile]
+  \frametitle{Reentrace Vulnerability}
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \begin{lstlisting}[language=solidity, style=transitions]
+      contract Victim {
+        // ...
+        function withdraw(unit a) {
+          if(balances[msg.sender] >= a) {
+            @msg.sender.call.value(a);@
+            balances[msg.sender] -= a;
+          }
+        }
+      }
+      \end{lstlisting}
+    \end{column}
+
+    \begin{column}{0.5\textwidth}
+      \begin{lstlisting}[language=solidity, style=transitions, numbers=none]
+      contract Attacker {
+        Victim v;
+
+        function exploit() {
+          v = Victim(0x123);
+          v.withdraw();
+        }
+
+        function payable() {
+          @v.withdraw(10);@
+        }
+      }
+      \end{lstlisting}
+    \end{column}
+  \end{columns}
+  \begin{itemize}
+    \item<2-> Within \textit{payable}, attacker calls \textit{withdraw}
+      before victim updates persistent storage
+    \item<2-> Trace \textit{transfer,transfer, ..., sstore} observed
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Detection with SOLAR}
+  Inputs to SOLAR - \textit{Attack template} and a \textit{Query}
+
+  \begin{columns}[T]
+    \begin{column}{0.4\textwidth}
+      \center{\scriptsize{\textbf{Attack Template}}}
+      \begin{lstlisting}[language=Solidity, style=transitions, numbers=none]
+      contract Attacker {
+        Victim v;
+
+        function exploit() {
+          v = Victim(0x123);
+          ?? // Hole
+        }
+
+        function payable() {
+          ?? // Hole
+        }
+      }
+      \end{lstlisting}
+    \end{column}
+      \pause
+    \begin{column}{0.6\textwidth}
+      \center{\scriptsize{\textbf{Query}}}
+      \begin{lstlisting}[language=Solar, numbers=none]
+        uses Transfer $t_1$, $t_2$; Store s; Argument a;
+        matches {$t_1$; ~s; $t_2$}
+          where ($t_1$.loc == $t_2$.loc)
+            $\wedge$ ($t_2$.gas > 2300)
+            $\wedge$ (interfere? a $t_2$.reciepient)
+      \end{lstlisting}
+    \end{column}
+  \end{columns}
+  \pause
+  \begin{itemize}
+    \item \scriptsize{SOLAR Synthesizes a \textit{Concrete Attack Program} that
+      satisfies \textit{Query}}.
+    \item \scriptsize{\textit{Holes} in the \textit{Template} replaced with
+      \textit{ABI calls} that satisfy \textit{Query}.}
+\end{itemize}
+\end{frame}
 
 \end{document}
 

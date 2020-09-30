@@ -53,3 +53,5 @@ iff the statement can be deduced using the following rules -
 
 4) Replacement - If a -> a' , b -> b'4) Replacement - If a -> a' , b -> b' then
 f[a/x]  -> f[a'/x] and so on.
+
+
