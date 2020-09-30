@@ -4,6 +4,7 @@
 \usepackage{dirtytalk}
 \usepackage{listings}
 \input{solidity_support}
+\newcommand{\hole}{\textit{choose}}
 
 %Information to be included in the title page:
 \title[]{Summary-Based Symbolic Execution for Smart Contracts (ASE'20)}
@@ -92,12 +93,9 @@
   \frametitle{Background}
   \begin{block}{Smart Contracts}
     \begin{itemize}
-      \item Program on a blockchain that are executed
+      \item Program on second generation blockchains that are executed
         during transactions.
-      \item Characteristic feature of \say{second generation}
-        ecosystems like Ethereum.
-      \item Typically have associated \textit{persistent storage}
-    and hold \textit{coins}.
+      \item Accounts have \textit{persistent storage} and hold \textit{coins}.
     \end{itemize}
   \end{block}
   \pause
@@ -105,11 +103,8 @@
     \begin{itemize}
       \item \textit{Ethereum Virtual Machine} Network nodes
         understand a low level stack based language called \textit{EVM}
-      \item Contracts are written in High Level Languages (HLL) like
-        Solidity and compiled to EVM.
-      \item A \say{call} to a contract's function is a transaction to an
-        account. Function name and arguments are passed via transaction's
-        payload.
+      \item Contracts written in High Level Languages (HLL) and compiled to EVM.
+      \item The \textit{ABI} specifies convention for calling a contract
     \end{itemize}
   \end{block}
 \end{frame}
@@ -119,7 +114,7 @@
   \frametitle{Reentrace Vulnerability}
   \begin{columns}
     \begin{column}{0.5\textwidth}
-      \begin{lstlisting}[language=solidity, style=transitions]
+      \begin{lstlisting}[numbers = none, language=Solidity, style=transitions]
       contract Victim {
         // ...
         function withdraw(unit a) {
@@ -133,7 +128,7 @@
     \end{column}
 
     \begin{column}{0.5\textwidth}
-      \begin{lstlisting}[language=solidity, style=transitions, numbers=none]
+      \begin{lstlisting}[language=Solidity, style=transitions, numbers=none]
       contract Attacker {
         Victim v;
 
@@ -199,6 +194,55 @@
       \textit{ABI calls} that satisfy \textit{Query}.}
 \end{itemize}
 \end{frame}
+\begin{frame}
+  \frametitle{SOLAR Overview}
+  SOLAR's synthesis works as following:
+  \begin{itemize}
+    \item Encode holes as \textit{choose statements} $\hole(\tau_1, \tau_2, \dots, \tau_n)$
+      where $\tau_i$ is a tuple of the name and argument types
+      of a method in the victim.
+    \item The attack program is a sequence of $k$ statements.
+      For $n$ public victim methods, SOLAR considers $n^k$
+      programs.
+    \item Symbolically executes the attack program on a state
+      where victim identifier are bound to \textit{fresh variables}.
+    \item Attempts to find a concrete call statements that satisfy \textit{Query}
+
+  \end{itemize}
+\end{frame}
+\begin{frame}
+  \frametitle{SOLAR Optimizations}
+  SOLAR uses two optimizations:
+      \begin{itemize}
+        \item \textbf{Hoisting}
+        \begin{itemize}
+          \item $\hole(\tau_1, \tau_2)$ is sugar for
+            $\text{if}(b_i) \tau_1 \text{else} \tau_2$,
+            where $b_i$ is bound to a fresh variable.
+          \item SOLAR \textit{hoists} over \textit{choose statements} by
+            enumerating all possible attack programs.
+          \item \textit{Hoisted} programs can be executed concurrently
+      \end{itemize}
+    \item \textbf{Summary Based Execution}
+      \begin{itemize}
+        \item SOLAR calculates \textit{summaries} for victim's
+          methods for symbolic execution
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+
+
+\section{Problem Formalization}
+\subsection{SOLAR Intermediate Representation}
+\begin{frame}
+\begin{itemize}
+  \item EVM is stack-based and low level, making it
+    unsuitable for
+
+\end{itemize}
+\end{frame}
+
 
 \end{document}
 
