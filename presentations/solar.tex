@@ -1,10 +1,13 @@
 \documentclass{beamer}
-\usetheme{Copenhagen}
-\setbeamertemplate{page number in head/foot}{}
+\usetheme{Madrid}
+%\setbeamertemplate{page number in head/foot}{}
 \usepackage{dirtytalk}
 \usepackage{listings}
+\usepackage{graphicx}
 \input{solidity_support}
 \newcommand{\hole}{\textit{choose}}
+\newcommand{\boldIt}[1]{\textbf{\textit{#1}}}
+\graphicspath{{./images/}}
 
 %Information to be included in the title page:
 \title[]{Summary-Based Symbolic Execution for Smart Contracts (ASE'20)}
@@ -194,6 +197,7 @@
       \textit{ABI calls} that satisfy \textit{Query}.}
 \end{itemize}
 \end{frame}
+\subsection{SOLAR Overview}
 \begin{frame}
   \frametitle{SOLAR Overview}
   SOLAR's synthesis works as following:
@@ -232,17 +236,64 @@
 \end{frame}
 
 
-
 \section{Problem Formalization}
-\subsection{SOLAR Intermediate Representation}
+\subsection{SOLAR Language}
 \begin{frame}
-\begin{itemize}
-  \item EVM is stack-based and low level, making it
-    unsuitable for
-
-\end{itemize}
+  \frametitle{SOLAR Intermediate Representation}
+  \begin{columns}[T]
+    \begin{column}{0.5\textwidth}
+      \includegraphics[scale=0.35]{IRGrammar}
+    \end{column}
+    \pause
+    \begin{column}{0.5\textwidth}
+      \begin{itemize}
+      \item SOLAR IR is a superset of EVM
+      \item Adds assignments, functions and symbolic
+        variables
+      \end{itemize}
+    \end{column}
+  \end{columns}
 \end{frame}
 
+\begin{frame}[fragile]
+  \frametitle{SOLAR Query Language}
+  \begin{columns}[T]
+    \begin{column}{0.5\textwidth}
+      \begin{lstlisting}[language=Solar, numbers=none]
+        uses Transfer $t_1$, $t_2$; Store s; Argument a;
+        matches {$t_1$; ~s; $t_2$}
+          where ($t_1$.loc == $t_2$.loc)
+            $\wedge$ ($t_2$.gas > 2300)
+            $\wedge$ (interfere? a $t_2$.reciepient)
+      \end{lstlisting}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \begin{itemize}
+      \item Models the vulnerability in SOLAR.
+      \item \textit{\textbf{uses}} block declared variables
+        that are match against IR statments
+      \item \textit{\textbf{matches}} block specifies pattern
+        to match on in the execution trace
+      \item \textit{\textbf{where}} clause specifies the match
+        condition
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Attack Synthesis}
+  \begin{block}{Attack Components and Program}
+    \begin{itemize}
+      \item $\boldIt{Component}$ $C$ is a pair $(f_i, \tau_i)$.
+      \item $f_i$ is method name with signature $t_i$ in the Victim.
+      \item A $\boldIt{Hole}$ with n-component is a statement of the form
+        $\hole((f_1, \tau_1), (f_2, \tau_2) \dots (f_n, \tau_n))$
+      \item An $\boldIt{Attack Program}$ of size k is a sequence of
+        k-\boldIt{Holes}
+    \end{itemize}
+  \end{block}
+\end{frame}
 
 \end{document}
 
