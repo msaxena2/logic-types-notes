@@ -4,9 +4,11 @@
 \usepackage{dirtytalk}
 \usepackage{listings}
 \usepackage{graphicx}
+\usepackage{stmaryrd}
 \input{solidity_support}
 \newcommand{\hole}{\textit{choose}}
 \newcommand{\boldIt}[1]{\textbf{\textit{#1}}}
+\newcommand{\vect}[1]{\overrightarrow{#1}}
 \graphicspath{{./images/}}
 
 %Information to be included in the title page:
@@ -290,9 +292,52 @@
       \item A $\boldIt{Hole}$ with n-component is a statement of the form
         $\hole((f_1, \tau_1), (f_2, \tau_2) \dots (f_n, \tau_n))$
       \item An $\boldIt{Attack Program}$ of size k is a sequence of
-        k-\boldIt{Holes}
+        k-\boldIt{Holes} of the form $\hole(f_1(\vect{v_{\tau_1}}),
+        f_2(\vect{v_{\tau_2}}), \dots, f_n(\vect{v_{\tau_n}}))$
+      \item $f_i(\vect{v_{\tau_i}})$ corresponds to application of
+        function $f_i$ to a symbolic value of type $\tau_i$.
     \end{itemize}
   \end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Attack Synthesis Formalization}
+  \begin{block}{Attack Synthesis Problem Specification}
+      The \textit{Attack Synthesis Problem} is defined as the
+      tuple $(\Gamma_0, \mathcal{S}, \mathcal{V})$ where:
+      \begin{itemize}
+          \item $\Gamma_0$ is the \boldIt{Symbolic Initial State}
+          \item $\mathcal{S}$ is the \boldIt{Symbolic Attack Program}
+            with \textit{symbolic variables} $\vect{v}$
+          \item $\mathcal{V}$ is a FOL formula over program state
+            $\llbracket \mathcal{S} \rrbracket_{\Gamma_0}$ obtained
+            by symbolic execution of $\mathcal{S}$ on $\Gamma_0$.
+      \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Attack Synthesis Formalization}
+
+  \begin{block}{Attack Synthesis Result}
+
+    Given \textit{Attack Synthesis Problem} $(\Gamma_0, \mathcal{S}, \mathcal{V})$,
+    the result is a \textit{concrete attack program} $P$ such that:
+    \begin{itemize}
+      \item $\Gamma = \llbracket \mathcal{S} \rrbracket_{\Gamma_0}$
+      \item $\Gamma \vDash \mathcal{V}(\llbracket \mathcal{S} \rrbracket)_{\Gamma_0}$
+    \end{itemize}
+  \end{block}
+   \pause
+    To obtain $P$:
+    \begin{itemize}
+      \item An SMT query of the $ \exists \vect{v} .
+          \mathcal{V}(\llbracket \mathcal{S} \rrbracket_{\Gamma_0})$
+          is used to obtain a satifying assignment $\Gamma$.
+        \item $P$ is constructed from $\mathcal{S}$ by replacing
+          symbolic variables in \textit{holes} in $\mathcal{S}$
+          with concrete values from $\Gamma$
+    \end{itemize}
 \end{frame}
 
 \end{document}
