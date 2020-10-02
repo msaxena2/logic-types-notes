@@ -413,6 +413,7 @@
   \includegraphics[scale=0.45]{stepOne}
     \caption{Method in Victim Program}
   \end{figure}
+  \pause
   \begin{figure}
     \centering
   \includegraphics[scale=0.45]{stepTwo}
@@ -428,11 +429,83 @@
   \includegraphics[scale=0.45]{stepTwo}
     \caption{Symbolic execution on $\Gamma_s$}
   \end{figure}
+  \pause
   \begin{figure}
     \centering
   \includegraphics[scale=0.45]{stepThree}
     \caption{Summary Generation via \textit{get-summary}}
   \end{figure}
+\end{frame}
+\section{Summary Interpretation}
+\begin{frame}
+  \frametitle{Recap}
+  \begin{itemize}
+    \item Given \textit{Attack Program Synthesis} specification $(\Gamma_0, \mathcal{V}, \mathcal{S})$,
+      Want to find a \textit{concrete program} $P$ such that:
+      \begin{itemize}
+        \item $\Gamma = \llbracket P \rrbracket_{\Gamma_0}$
+        \item $\Gamma \vDash \mathcal{V}$.
+      \end{itemize}
+      \item Finding such a $P$ requires solving the SMT query $\exists \vect{v} .
+        \mathcal{V}(\llbracket \mathcal{S} \rrbracket_{\Gamma_0})$
+      \item $\mathcal{S}$ is a sequence of $k$-\textit{holes} of the form
+        $\hole(f_1(v_{\tau_1}), f_2(v_{\tau_2}), \dots, f_n(v_{\tau_n}))$
+    \item For each of the components $(f_i, \tau_i)$, SOLAR generated
+      summary $(\overline{f_i}, \tau_i)$.
+    \item Instead of symbolically executing $f_i(v_{\tau_i})$, use
+      $\overline{f_i}(v_{\tau_i})$ via \textit{Summary Interpretation}.
+  \end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+  \frametitle{Summary Interpretation}
+    \begin{center}
+      \begin{tabular}{c}
+  \begin{lstlisting}[language=Racket,mathescape=true]
+  (define (interpret-summary $s@\phi$ $\Gamma$)
+    (define $s_{\Gamma}@\phi_{\Gamma}$ (substitute $s@\phi$ $\Gamma$))
+    (match $s_{\Gamma}$
+      [$\transfer(x_{\Gamma}, y_{\Gamma}, z_{\Gamma})$ (when $\phi_{\Gamma}$ $\textit{transfer}(x_{\Gamma}, y_{\Gamma}, z_{\Gamma})$) ]
+      [$\sstore(x_, y_{\Gamma})$ (when $\phi_{\Gamma}$ $\textit{sstore}(x, y_{\Gamma})$) ]
+      [_ noop]
+    )
+  )
+  \end{lstlisting}
+  \end{tabular}
+    \end{center}
+
+    \begin{itemize}
+      \item Summary $s@\phi$ was generated over symbolic state $\Gamma_{s} = \{ x_1 \mapsto v_1, x_2
+        \mapsto v_2, \dots, x_n \mapsto v_n \}$.
+      \item Line 2 substitutes $v_i$ in $s@\phi$ with corresponding value
+        $\Gamma[x_i]$ to give $s_{\Gamma}@\phi_{\Gamma}$ .
+      \item On Lines 3-5, $s_\Gamma$ is \textit{interpreted} according to the standard
+        semantics if $\phi_{\Gamma}$
+      \item SOLAR only need to interpret state that change \textit{persistent state}.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{SOLAR Algorithm}
+    \begin{center}
+      \begin{tabular}{c}
+  \begin{lstlisting}[language=Racket,mathescape=true,basicstyle=\tiny]
+  (define (solar $\mathcal{V}$ $\Upsilon$ $K$)
+    (define $\mathcal{S}$ (for/list ([i $K$]) (apply choose* $\Upsilon$)))
+    (define $\Gamma_0$ (get-initial-state $\Upsilon$))
+    (define $\llbracket \mathcal{S} \rrbracket_{\Gamma_0}$ (interpret $\mathcal{S}$ $\Gamma_0$ ))
+    (define binding (solve (assert ($\mathcal{V}$ $\llbracket \mathcal{S}
+    \rrbracket_{\Gamma_0}$))))
+    (evaluate program binding))
+  \end{lstlisting}
+  \end{tabular}
+  \end{center}
+  \begin{itemize}
+    \item Line 2 constructs $\mathcal{S}$ as sequence of $K$ choose statements.
+    \item Line 3 constructs $\Gamma_0$, the initial program state.
+    \item Line 4 interprets $\mathcal{S}$ on $\Gamma_0$.
+    \item Line 6 makes a call to the SMT solver to find $\Gamma$ that satisfies
+      $\mathcal{V}$
+  \end{itemize}
 \end{frame}
 
 
