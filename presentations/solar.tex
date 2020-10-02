@@ -4,8 +4,10 @@
 \usepackage{dirtytalk}
 \usepackage{listings}
 \usepackage{graphicx}
+\usepackage{caption}
 \usepackage{stmaryrd}
 \input{solidity_support}
+\captionsetup[figure]{labelformat=empty}
 \newcommand{\hole}{\textit{choose}}
 \newcommand{\boldIt}[1]{\textbf{\textit{#1}}}
 \newcommand{\vect}[1]{\overrightarrow{#1}}
@@ -374,24 +376,54 @@
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Summary Generation in SOLAR}
+  \frametitle{Summary Based Symbolic Execution}
+  \begin{block}{Summary Generation in SOLAR}
+  \begin{itemize}
+    \item Let $\Gamma_s$ be a state with \textit{state variables} bound to
+      \textit{fresh symbolic variables}.
+    \item SOLAR generates summaries in two steps:
+      \begin{itemize}
+        \item \boldIt{Step 1} Symbolic evaluation of every method on $\Gamma_s$
+          to gather \textit{reachability conditions}
+        \item \boldIt{Step 2} Calling \textit{get-summary} on each statement
+          from \boldIt{Step 1}
+      \end{itemize}
+  \end{itemize}
   \begin{center}
-  \begin{lstlisting}[language=Racket, numbers=none]
-  (define (get-summary statement $\phi$)
-    (match statement
+  \begin{tabular}{c}
+  \begin{lstlisting}[language=Racket, numbers=none, basicstyle=\scriptsize]
+  (define (get-summary s $\phi$)
+    (match s
       [transfer(x, y, z)  $\transfer(\Gamma_s[x], \Gamma_s[y], \Gamma_s[z])@\phi$]
       [sstore(x, y)  $\sstore(x, \Gamma_s[y])@\phi$]
       [_    #f]
     )
   )
   \end{lstlisting}
+  \end{tabular}
   \end{center}
-  \begin{itemize}
-    \item $\Gamma_s$ is a state with \textit{state variables} bound to
-      \textit{fresh symbolic variables}
-    \item Summaries are only generated for \textit{persistent storage}
-      modifying states
-  \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Summary Based Symbolic Execution}
+  \framesubtitle{Example - \boldIt{Step 1}}
+  \begin{figure}
+    \centering
+  \includegraphics[scale=0.40]{stepOne}
+    \caption{Method in Victim Program}
+  \end{figure}
+  \begin{figure}
+    \centering
+  \includegraphics[scale=0.40]{stepTwo}
+    \caption{Symbolic execution on $\Gamma_s$}
+  \end{figure}
+  \begin{figure}
+    \centering
+  \includegraphics[scale=0.40]{stepThree}
+    \caption{Summary Generation via \textit{get-summary}
+  \end{figure}
+
 \end{frame}
 
 \end{document}
