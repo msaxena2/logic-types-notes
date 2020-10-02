@@ -508,6 +508,65 @@
   \end{itemize}
 \end{frame}
 
+\begin{frame}[fragile]
+  \frametitle{Parallel Synthesis via Hoisiting}
+  \begin{itemize}
+    \item $\mathcal{S}$ consists of $K$ statements, each of the form
+        $\hole(\tau_1, \tau_2, \dots, \tau_n)$.
+      \item $\hole$ is shorthand for $\textit{if}(b_1)\; \tau_1\;
+        \textit{else}\; \{\; \textit{if}(b_2)\; \dots \}$
+      \item Instead of symbolically executing $\hole$ statements,
+        SOLAR enumerates the $n^K$ candidate programs, and
+        executes them in parallel.
+      \item This \textit{hoists} boolean guards, allowing SOLAR
+        to explore all possible values for guards.
+      \item Leads to significant speed-up.
+        Multiple smaller queries solved concurrently
+  \end{itemize}
+\end{frame}
 
+
+
+\begin{frame}[fragile]
+  \frametitle{Evaluation}
+  \framesubtitle{SOLAR vs Mythril}
+  \begin{figure}
+    \centering
+    \includegraphics[scale=0.25]{evaluationMythril}
+    \caption{SOLAR v/s MYTHRIL}
+  \end{figure}
+  \begin{itemize}
+    \item Mythril generates exploits for Reentrancy.
+    \item On Etherscan dataset, 156 contracts flagged
+      as vulnerable by either SOLAR or Mythril.
+    \item SOLAR \boldIt{FP}/ \boldIt{FN} rates \textbf{7\%}/\textbf{3\%}.
+      \boldIt{Average runtime} \boldIt{8s}.
+    \item Mythril \boldIt{FP}/ \boldIt{FN} rates \textbf{26\%}/\textbf{12\%}.
+      \boldIt{Average runtime} \boldIt{23s}.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Evaluation}
+  \framesubtitle{Summary Based v/s non-Summary Based}
+  \begin{figure}
+    \centering
+    \includegraphics[scale=0.25]{evaluationSummary}
+    \caption{Summary v/s non-Summary}
+  \end{figure}
+  \begin{itemize}
+    \item Each dot is the pairwise running time under
+      \textit{Summary-based} and \textit{non-Summary based}
+      interpretation
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Conclusion}
+  \begin{itemize}
+    \item Effective summary based evaluation
+    \item Configurable as can catch multiple vulnerabilities
+  \end{itemize}
+\end{frame}
 \end{document}
 
