@@ -224,4 +224,40 @@ $\text{Abs}(\psi, \Pi)$ can be calculated recursively with cases:
      (\neg p \wedge \text{Abs}(\neg p \wedge \psi, \Pi'))$ where $\Pi = \Pi'
      \cup \{p\}$
 
+Then, an SMT solver can discharge formulas.
+
+## Abstraction Refinement
+
+Abstraction based model checking is sound, but not complete.
+The problem arises from the case when a property doesn't
+hold in the abstract domain, but is true in the concrete
+domain. Refinement is a way of addressing this issue.
+Counter Example Guided Abstraction Refinement (CEGAR)
+uses conterexamples to refine the domains.
+
+### CEGAR
+
+The input to CEGAR is a path in the CFG (from the original
+abstraction) where the  property doesn't hold.
+A trace-formula is constructed
+from the path, and checked for SAT. If unsat,
+attempt to find the "unsat core" - atomic formulas
+whose conjunction gives unsat.
+Once found, they are added to the set of tracket
+formulas.
+
+To construct the trace formula, variables
+in the trace's constraints are renamed. For example,
+suppose trace is $\langle l_1, (1, \_)\rangle, \langle l_2, (\_, 2)\rangle \dots \langle l_k, (x, y)\rangle$,
+where  $(l_11, x' = x + 1 \wedge y'= y + 2, l_2) \in T$
+then the trace formula would look like
+$x_2 = x_1 + 1 \wedge x_1 = 1 \wedge y_2 = 2 \wedge y_2 = y_1 + 1$.
+The trace formula can be checked for satisfaction, and if unsat,
+then the constraint obtained by dropping suffixes:
+$x' = x + 1 \wedge y' = y + 1$ can be used to refine the abstraction.
+
+
+
+
+
 
