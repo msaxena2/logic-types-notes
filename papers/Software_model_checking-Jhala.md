@@ -7,6 +7,12 @@ header-includes: |
   \usepackage{stmaryrd}
 ---
 
+Synopsis
+--------
+
+The main goal of Software Model Checking is to
+prove properties about program computations.
+
 
 Preliminaries
 -------------
@@ -158,6 +164,25 @@ initial states is contained in $R'$ and (2) $R'$ is closed under the Post
 operation. If $\epsilon$ doesn't appear in $R'$, then the program is still
 safe, even though the $R'$ may be an over approximation of $R$.
 
+
+## Abstraction
+
+Model checking in infinite state reachability analysis, even
+in the case of symbolic states may not terminate.
+Abstraction provides trade-off b/w precision
+and efficiency. Historically, model chekcing has focused
+on precision and static analysis on efficiency.
+
+An abstract domain $(\mathcal{L}, \gamma, \abspre, \abspost)$
+where -
+
+ 1. L is the abstract domain lattice and $\gamma : L \to 2^{v.X}$ is a concretization function
+ 2. $\abspre, \abspost: L \times T \to L$
+ 3. $\forall l, l'$ and $\rho$, $\gamma(\abspost(l), rho) \subseteq \text{Post}(l, rho)$
+
+The lattice element $l$ represents an abstract view of the
+concrete states $\gamma(l)$. Furthermore, we have
+$\gamma(\text{Reach}(l)) \subseteq \text{Reach}^{\sharp}(l)$
 
 
 
