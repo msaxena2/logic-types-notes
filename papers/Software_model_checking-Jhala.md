@@ -5,6 +5,7 @@ author: Ranjit Jhala
 header-includes: |
   \include{commands}
   \usepackage{stmaryrd}
+  \usepackage{graphicx}
 ---
 
 Synopsis
@@ -184,29 +185,43 @@ The lattice element $l$ represents an abstract view of the
 concrete states $\gamma(l)$. Furthermore, we have
 $\gamma(\text{Reach}(l)) \subseteq \text{Reach}^{\sharp}(l)$
 
+The model checking algorithm is essentially the same as the
+enumerative case, with the
+main insight being the use of *abstract* lattice elements instead
+of symbolic regions/concrete values.
+
+Note that since Reach $\subseteq \text{Reach}^{\sharp}$,
+it's always true that if abstract model checking
+returns true, then the concrete program is also true.
+But, if it returns false, it may be the case that the
+actual program may be true since the unsafe
+abstract region might be present in $\text{Reach}^{\sharp}$
+but be outide Reach.
 
 
+## Polyhedral Domains
+
+The abstract domains are n-dimensional polyhedra
+for programs with n-variables.
 
 
+## Predicate Abstraction
 
+The abstract domain is parameterized over
+$\Pi$, a fixed set of predicates, and ordered
+by implication. Given region $\psi$, the goal is to find a
+the smallest (in the implication ordering) region
+that represents $\psi$ using a boolean combination of
+formulas from $\Pi$.
 
+$$ \text{Abs}(\psi, \Pi) = \bigwedge\{\phi \mid \Pi \wedge \psi \implies \phi \}$$
 
+$\text{Abs}(\psi, \Pi)$ can be calculated recursively with cases:
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+ 1. true if $\Pi = \varnothing$ and $\psi$ is SAT
+ 2. false if $\Pi = \varnothing$ and $\psi$ is UNSAT
+ 3. $(p \wedge \text{Abs}(\psi \wedge p, \Pi')) \vee
+     (\neg p \wedge \text{Abs}(\neg p \wedge \psi, \Pi'))$ where $\Pi = \Pi'
+     \cup \{p\}$
 
 
