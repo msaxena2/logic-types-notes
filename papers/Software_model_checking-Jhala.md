@@ -256,6 +256,139 @@ The trace formula can be checked for satisfaction, and if unsat,
 then the constraint obtained by dropping suffixes:
 $x' = x + 1 \wedge y' = y + 1$ can be used to refine the abstraction.
 
+## Procedural Abstraction
+
+Given F, f0, where F is a set of functions and $f0$ is
+the starting function. A procedure $f$ is defined
+as $(L^f, X^f, l_0^f,T^f)$, exactly along the lines
+of regular IMP. The set of instructions is extended
+by including all IMP instructions (intra) and
+adding CALL and RETURN (inter) instructions.
+
+### Model checking with Procedures
+
+Even if the variables are interpreted in finite
+domains, enumerative techniques won't since
+the call stack itself can be infinite. So
+graph based reachability algorithms cannot be used.
+
+### Summaries for Procedures
+
+The key insight to analyzing procedural programs
+is that the behavior of the entire program can be
+summed up using input-outputs of the procedures.
+If all variables have finite domains, the size of summaries,
+or sets of pair of input parameter values and output
+expression values is finite.
+Computing a summary works as follows:
+
+ 1. Recall that for each procedure f,
+    there exists a unique $x_0^f$ in $X^f$,
+    the input parameter for $f$.
+
+ 2. The input state for a procedure where all variables
+    *except* $x_0^f$ are set to 0. The input of a state
+    $s \in v.X^f$ is the input state for $f$ where
+    $x_0^f$ has the value $s(x_0^f)$.
+
+ 3. When call and return statements are encountered,
+    the summary can be used instead of the method.
+
+
+## Concurrency and Recursion
+
+The reachability problem for concurrent IMP+PROC
+is undecidable. This stems from the fact that
+executions of procedural programs are isomorphic to
+Context Free Languages (CFL). To deicde whethere a
+configuration c1,c2 is reachable, the language $L_1 \cup L_2$
+must be non empty, which is known to be undecidable
+
+## Heap Data Structures
+
+Potentially unbounded data structures represent
+a big challenge. The data in these structures
+have potential relations that must be reasoned about.
+Thus, the tool needs to handle generalizations
+over the data to reason about the structure and
+instantiation to reason about the data itself.
+
+The class imp+heap extends imp with an unbounded heap
+with the property
+
+```
+  read(write(memory, index, value), index') = read(memory, index')
+```
+when `index =/= index'`
+
+and
+
+```
+  read(write(memory, index, value), index') = value
+```
+when `index = index'`
+
+
+Approaches to handling heaps:
+
+ 1. Alias analysis: Use pointers to determine whether
+  two objects point to the same heap.
+ 2. Shape analysis is the study of determining whether
+  observed heap values correspond to a class of data
+  structures such as lists, trees, etc.
+
+
+### Separation Logic
+
+Extends classical hoare logic to support reasoning over
+heaps by adding two operators: separating conjunction (`*`)
+and the separating implication (magic wand `-*`).
+For instance an assertion  of the form `A * B` says
+that there is one part of heap that satisfies A while another
+**separate** part that satisfies B.
+
+
+Liveness and Termination
+------------------------
+
+## LTL
+
+Temporal logics like LTL use Buchi automaton to check for
+liveness properties
+
+
+## Termination
+
+Establishing termination can be established using a decreasing ranking function
+on the states. That is a relation > such that for any pair of
+successive states $s_i, s_{i+1}$, $s_i > s_{i+1}$
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
