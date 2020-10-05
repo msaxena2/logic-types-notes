@@ -363,34 +363,3 @@ Establishing termination can be established using a decreasing ranking function
 on the states. That is a relation > such that for any pair of
 successive states $s_i, s_{i+1}$, $s_i > s_{i+1}$
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
