@@ -178,6 +178,16 @@ $$\text{COMPLETE}(T, C) =
   \left(\left(\forall c \in C \exists t \in T . c(t)\right) \wedge \left(\forall t \in T  \exists c \in C . c(t)\right)\right)$$
 
 
+Thus, one can come up with a natural partitioning of
+the test cases as follows:
+
+Let $C'\subseteq C$, then one can come up with an equivalence class
+for a clause $C'$ as
+$$E(C')  = \{ d \in D \mid (\forall c \in C' c(d))  \wedge (\forall c' \in C - C'
+\neg c(d))\}$$
+
+
+
 
 
 
