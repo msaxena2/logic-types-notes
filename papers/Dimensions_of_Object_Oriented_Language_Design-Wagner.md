@@ -46,8 +46,31 @@ A class is a template (like a cookie cutter) for creating new objects.
 A mechanism for sharing resources among classes.
 
 
+Note that the class of *Object Oriented (OO)* languages is
+stricter than class of *object based (OB)* languages. That is,
+a OO language is an OB language, but not vice versa.
 
 
+### Classical Language
+
+An OB language is classical or Class Based (CB) if every object has a class.
+
+ - CB languages are a subset of OB languages.
+ - OO languages are a subset of CB languages.
+
+
+Data Abstraction and Strong Typing
+----------------------------------
+
+**Data Abstraction** is an object whose state is
+only visible through operation.
+
+**Strong Typing** A language is strongly typed
+if type compatability of all expressions can be
+determined at compile time.
+
+The class of **Strong Typed Object Oriented Languages (STOO)** is
+narrower than **OO**. Note *STOO requires support for abstraction*.
 
 
 
