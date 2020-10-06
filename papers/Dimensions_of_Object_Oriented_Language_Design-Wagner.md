@@ -217,5 +217,53 @@ Example:
   bar.two; // cat
 ```
 
+Object Based Concurrency
+------------------------
 
+*Process based languages* are object
+based languages that support concurrent
+execution of objects called processes.
+
+Object based languages are constrained to only allow
+sequential execution of objects.
+
+
+A **Thread** is an object with a
+thread control block - locus of control and stack
+that represent's the thread's state.
+
+Processes can be:
+
+ - Sequential - single thread of control
+ - Quasi-concurrent - At most one active thread of control
+ - Concurrent - Mutiple active threads of control
+
+
+Persistent Languages
+--------------------
+
+Object based languages with persistency
+and concurrency can serve as persistent
+languages.
+
+Conclusion
+----------
+
+Thus in total, 6 orthogonal dimensions are recognized
+in Objected Oriented Language design. They are:
+ 1. Objects
+ 2. Types
+ 3. Delegation
+ 4. Abstration
+ 5. Concurrency
+ 6. Persistence
+
+
+Based on these, one can come with different classes:
+
+ 1. Object based have entities with state
+ 2. Object Oriented have classes, abstract and inheritence (delegation).
+ 3. Classless with delegation - Prototypes
+ 4. Classless Object based with delegation and concurrent - actors
+ 5. Classless Object based with concurrency and persistency - databases
 
