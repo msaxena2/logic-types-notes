@@ -71,7 +71,151 @@ determined at compile time.
 
 The class of **Strong Typed Object Oriented Languages (STOO)** is
 narrower than **OO**. Note *STOO requires support for abstraction*.
+Although, both strong typing and abstraction are related concepts
+that promote modularity, it is possible for an OO language to
+be strongly typed but not support data abstraction.
 
+The accepted notion is that *Strongly Typed Object Oriented Languages*
+should be the norm of
+
+
+Consistency and Orthogonality
+-----------------------------
+
+A collection of language features is said
+to be **consistent** if there exists a model
+of a language that realizes them. In other
+words, if the features can coexist in a
+language, then they're consistent.
+The five features of STOO
+(objects, classes, inheritence, abstraction, strong typing)
+languages are consistent (shown by multiple languages).
+
+For a collection of language features is said
+to be **orthogonal** if for every subset,
+there is a language that contains the subset
+features but not features in the complementary
+subset
+
+Inheritence
+-----------
+
+The paper makes an attempt to orthogonalize
+inheritence from classes and objects. That is,
+inheritence is a special case of delegation,
+which is orthogonal to objects and classes.
+This is
+obtained via a concept called *delegation*
+
+Delegation
+----------
+
+Allows *the delegation* of performing of an
+operation to an ancestor. A key feature
+here is that the self reference in the
+ancestor object is dynamically set to the
+delegating object. This dynamic binding
+of the self reference in the ancestor to
+the delegator makes the ancestor share
+identity with the delegator, which is
+key feature of inheritence.
+
+*Delegation* is a form of resource sharing
+that allows shared resources to be viewed
+as belonging to the entity on behalf of which
+they are executed. Inheritence is a special
+case of delegation thus are considered in the
+same dimension as delegation.
+
+
+Abstration
+----------
+
+Abstraction is a mechanism by which
+an interface for an entity dictates accesses
+to the entity by other entities.
+
+
+**Four orthogonal (independent) dimensions of strongly
+typed OO languages**:
+
+ 1. Objects
+ 2. Abstraction
+ 3. Delegation
+ 4. Types
+
+In other words, it's possible to have languages
+that contain any subset of the above (and none from
+the complement). But those languages are not *OO*.
+
+
+Design Alternatives for Delegation
+----------------------------------
+
+ 1. classless delegation v/s inheritence:
+    Deligation in an instance heirarchy (like decorators)
+    in classless delegation v/s delegation via class hierarchy
+    in inheritence
+
+ 2. Stict v/s Non strict:
+    Behavioral compatiblity with ancestors enforced v/s not enforced.
+    In strict, the realtion is "is-a" while in Non strict it's
+    "like"
+
+ 3. Single v/s Multiple
+    There is no concensus here - some languages support one or the other
+    or a mixture.
+
+ 4. Abstract Interface vs Code Sharing
+
+
+Interesting combinations of Orthogonal Features
+-----------------------------------------------
+
+### Classless object-based languages without delegation
+
+#### Actors
+
+**Actor = Objects + Abstraction + Concurrency - Classes - Inheritence - Typing**
+
+Actors are objects with an address and a behavior.
+The address has a unbounded buffer for storing linear
+sequence of messages (communications). The actor is
+defined in terms of responses to communications.
+
+An actor's state is independent of its successors.
+It can designate a successor (same address) as
+as a parent to process an incoming communication
+to the actor.
+
+### Classless object-based languages with delegation
+
+#### Prototypes
+
+A *prototype* is both an object and a template.
+Other objects may delegate responsibility to
+the prototype, and it will provide some default
+implementation of intended functionality.
+
+An example is Javascript, where instead of classes,
+one can directly create objects that serve as prototypes
+of other objects. This allows for delegation (obviously
+not via inheritence)
+
+Example:
+
+```.js
+
+  var foo = {one: 1};
+
+  // Sets prototype of bar as foo
+  var bar = Object.create(foo);
+  bar.two = "cat";
+
+
+  bar.one; // 1
+  bar.two; // cat
+```
 
 
 
