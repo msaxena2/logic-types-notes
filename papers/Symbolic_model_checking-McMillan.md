@@ -5,6 +5,10 @@ header-includes: |
   \include{commands}
 ---
 
+
+
+
+
 Boolean Representation
 ----------------------
 
@@ -74,6 +78,24 @@ $$ \exists \bar{v}, \bar{v}' . R(\bar{v}, \bar{v}') \wedge p(\bar{v}')$$
 Note that $p(\bar{v}')$ ensures that variables $v$ in $\lambda \bar{v} . p$
 are properly substituted. The existential quantification outside
 still allows reasoning via SMT.
+
+Conclusion
+----------
+
+The main idea is -
+
+ 1. Given $\mathcal{S}$, the set of symbolic variables, it's
+    possible to represent a predicate via a characteristic
+    formula of the form
+
+    $p = \lambda v_1, v_2, \dots, v_n . p$
+
+    where p is a set of subsets of $\mathcal{S}$.
+
+  2. This allows for quantification like -
+     $$\exists v_1, v_2, \dots v_n f = \bigvee_{\bar{\alpha} \in \{T,
+     F\}^n}(\lambda v_1, v_2, \dots, v_n f)(\bar{\alpha})$$
+
 
 
 
