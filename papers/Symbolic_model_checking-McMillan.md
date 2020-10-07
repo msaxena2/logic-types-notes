@@ -67,8 +67,13 @@ along it p eventuall holds. Or, it identifies the set of
 states $v_1, \dots, \dots, v_n$ such that there exists
 a state $(v_1', \dots, v_n')$ in $R((v_1, \dots, v_n), (v_1', \dots, v_n'))$
 such that $(v_1', \dots, v_n') \in p$
+This can be represented as:
 
+$$ \exists \bar{v}, \bar{v}' . R(\bar{v}, \bar{v}') \wedge p(\bar{v}')$$
 
+Note that $p(\bar{v}')$ ensures that variables $v$ in $\lambda \bar{v} . p$
+are properly substituted. The existential quantification outside
+still allows reasoning via SMT.
 
 
 
