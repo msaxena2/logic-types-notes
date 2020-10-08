@@ -96,6 +96,16 @@ The main idea is -
      $$\exists v_1, v_2, \dots v_n f = \bigvee_{\bar{\alpha} \in \{T,
      F\}^n}(\lambda v_1, v_2, \dots, v_n f)(\bar{\alpha})$$
 
+  3. Since transition relations R can be encoded as
+      $\lambda (\bar{v},\bar{v}') . R(v, v')$, a formula
+      of the sort EXp becomes $\exists v, v' . R(v, v') \wedge p(v')$
+      and as $p = \lambda v.p$ we simply get $p[v'/v]$
+
+  4. Representing the transistion relation $R$ as
+     naively as a truth table is very expensive. Thus,
+     an OBDD (Ordered Binary Decision Diagram) can be used
+     to optimize the representation and solve the SAT query.
+
 
 
 

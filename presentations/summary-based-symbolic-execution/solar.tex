@@ -2,10 +2,17 @@
 \usetheme{Madrid}
 %\setbeamertemplate{page number in head/foot}{}
 \usepackage{dirtytalk}
+\usepackage{lmodern}
 \usepackage{listings}
+\usepackage{mathtools}
 \usepackage{graphicx}
 \usepackage{caption}
 \usepackage{stmaryrd}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usepackage{forest}
+\usetikzlibrary{shapes.geometric, arrows}
+\usetikzlibrary{positioning}
 \input{solidity_support}
 \captionsetup[figure]{labelformat=empty}
 \newcommand{\hole}{\textit{choose}}
@@ -98,6 +105,16 @@
 \end{frame}
 
 \section{Background}
+\subsection{Blockchains}
+\begin{frame}[fragile]
+    \frametitle{Blockchains}
+  \begin{figure}
+    \centering
+    \begin{tikzpicture}[shorten >=1pt,on grid, node distance=2.0cm, draw=black!80, auto]
+      \input{blockchain}
+    \end{tikzpicture}
+  \end{figure}
+\end{frame}
 \subsection{Smart Contracts and EVM}
 \begin{frame}
   \frametitle{Background}
