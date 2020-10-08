@@ -1,0 +1,76 @@
+\tikzstyle{block} = [rectangle, draw=black, text width=5em,  minimum height=10em]
+\tikzstyle{account} = [rectangle, draw=black, dashed, text width=5em]
+\tikzset{line/.style={draw, thick, -latex'}}
+
+
+  \node[block] (b1) {%
+  \tiny
+    ... \\
+    ... \\
+    ... \\
+    ... \\
+    Alice $\xrightarrow{\textit{c}_1}$ Roofing  \\
+    ... \\
+    ... \\
+    ... \\
+    ... \\
+  };
+  \node[account] (a1) [left of = b1] {%
+    \tiny
+    Alice $\mapsto$ 50 \\
+    Bob $\mapsto$ 50 \\
+    {\color{orange}\textit{Roofing}}: { \\
+    \begin{lstlisting}[language=account, gobble=6]
+      balance:50
+      storage: {
+        done: false
+      }
+      code: // EVM
+    \end{lstlisting}
+    }
+   };
+
+  \node[account] (a2) [right of = b1] {%
+    \tiny
+    Alice $\mapsto$ 50 \\
+    Bob $\mapsto$ 50 \\
+    {\color{orange}\textit{Roofing}}: { \\
+    \begin{lstlisting}[language=account, gobble=6]
+      balance:50
+      storage: {
+        done: $\color{orange}\text{true}$
+      }
+      code: // EVM
+    \end{lstlisting}
+    }
+   };
+
+  \node[block] (b2) [right of = a2] {%
+  \tiny
+    ... \\
+    ... \\
+    ... \\
+    ... \\
+    Bob $\xrightarrow{\textit{c}_2}$ Roofing \\
+    ... \\
+    ... \\
+    ... \\
+    ... \\
+   };
+  \node[account] (a3) [right of = b2] {%
+    \tiny
+    Alice $\mapsto$ 50 \\
+    Bob $\mapsto$ {\color{green}100} \\
+    {\color{orange}\textit{Roofing}}: { \\
+    \begin{lstlisting}[language=account, gobble=6]
+      balance:$\color{red}0$
+      storage: {
+        done: true
+      }
+      code: // EVM
+    \end{lstlisting}
+    }
+   };
+
+  \draw[->, transform canvas={yshift=-1.5cm}] (b1) -- (b2) ;
+  %\path[line] (b2) -- (b3);

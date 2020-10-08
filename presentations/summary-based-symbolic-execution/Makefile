@@ -1,6 +1,6 @@
 all : open
 
-%.pdf : %.tex
+solar.pdf : solar.tex blockchain.tex contract.tex solidity_support.tex
 	pdflatex $<
 
 open : *.pdf
