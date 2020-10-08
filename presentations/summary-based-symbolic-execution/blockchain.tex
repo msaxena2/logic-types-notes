@@ -1,0 +1,42 @@
+\tikzstyle{block} = [rectangle, draw=black, text width=4em,  minimum height=4em]
+\tikzstyle{account} = [rectangle, draw=black, dashed, text width=4em, text centered]
+\tikzstyle{arrow} = [thick,->,>=stealth]
+
+\tikzstyle{line} = [draw, -latex']
+
+  \node[block] (b1)   {%
+  \tiny
+    ... \\
+    Alice $\xrightarrow{50}$ Bob \\
+    ... \\
+  };
+  \node[account] (a1) [left of = b1] {%
+  \tiny
+    Alice $\mapsto$ 100 \\
+    Bob $\mapsto$ 50 \\
+    Eve $\mapsto$ 10 \\
+   };
+
+  \node[account] (a2) [right of = b1] {%
+  \tiny
+    Alice $\mapsto$ {\color{red}50} \\
+    Bob $\mapsto$ {\color{green}100} \\
+    Eve $\mapsto$ 10 \\
+   };
+
+
+  \node[block] (b2) [right of = a2] {%
+  \tiny
+    ... \\
+    Bob $\xrightarrow{20}$ Eve \\
+    ... \\
+   };
+  \node[account] (a3) [right of = b2] {%
+  \tiny
+    Alice $\mapsto$ 50 \\
+    Bob $\mapsto$ {\color{red}80} \\
+    Eve $\mapsto$ {\color{green}30} \\
+   };
+
+  \draw[->, transform canvas={yshift=-0.5cm}] (b1) -- (b2) ;
+  %\path[line] (b2) -- (b3);
