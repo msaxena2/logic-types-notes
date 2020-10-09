@@ -115,11 +115,10 @@
     \end{tikzpicture}
   \end{figure}
   \begin{itemize}
-    \item A \textit{distributed ledger} of transactions
-    \item \textit{Global state} at any point is mapping of addresses to
-      balances.
-    \item Alice to send money to Bob, who subseqently sends it to Eve.
-      All transactions happen without a central "Bank" entity.
+    \item A sequence of blocks, each containing a sequence of transactions
+      between accounts.
+    \item Alice, Bob and Eve can transact money without a centalized
+      banking entity.
   \end{itemize}
 \end{frame}
 
@@ -133,27 +132,27 @@
     \end{tikzpicture}
   \end{figure}
   \begin{itemize}
-    \item A \textit{distributed ledger} of transactions
-    \item \textit{Global state} at any point is mapping of addresses to
-      balances.
+    \item \textit{Smart Contracts} are programs on the blockchain executed
+      during transactions.
+    \item Contract accounts are special - contain code and storage.
+    \item $\textit{c}_1$ is a transaction that call's \textit{Roofing}'s
+      \textit{completed} function.
+    \item $\textit{c}_2$ is a transaction that transfer's money from \textit{Roofing}'s
+      account to Bob's.
   \end{itemize}
 \end{frame}
 \begin{frame}
   \frametitle{Background}
-  \begin{block}{Smart Contracts}
-    \begin{itemize}
-      \item Program on second generation blockchains that are executed
-        during transactions.
-      \item Accounts have \textit{persistent storage} and hold \textit{coins}.
-    \end{itemize}
-  \end{block}
-  \pause
   \begin{block}{Ethereum}
     \begin{itemize}
+      \item Second generation blockchain supporting Smart Contracts
       \item \textit{Ethereum Virtual Machine} Network nodes
         understand a low level stack based language called \textit{EVM}
       \item Contracts written in High Level Languages (HLL) and compiled to EVM.
       \item The \textit{ABI} specifies convention for calling a contract
+      \item EVM has persistent storage and code of contracts as
+        part of global state.
+      \item Transactions change global state
     \end{itemize}
   \end{block}
 \end{frame}
