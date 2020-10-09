@@ -1,5 +1,6 @@
 \documentclass{beamer}
 \usetheme{Madrid}
+%\usecolortheme{seagull}
 %\setbeamertemplate{page number in head/foot}{}
 \usepackage{dirtytalk}
 \usepackage{lmodern}
@@ -182,7 +183,7 @@
 
         function exploit() {
           v = Victim(0x123);
-          v.withdraw();
+          @v.withdraw(1);@
         }
 
         function payable() {
@@ -240,6 +241,8 @@
       satisfies \textit{Query}}.
     \item \scriptsize{\textit{Holes} in the \textit{Template} replaced with
       \textit{ABI calls} that satisfy \textit{Query}.}
+    \item \text{interfere?} v E $\equiv$  $\exists v_0, v_1 . (v_0 \neq
+      v_1) \wedge E[v_0 / v] \neq E[v_1 /v]$
 \end{itemize}
 \end{frame}
 \subsection{SOLAR Overview}
@@ -282,23 +285,7 @@
 
 
 \section{Problem Formalization}
-\subsection{SOLAR Language}
-\begin{frame}
-  \frametitle{SOLAR Intermediate Representation}
-  \begin{columns}[T]
-    \begin{column}{0.5\textwidth}
-      \includegraphics[scale=0.35]{IRGrammar}
-    \end{column}
-    \pause
-    \begin{column}{0.5\textwidth}
-      \begin{itemize}
-      \item SOLAR IR is a superset of EVM
-      \item Adds assignments, functions and symbolic
-        variables
-      \end{itemize}
-    \end{column}
-  \end{columns}
-\end{frame}
+\subsection{Query Language}
 
 \begin{frame}[fragile]
   \frametitle{SOLAR Query Language}
@@ -326,12 +313,31 @@
   \end{columns}
 \end{frame}
 
+\subsection{Intermediate Representation}
+\begin{frame}
+  \frametitle{SOLAR Intermediate Representation}
+  \begin{columns}[T]
+    \begin{column}{0.5\textwidth}
+      \includegraphics[scale=0.35]{IRGrammar}
+    \end{column}
+    \pause
+    \begin{column}{0.5\textwidth}
+      \begin{itemize}
+      \item SOLAR IR is a superset of EVM
+      \item Adds assignments, functions and symbolic
+        variables
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+
 \begin{frame}[fragile]
   \frametitle{Attack Synthesis}
   \begin{block}{Attack Components and Program}
     \begin{itemize}
       \item $\boldIt{Component}$ $C$ is a pair $(f_i, \tau_i)$.
-      \item $f_i$ is method name with signature $t_i$ in the Victim.
+      \item $f_i$ is method name with signature $\tau_i$ in the Victim.
       \item A $\boldIt{Hole}$ with n-component is a statement of the form
         $\hole((f_1, \tau_1), (f_2, \tau_2) \dots (f_n, \tau_n))$
       \item An $\boldIt{Attack Program}$ of size k is a sequence of
@@ -347,12 +353,11 @@
   \frametitle{Attack Synthesis Formalization}
   \begin{block}{Attack Synthesis Problem Specification}
       The \textit{Attack Synthesis Problem} is defined as the
-      tuple $(\Gamma_0, \mathcal{S}, \mathcal{V})$ where:
+      tuple $(\Gamma_0, \mathcal{V}, \mathcal{S})$ where:
       \begin{itemize}
-          \item $\Gamma_0$ is the \boldIt{Symbolic Initial State}
-          \item $\mathcal{S}$ is the \boldIt{Symbolic Attack Program}
-            with \textit{symbolic variables} $\vect{v}$
+          \item $\Gamma_0$ is the \boldIt{Initial State}
           \item $\mathcal{V}$ is a FOL formula over program state
+          \item $\mathcal{S}$ is the \boldIt{Symbolic Attack Program}
             $\llbracket \mathcal{S} \rrbracket_{\Gamma_0}$ obtained
             by symbolic execution of $\mathcal{S}$ on $\Gamma_0$.
       \end{itemize}
@@ -364,11 +369,11 @@
 
   \begin{block}{Attack Synthesis Result}
 
-    Given \textit{Attack Synthesis Problem} $(\Gamma_0, \mathcal{S}, \mathcal{V})$,
+    Given \textit{Attack Synthesis Problem} $(\Gamma_0, \mathcal{V},  \mathcal{S})$,
     the result is a \textit{concrete attack program} $P$ such that:
     \begin{itemize}
       \item $\Gamma = \llbracket \mathcal{S} \rrbracket_{\Gamma_0}$
-      \item $\Gamma \vDash \mathcal{V}(\llbracket \mathcal{S} \rrbracket)_{\Gamma_0}$
+      \item $\Gamma \vDash \mathcal{V}$
     \end{itemize}
   \end{block}
    \pause
@@ -398,6 +403,8 @@
         \item Generate summaries - \textit{path conditions} and
           \textit{symbolic inputs} that capture every possible
           way to reach and execute each instruction.
+        \item \textit{Summarizes} the side effect
+          of executing the statement w.r.t. $\Gamma_s$
        \end{itemize}
       \end{itemize}
 \end{frame}
@@ -575,7 +582,7 @@
   \end{figure}
   \begin{itemize}
     \item Mythril generates exploits for Reentrancy.
-    \item On Etherscan dataset, 156 contracts flagged
+    \item On Etherscan (25983) dataset, 156 contracts flagged
       as vulnerable by either SOLAR or Mythril.
     \item SOLAR \boldIt{FP}/ \boldIt{FN} rates \textbf{7\%}/\textbf{3\%}.
       \boldIt{Average runtime} \boldIt{8s}.
@@ -583,6 +590,21 @@
       \boldIt{Average runtime} \boldIt{23s}.
   \end{itemize}
 \end{frame}
+
+%\begin{frame}[fragile]
+%  \frametitle{Evaluation}
+%  \framesubtitle{SOLAR vs Mythril}
+%  \begin{figure}
+%    \centering
+%    \includegraphics[scale=0.45]{evaluationContractFuzzer}
+%    \caption{SOLAR v/s MYTHRIL}
+%  \end{figure}
+%  \begin{itemize}
+%    \item On Contract Fuzzer's artifact (33) dataset + 67 random contracts
+%      from etherscan with known vulnerabilities.
+%    \item Too slow to run on complete Etherscan. On average ~10 minutes per contract
+%  \end{itemize}
+%\end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Evaluation}
@@ -598,12 +620,25 @@
       interpretation
   \end{itemize}
 \end{frame}
+\begin{frame}[fragile]
+  \frametitle{Evaluation}
+  \framesubtitle{Summary Based v/s non-Summary Based}
+  \begin{itemize}
+    \item Interestingly, for 548 benchmarks summary based only
+      summary based timed out.
+    \item Asked the first author. Edge case when
+      calculating summaries takes longer than executing
+  \end{itemize}
+\end{frame}
 
 \begin{frame}
   \frametitle{Conclusion}
   \begin{itemize}
     \item Effective summary based evaluation
     \item Configurable as can catch multiple vulnerabilities
+    \item Compares vefy well against other tools
+    \item Is language independent
+    \item Based on formal semantics
   \end{itemize}
 \end{frame}
 \end{document}
