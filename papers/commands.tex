@@ -47,3 +47,25 @@
 
 \newcommand{\SortBool}{\textit{Bool}}
 \newcommand{\characteristic}[1]{\llbracket #1 \rrbracket}
+
+% Semantics and Pragmatics of Real Time Maude (Olveczky)
+\newcommand{\TIME}{\text{TIME}}
+\newcommand{\Time}{\textit{Time}}
+\newcommand{\State}{\textit{State}}
+\newcommand{\System}{\textit{System}}
+
+\providecommand{\dotdiv}{% Don't redefine it if available
+  \mathbin{% We want a binary operation
+    \vphantom{+}% The same height as a plus or minus
+    \text{% Change size in sub/superscripts
+      \mathsurround=0pt % To be on the safe side
+      \ooalign{% Superimpose the two symbols
+        \noalign{\kern-.35ex}% but the dot is raised a bit
+        \hidewidth$\smash{\cdot}$\hidewidth\cr % Dot
+        \noalign{\kern.35ex}% Backup for vertical alignment
+        $-$\cr % Minus
+      }%
+    }%
+  }%
+}
+
