@@ -1,13 +1,13 @@
 ---
-title: Abstract Interpretation
-subtitle: Higher Order and Symbolic Computation
+title: Semantics and Pragmatics of Real-Time Maude
 author: Peter Olveczky and Jose Meseguer
+numbersections: true
 header-includes: |
   \include{commands}
 ---
 
 Real Time Maude
----------------
+===============
 
 Real-time Maude is an extension to full maude with support for modeling timed systems.
 
@@ -33,9 +33,9 @@ Given an equational theory $\mathcal{R} = \left( \Sigma, E, \varphi, R \right)$,
       $\tau_l$ denotes the duration of rewrite, called a tick rule, and may
       contain variables outside $t$, $t'$.
   \end{itemize}
-\end{definition}
 
-## Specifying Systems in Real-Time Maude
+Specifying Systems in Real-Time Maude
+--------------------------------------
 Modules in Real-Time Maude are called timed modules and specified as
 `tmod .. endtm` or `tomod .. endtom`.
 The theory $\TIME$ is implicitly implemented in Real-Time Maude by
