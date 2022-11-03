@@ -32,7 +32,7 @@ Given an equational theory $\mathcal{R} = \left( \Sigma, E, \varphi, R \right)$,
     $\tau_l$ denotes the duration of rewrite, called a tick rule, and may
     contain variables outside $t$, $t'$.
 
-Specifying systems in real-time maude
+Specifying systems in Real-Time Maude
 --------------------------------------
 
 Modules in Real-Time Maude are called timed modules and specified as
@@ -57,8 +57,8 @@ user, but does provide a `NAT-TIME-DOMAIN` module that defines the domain to be
 natural numbers. For dense time, another `POSRAT-TIME-DOMAIN` is provided that
 models time as non-negative rationals.
 
-Tick Rules
-----------
+### Tick Rules
+
 Tick rules operate over terms of sort $\textit{System}$, and signifying the passage of
 time when the rule application takes place.
 
@@ -74,3 +74,72 @@ $u$ should occur in $t$ or be instantied in $\psi$, denoting the maximum amount
 of time in one tick step. Tick rules where the duration contain a variable that
 does not occur on the left hand side and is not initialized by mathcing
 equations are called *time-nondeterministic*.
+
+Real-Time Maude assumes application of a tick rule in which time advances by 0
+does not change the state. A rule is said to be *admissible* if:
+
+ - Its zero-time tick rules doesn't change the state.
+ - Is either *time-deterministic* or *time-nondeterministic* with any of the
+   above forms.
+
+The execution of *admissible* tick rules is supported in Real-Time Maude. However
+*admissible time-nondeterministic* rules isn't supported directly by Maude,
+since the duration variable can be instantiated in many ways. Thus these rules
+are tagged with the attribute `[nonexec]`. Real-Time Maude provides sampling
+strategies for the execution of these rules.
+
+### Defining Initial States
+
+Real-Time Maude allows operators of sort `GlobalState` to initialize state.
+These operators must reduce to a term of form `{t}`.
+
+Specifying Systems in Real-Time Maude
+=====================================
+
+Usually, such systems specify these operators:
+
+ - `delta: Configuration TimeConfiguration` to
+   model the passage of time on the system configuration.
+ - `mte: ConfigurationTimeInf` for the *maximum
+   time elapse* from a configuration.
+
+The following functions distribute over the configuration:
+
+```
+  vars NeC, NeC': NeConfiguration .
+  var R : Time .
+  eq delta(none, R) = none .
+  eq delta(NeC NeC, R) = delta(NeC, R) delta(NeC', R) .
+
+  eq mte(none) = Inf .
+  eq mte(NeC NeC') = min(mte(NeC) mte(NeC')) .
+```
+
+Followed by the tick rule:
+
+```
+  crl [tick]:
+    { SYS:Configuration } => { delta(SYS:Configuration , R:Time) }
+    in time R:Time if R:Time le mte( SYS:Configuration ) .
+```
+
+
+### Formal Analysis in Real-Time Maude
+
+Real-Time Maude translated Timed Modules in untimed modules.
+However, there exist situations not handled in untimed maude:
+
+ - Control of duration of computation, instead of number of rewrites.
+ - Direct execution of time-nondeterministic rules.
+ - Search with time bounds - Can the system reach a state in some time?
+ - Reducing infinite state to finite state model checking by bounding on time.
+
+#### Time Sampling Strategies
+
+For dense time, Real-Time Maude allows one to set strategies to dictate how
+a *time-nondeterminisitic* rule application will advance time. For example `(
+set tick def r ) . ` tries to advance time by `r` units.
+
+
+
+
