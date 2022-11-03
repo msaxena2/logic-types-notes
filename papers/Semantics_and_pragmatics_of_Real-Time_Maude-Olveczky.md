@@ -18,8 +18,7 @@ Real-time Maude is an extension to full maude with support for modeling timed sy
 
 ### Timed Rewrite Theory
 Given an equational theory $\mathcal{R} = \left( \Sigma, E, \varphi, R \right)$, a
-  real time rewrite theory $\mathcal{R}_{\phi, \tau}$ is a tuple
-  $\left(\mathcal{R}, \phi, \tau \right)$, where
+  real time rewrite theory $\mathcal{R}_{\phi, \tau}$ is a tuple $\left(\mathcal{R}, \phi, \tau \right)$, where
 
  - $\phi: \text{TIME} \to (\Sigma, E)$ is an equational theory
     morphism for the theory $\text{TIME}$ to the underlying theory $\mathcal{R}$,
@@ -28,13 +27,14 @@ Given an equational theory $\mathcal{R} = \left( \Sigma, E, \varphi, R \right)$,
     a system state to the global top-level state. The sort $\textit{System}$ has no
     subsorts.
  - $\tau$ is an assignment $\tau_l$ of sort $\phi(\textit{Time})$ to every rewrite rule
-    of the form $ l: \{t\}  \rightarrow \{t'\}\ \text{if}\ \psi$. This is
+    of the form $l: \{t\}  \rightarrow \{t'\}\ \text{if}\ \psi$. This is
     abbreviated as $l: \{t\} \xrightarrow{\tau_l} \{t'\}\ \text{if}\ \psi$.
     $\tau_l$ denotes the duration of rewrite, called a tick rule, and may
     contain variables outside $t$, $t'$.
 
 Specifying systems in real-time maude
 --------------------------------------
+
 Modules in Real-Time Maude are called timed modules and specified as
 `tmod .. endtm` or `tomod .. endtom`.
 Real-time Maude provides a functional module `TIME` with a sort `Time` as
