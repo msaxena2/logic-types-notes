@@ -138,8 +138,11 @@ However, there exist situations not handled in untimed maude:
 
 For dense time, Real-Time Maude allows one to set strategies to dictate how
 a *time-nondeterminisitic* rule application will advance time. For example `(
-set tick def r ) . ` tries to advance time by `r` units.
-
-
-
-
+set tick def r ) . ` tries to advance time by `r` units. If the tick rule
+has an upper bound u, then the strategy tries to advance by r, or u, whichever
+is lower. Note that this highlights the limitation of Real-time Maude analysis.
+A *time-nondeterminisitic* rule will still advance by a deterministic time
+bound. This means that Real-Time Maude may miss interleavings from not using
+time values from a true *nondeterministic* assignment. Thus, counter-examples
+from Real-Time Maude are *true* counterexamples, but a satisfaction only means
+that the property holds for all states **visited**.
