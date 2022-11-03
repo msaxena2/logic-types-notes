@@ -20,19 +20,18 @@ Real-time Maude is an extension to full maude with support for modeling timed sy
 Given an equational theory $\mathcal{R} = \left( \Sigma, E, \varphi, R \right)$, a
   real time rewrite theory $\mathcal{R}_{\phi, \tau}$ is a tuple
   $\left(\mathcal{R}, \phi, \tau \right)$, where
-  \begin{itemize}
-    \item $\phi: \text{TIME} \to (\Sigma, E)$ is an equational theory
-      morphism for the theory $\text{TIME}$ to the underlying theory $\mathcal{R}$,
-      i.e., $\phi$ interprets $\text{TIME}$ in $\mathcal{R}$.
-    \item $(\sigma, e)$ defines operator $\{\_\}: \textit{State} \to \textit{System}$ that takes
-      a system state to the global top-level state. The sort $\textit{System}$ has no
-      subsorts.
-    \item $\tau$ is an assignment $\tau_l$ of sort $\phi(\textit{Time})$ to every rewrite rule
-      of the form $ l: \{t\}  \rightarrow \{t'\}\ \text{if}\ \psi$. This is
-      abbreviated as $l: \{t\} \xrightarrow{\tau_l} \{t'\}\ \text{if}\ \psi$.
-      $\tau_l$ denotes the duration of rewrite, called a tick rule, and may
-      contain variables outside $t$, $t'$.
-  \end{itemize}
+
+ - $\phi: \text{TIME} \to (\Sigma, E)$ is an equational theory
+    morphism for the theory $\text{TIME}$ to the underlying theory $\mathcal{R}$,
+    i.e., $\phi$ interprets $\text{TIME}$ in $\mathcal{R}$.
+ - $(\sigma, e)$ defines operator $\{\_\}: \textit{State} \to \textit{System}$ that takes
+    a system state to the global top-level state. The sort $\textit{System}$ has no
+    subsorts.
+ - $\tau$ is an assignment $\tau_l$ of sort $\phi(\textit{Time})$ to every rewrite rule
+    of the form $ l: \{t\}  \rightarrow \{t'\}\ \text{if}\ \psi$. This is
+    abbreviated as $l: \{t\} \xrightarrow{\tau_l} \{t'\}\ \text{if}\ \psi$.
+    $\tau_l$ denotes the duration of rewrite, called a tick rule, and may
+    contain variables outside $t$, $t'$.
 
 Specifying systems in real-time maude
 --------------------------------------
