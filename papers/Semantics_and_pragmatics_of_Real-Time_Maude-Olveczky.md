@@ -50,8 +50,8 @@ endfm
 ```
 
 Any timed module implicitly includes said module, s.t. that morphism $\phi$
-maps $\textit{TIME}$ to $\text{Time}$. maps $0$ to $\text{zero}$, $\_+\_$ to $\text{plus}$
-, $\_<\_$ to $\_gt\_$, etc.
+maps $\textit{TIME}$ to $\text{Time}$. maps 0 to `zero`, `_+_` to $\text{plus}$
+, `_<_` to `_gt_`, etc.
 
 Real-Time Maude doesn't assume a model of time. The model itself is left to the
 user, but does provide a `NAT-TIME-DOMAIN` module that defines the domain to be
