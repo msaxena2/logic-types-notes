@@ -179,6 +179,35 @@ with a semantic condition involving the variables in `t`.
  - `arrow` can be one of `=>1`, `=>*`, `=>+` signifying `pattern` can be reach
    in $1$, $\ge 0$, or $> 1$ step(s) respectively.
 
+Semantics of Real-Time Maude
+============================
+
+Real-Time Maude uses Maude to execute commands. It uses a *reductionist*
+approach - theory preserving transformations change the real-time theory to a
+semantically-equivalent Maude theory, and commands are translated into ordinary
+Maude commands.
+
+Clocked Transformations
+-----------------------
+
+The *ordinary theory* for a *clocked theory* basically adds the operator `_in_`
+to specify time durations, with the equation:
+```
+  eq (C:ClockedSystem in R1:Time) in R2:Time
+   = C:ClockedSystem in (R1:Time + R2:Time) .
+```
+
+Say $\mathcal{R_{\phi, \tau}}$ is the clocked system, and $\mathcal{R_{\phi,\tau}}^C$ is the ordinary
+system. It can be shown that:
+
+$\mathcal{R_{\phi,\tau}} \vdash t \xrightarrow{r} t'$ iff
+$\mathcal{R_{\phi,\tau}}^C \vdash t\ \text{in}\ \text{time}\ r' \xrightarrow t'\ \text{in}\ \text{time}\ r' +_{\phi} r$
+
+
+
+
+
+
 
 
 
