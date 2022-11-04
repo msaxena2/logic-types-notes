@@ -1,5 +1,6 @@
 ---
 title: Semantics and Pragmatics of Real-Time Maude
+subtitle: Notes on Higher-Order and Symbolic Computation Article
 author: Peter Olveczky and Jose Meseguer
 numbersections: true
 header-includes: |
