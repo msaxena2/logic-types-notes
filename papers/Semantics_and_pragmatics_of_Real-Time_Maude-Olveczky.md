@@ -215,3 +215,31 @@ assuming the strategy to set tick as $r$.
    $t\rightarrow t' \text{ in time } x := r  \wedge \psi$.
  - $t \rightarrow t' \text{ in time } x$ becomes
    $t\rightarrow t' \text{ in time } x := r$.
+
+
+Real-Time Maude Examples
+========================
+
+Simple Clock Example
+--------------------
+
+Consider a clock which 'ticks' when running, resets to zero after 24,
+and stopped when its battery dies.
+
+```
+  rl [tickWhenRunning]
+    {clock(R)} => {clock{R + R')} in time R' /\ if R' < 24 - R .
+  rl [tickWhenStopped]
+    {clock-stopped(R)} => {clock-stopped(R)} in time R' .
+  rl [reset]
+    clock(24) => clock(0) .
+  rl [batteryDies]
+    clock(R) => clock-stopped(R) .
+```
+
+Before running any analysis, one needs to set the sampling time, for example `(set tick def 1 .)`.
+One can then run commmands such as `trew {clock(0)} in time <= 99 .` to get
+stopped-clocked(24) to simulate one behavior, or `tsearch {clock(0)} =>*
+{clock(R)} such that R > 24 in time 99 . ` to get `no-solutions`.
+
+
