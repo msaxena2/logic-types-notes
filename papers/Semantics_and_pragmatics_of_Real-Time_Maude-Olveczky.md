@@ -201,14 +201,17 @@ Say $\mathcal{R_{\phi, \tau}}$ is the clocked system, and $\mathcal{R_{\phi,\tau
 system. It can be shown that:
 
 $\mathcal{R_{\phi,\tau}} \vdash t \xrightarrow{r} t'$ iff
-$\mathcal{R_{\phi,\tau}}^C \vdash t\ \text{in}\ \text{time}\ r' \xrightarrow t'\ \text{in}\ \text{time}\ r' +_{\phi} r$
+$\mathcal{R_{\phi,\tau}}^C \vdash t\ \text{in}\ \text{time}\ r' \rightarrow t'\ \text{in}\ \text{time}\ r' +_{\phi} r$
+
+For the time sampling strategies, the following rules replace the timed rules,
+assuming the strategy to set tick as $r$.
 
 
-
-
-
-
-
-
-
-
+ - $t \rightarrow t' \text{ in time } x \wedge \psi \wedge x \leq u \wedge \psi'$ becomes
+   $t\rightarrow t' \text{ in time } x := \text{ if } u \leq r \text{ then } u \text { else } r \text{ fi } \wedge \psi \wedge x \leq u \wedge \psi'$.
+ - $t \rightarrow t' \text{ in time } x \wedge \psi \wedge x < u \wedge \psi'$ becomes
+   $t\rightarrow t' \text{ in time } x := r  \wedge \psi \wedge x < u \wedge \psi'$.
+ - $t \rightarrow t' \text{ in time } x \wedge \psi$ becomes
+   $t\rightarrow t' \text{ in time } x := r  \wedge \psi$.
+ - $t \rightarrow t' \text{ in time } x$ becomes
+   $t\rightarrow t' \text{ in time } x := r$.
