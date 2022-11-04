@@ -145,4 +145,41 @@ A *time-nondeterminisitic* rule will still advance by a deterministic time
 bound. This means that Real-Time Maude may miss interleavings from not using
 time values from a true *nondeterministic* assignment. Thus, counter-examples
 from Real-Time Maude are *true* counterexamples, but a satisfaction only means
-that the property holds for all states **visited**.
+that the property holds for all **states visited**.
+
+#### Timed Rewrite
+
+Real-Time Maude provides the following command
+
+```
+ (trew [n] in mod : t in time <= r .)
+```
+to perform a timed rewrite (for atmost n steps) with time bound r. Real-Time
+Maude also provides a `tfrew` command for rule-fair and position-fair rewriting
+with a certain time bound.
+
+#### Timed Search
+
+Real-Time Maude's timed search command is responsible for exploring all system
+behavior in bounded time. The form of the command is:
+
+```
+ (tsearch t0 arrow pattern with no time limit .)
+ (tsearch t0 arrow pattern in time ~r .)
+ (tsearch t0 arrow pattern in time-interval between ~' r and ~'' r' .)
+
+```
+where:
+
+ - `pattern` can either be a term `t` or a ground-irreducible term `t`
+with a semantic condition involving the variables in `t`.
+ - `~` can either be `<`,`<=`, `>`, `>=`.
+ - `~'` can either be `>` or `>=` and `~''` can either be `<` or `<=`.
+ - `r` and `r'` are ground terms of sort `Time`.
+ - `arrow` can be one of `=>1`, `=>*`, `=>+` signifying `pattern` can be reach
+   in $1$, $\ge 0$, or $> 1$ step(s) respectively.
+
+
+
+
+
