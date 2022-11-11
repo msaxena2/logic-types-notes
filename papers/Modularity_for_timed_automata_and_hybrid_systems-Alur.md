@@ -30,4 +30,24 @@ time $\epsilon_1$, it responds at time $\epsilon_1 +
 zeno, their parallel composition $P \parallel Q$ emits
 events at $0, \frac{1}{2}, 1, \frac{5}{4}, \frac{3}{2},
 \dots$, resulting in a system exhibit zeno behavior.
+Thus for live open systems, the condition to consider is
+*receptiveness*. A module is *receptive* iff it has a
+strategy to generate an infinite live run in a two-player
+game against the environment. Receptiveness is closed under
+composition. First described in the context of I/O automata,
+this paper addresses *receptiveness* in the context of
+timed and hybrid automata. As timed automata are models for
+closed systems, this works extends this model to *reactive
+modules* to obtain *timed modules* for open reactive systems.
+The two main contributions of note are:
 
+  1. Extension of *assume-guarantee* principle for modular
+     reasoning to open system reactive modules with clock
+     variables.
+  2. A fixed-point characterization of two-player game to
+     the *receptivness game* to obtain a symbolic procedure for
+     determining reactiveness of timed modules.
+
+While the paper also extends results to hybrid automata
+(beyond timed automata), discussion of hybrid systems
+is omitted here.
