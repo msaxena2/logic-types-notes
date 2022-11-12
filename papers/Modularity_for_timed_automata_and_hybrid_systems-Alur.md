@@ -122,3 +122,15 @@ can be only updated after the awaited variables have been
 updated. If for set $A$ of variables, $y \in \ctr(A)$ and
 $x \in \awaited(A)$, then we say $y \succ_A x$.
 
+A Reactive Module $P$ consists of a declaration and a body.
+The declaration is a finite set $X_P$ of variables. The body
+is a set $\mathcal{A}_P$ of $X_P$ atoms s.t.
+
+ - $\bigcup_{A \in \mathcal{A}_P} \ctr(X_A) = \ctr(X_P)$.
+ -  $\forall A, B \in \mathcal{A}_P . \ctr(X_A) \cap
+    \ctr(X_B) = \emptyset$
+ - Transitive closure $\succ_{P} = (\bigcup_{A_X
+   \in \mathcal{A}_P} \succ_{A_X})^+$ is asymmetric.
+
+
+
