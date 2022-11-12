@@ -6,7 +6,7 @@ header-includes: |
   \include{commands}
 ---
 
-This paper addresses the problem of analysis of `open` systems,
+This paper addresses the problem of analysis of *open* systems,
 or systems with a component of interaction with the environment.
 A physical system may stop time *finitely* to perform actions,
 but cannot do so *inifinitely*, i.e., it may not perform
