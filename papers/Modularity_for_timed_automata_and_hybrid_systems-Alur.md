@@ -104,9 +104,10 @@ $s$ of $X$, the number of valuations $t$ for $Y$ s.t. $(s,
 t) \in \alpha$ is finite and non-zero.
 
 An *atom* $A$ for set $X$ of variables consists of a
-declaration and a body. The declaration partions $X$
-into set $\ctr(X_A) \cup \textit{read}(X_A) \cup \awaited(X_A)$ of
-*ctrl*, *read*, and *awaited*. The body consists of
+declaration and a body. The declaration comprises of
+sets $\ctr(X_A) \subseteq X$, $\textit{read}(X_A) \subseteq X$ and
+$\awaited(X_A) \subseteq X \setminus \ctr(X)$ of
+*ctrl*, *read*, and *awaited* variables respectively. The body consists of
 an action $\textit{Init}_A$ from $\awaited(X_A')$ to $\ctr(X_A')$.
 and an executable action $\textit{Update}_A$ from $\textit{read}(X_A) \cup
 \awaited(X_A)$ to $\ctr(X_A')$.
@@ -127,10 +128,36 @@ The declaration is a finite set $X_P$ of variables. The body
 is a set $\mathcal{A}_P$ of $X_P$ atoms s.t.
 
  - $\bigcup_{A \in \mathcal{A}_P} \ctr(X_A) = \ctr(X_P)$.
- -  $\forall A, B \in \mathcal{A}_P . \ctr(X_A) \cap
-    \ctr(X_B) = \emptyset$
- - Transitive closure $\succ_{P} = (\bigcup_{A_X
-   \in \mathcal{A}_P} \succ_{A_X})^+$ is asymmetric.
+ -  $\forall A, B \in \mathcal{A}_P . \left(\ctr(X_A) \cap
+    \ctr(X_B) \right)= \emptyset$
+ - Transitive closure $\succ_{P} = \left(\bigcup_{A
+   \in \mathcal{A}_P} \left(\succ_{X_A}\right)\right)^+$ is asymmetric.
+
+Thus, we have:
+
+ - All controlled variables must be declared within atoms.
+ - Controlled variables within an atom must be disjoint from
+   other atoms. Thus, $P$ controls only $\ctr(X_P)$.
+ - The await dependencies in a module are acylic.
+
+
+An ordering $A_0, A_1, \dots, A_k$ of the atoms is said to
+be consistent if for all $0 \leq i < j < k$, the awaited
+variables of $A_i, A_j$  are disjoint.
+
+### Reactive Module Execution
+
+During execution, first the variables of a module are
+assigned values (of the correct type). Then,
+the atoms are executed in some consistent order $A_0, A_1, \dots A_k$.
+In the initialization round, after the external variables
+are initialized, the intial action of $A_0$ is followed by
+the inital action $A_1$ and so on. In the update round,
+after the external variables are updated, the update action
+of $A_0$ is followed by the update action of $A_1$ and so
+on. This ensures that non-determinism arises from the
+external world, and from non-determinism in individual
+atoms, but not from their ordering.
 
 
 
