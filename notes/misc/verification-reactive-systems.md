@@ -60,7 +60,7 @@ Given $s \in S$, we say:
 
 
 Synchronous Programming in Esterel
-----------------------------------
+==================================
 
 Esterel is a state-chart formalism based language for synchronous programming.
 Applications that maintain permanent interaction with their environment are
@@ -81,6 +81,59 @@ identical inputs. Sequential programs are obviously deterministic. But,
 determinism doesn't mean sequentiality. Concurrent programs may be expressed
 in deterministic subsystem that cooperate deterministically. Deterministic
 concurrency is the key for modular development in Esterel.
+
+Synchrony Hypothesis
+--------------------
+
+States that reactions (statements in the language) occur instantaneous, i.e.
+take no time. This is a strong statement, and is understood to mean that the
+environment itself stays invariant when a reaction executes. Statements take
+time iff they explicitly say so. This allows one to write statements such as
+
+```esterel
+every 1000 MILISECOND do emit SECOND end
+```
+
+This means that a second is emitted every thousandth milisecond. This cannot
+occur in a completely asynchronous setting. Moreover, this interpretation is
+more natural for human comprehension - the user of a stop watch doesn't take
+internal reaction time into account, as long as he's convinced that the watch
+reacts instantly to his commands.
+
+Esterel serves not only as a system specification language, but yields a
+highly optimized machine-executable code, with performance similar to purposely
+hand-written.
+
+Esterel Semantics
+-----------------
+
+Statements are broadly classified into:
+
+ - **Instantaneous**: standard imperative statements such as assignments,
+ sequencing, conditionals, signal emission.
+ - **Temporal**: trigger `await .. do` or watchdogs `do ... watching event`.
+
+
+### Compilation to Automata
+
+An interpreter based on the execution semantics would be effecient, but not
+efficient enough for real-time applications. Thus, programs are compiled to
+sequential automata that use Brzozowski's derivatives.
+
+### Esterel Module Structure
+
+A module is of the form:
+
+```esterel
+  mod MODNAME :
+    declarations
+    body
+```
+
+
+
+
+
 
 
 
