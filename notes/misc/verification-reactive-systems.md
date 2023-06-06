@@ -40,7 +40,7 @@ Let $\overline{\rho} \subseteq S \times \alpha \times S$ be recursively defined
 as:
 
  - $(s, a, s') \in \overline{\rho}$ iff $(s, a, s') \in \rho$
- - $(s, \alpha_1 ; \alpha_2, s') \in \overline{\rho} \text{ iff } \exists s'' \in S
+ - $(s, \alpha_1 ; \alpha_2, s') \in \overline{\rho} \iff \exists s'' \in S
    . (s, \alpha_1, s'') \in \overline{\rho} \wedge (s'', \alpha_2, s') \in \overline{\rho}$.
  - $(s, \alpha_1 \cup \alpha_2, s') \in \overline{\rho}$ iff
    $(s,\alpha_1, s') \in \overline{\rho} \vee (s, \alpha_2, s') \in \overline{\rho}$
@@ -55,6 +55,6 @@ Given $s \in S$, we say:
 
 - $s \vDash p$ iff $p \in \rho(s)$
 - $s \vDash \neg \varphi$ iff $s \not\vDash \varphi$
-- $s \vDash \langle\alpha\rangle\varphi \text{ iff } \exists (s, \alpha, s') \in
+- $s \vDash \langle\alpha\rangle\varphi \iff \exists (s, \alpha, s') \in
   \overline{\rho}$ s.t. $s' \vDash \varphi$.
 
