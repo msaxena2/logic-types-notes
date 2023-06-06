@@ -1,7 +1,7 @@
 Reactive Systems Verification
 =============================
 
-Some notes based on Verfication of Reactive Systems by Klaus Schneider.
+Some notes based on Verfication of Reactive Systems.
 
 Generalogy of verification
 --------------------------
@@ -57,4 +57,33 @@ Given $s \in S$, we say:
 - $s \vDash \neg \varphi$ iff $s \not\vDash \varphi$
 - $s \vDash \langle\alpha\rangle\varphi \iff \exists (s, \alpha, s') \in
   \overline{\rho}$ s.t. $s' \vDash \varphi$.
+
+
+Synchronous Programming in Esterel
+----------------------------------
+
+Esterel is a state-chart formalism based language for synchronous programming.
+Applications that maintain permanent interaction with their environment are
+called Reactive Programs. These include real-time controllers, OS drivers,
+communication protocol emitters and receivers, among others. Such programs
+comprise three layers:
+
+ 1. An interface for *interfacing* with the external world.
+ 2. A reactive kernel containing the core programming logic.
+ 3. A data handling layer performing classical computation requested by the
+    kernel.
+
+
+### Deterministic Reactive Programs
+
+A program is deterministic if it produces identical output sequence for
+identical inputs. Sequential programs are obviously deterministic. But,
+determinism doesn't mean sequentiality. Concurrent programs may be expressed
+in deterministic subsystem that cooperate deterministically. Deterministic
+concurrency is the key for modular development in Esterel.
+
+
+
+
+
 
