@@ -11,7 +11,7 @@ Generalogy of verification
 Modal logic formulas $\varphi$ are defined inductively as:
 
 $$
-    \varphi ::= p \mid \not p \mid p \vee p \mid \langle p \rangle
+    \varphi ::= p \mid \neg p \mid p \vee p \mid \langle p \rangle
 $$
 
 Other formulas, such as $[\varphi] \equiv \neg \langle \neg \varphi \rangle$
@@ -34,7 +34,7 @@ interpretation function defining propositions that hold in a world $s \in S$,
 where $P$ is the set of atomic propositions.
 
 The set of programs is defined as:
-$$ \alpha ::= p \in P \mid \alpha_1 ; \alpha_2 \mid \alpha_1 \cup \alpha_2 $$
+$$\alpha ::= p \in P \mid \alpha_1 ; \alpha_2 \mid \alpha_1 \cup \alpha_2$$
 
 Let $\overline{\rho} \subseteq S \times \alpha \times S$ be recursively defined
 as:
