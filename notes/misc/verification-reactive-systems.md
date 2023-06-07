@@ -130,8 +130,64 @@ A module is of the form:
     body
 ```
 
+declarations define external objects used by the module: data
+objects to be implemented in the data handling layer, and signals
+and sensor that define the reactive interface. The are interdependent
+as signals carry payloads with types declared in the data declarations.
 
 
+#### Data declarations
+
+Declarations the types, constant functions, and procedures that manipulate
+data. Complex data manipulation is not handled with esterel, and delegated to
+manipulation logic specified in another programming language.
+
+#### Interface Declarations
+
+Signals have instantaneous *ticks* that serve as interrupts for control-related
+statements. Such signals may also have persistent value that can be accessed at
+any time in an Esterel program. It is assumed that the value of a signal can
+only change when a tick occurs, i.e. it remains invariant otherwise. For
+sensors, the value is not broadcast, but is *accessible* at any time. An example
+of such a sensor is a passive external device such as a thermometer.
+
+An interface declaration may take the form:
+
+```esterel
+  input S (type);
+```
+for an input signal, or
+
+```esterel
+  emit S (exp);
+```
+to emit a signal with data `exp`. One may write
+
+```esterel
+  emit S(1) || emit S(2);
+```
+
+In such a case, a *commutative, associative* combination function must already
+be declared, and the parallel combination operator `||` desugars to
+
+```esterel
+  emit S (comb (v1, comb(v2, ..., comb(vi-1, vi))));
+```
+
+
+#### Relation Declarations
+
+Such declarations enforce either *incompatibility*, as in
+$S_1 \neq S_2 \neq S_3$ signfifies the signals are mutually exclusive or
+$S_1 => S_2$ signifies $S_2$ will be present whenever $S_1$ is present.
+
+### Esterel Instructions
+
+Esterel *variables* and *signals* differ in the semantics only in
+the manner in that only *signals* can be shared. Expressions and statements
+manipulate aforementioned *variables* and *signals*, and are declared locally
+as needed. The distinction between expressions ($<, <=, >=, \&\&$) and statements
+($x := exp, halt$) is as expected in any programming language.
 
 
 
