@@ -178,7 +178,7 @@ be declared, and the parallel combination operator `||` desugars to
 #### Relation Declarations
 
 Such declarations enforce either *incompatibility*, as in
-$S_1 \neq S_2 \neq S_3$ signfifies the signals are mutually exclusive or
+$S_1 \neq S_2 \neq S_3$ signifies the signals are mutually exclusive or
 $S_1 => S_2$ signifies $S_2$ will be present whenever $S_1$ is present.
 
 ### Esterel Instructions
@@ -189,9 +189,56 @@ manipulate aforementioned *variables* and *signals*, and are declared locally
 as needed. The distinction between expressions ($<, <=, >=$) and statements
 ($x := exp, halt$) is as expected in any programming language.
 
+#### Intuitive Semantics
 
+A module *reacts* to an incoming input event by updating local variables and
+emitting other events. This *reaction* is assumed to be instantaneous. Reactions
+only occur on input events - the module is inactive between events.
 
+The signals that constitute the event obey the sharing law, i.e.
 
+ - A signal has a fixed value in a reaction: absent or present. It is present
+   if the event is an input signal, or be emitted by a program as a local or
+   output signal.
+ - The value of the signal is unique in each reaction. If present, the value
+   is the current input value, or is the combination of all values if the signal
+   is local or emitted. If absent, the value is the same as the previous
+   reaction. The value is invariant during a reaction. At first emission, the
+   value is *indeterminate*.
+
+The semantics of statements rely on four notions:
+
+ 1. The context of each statement in a program dictates the instant the
+    statement starts executing.
+ 2. The internal execution of the statement determines when the statement
+    terminates, if it ever does.
+ 3. If the instant of termination is the same as the one when it starts, the
+    statement is said to instantaneous. Most statements are instantaneous.
+
+The actual semantics can be described as:
+
+ * The body start execution on reception of the first event.
+ * `nothing` exits immediately.
+ * `halt` performs no action, and never terminates.
+ * Assignment and procedure calls immediately update memory and exit.
+ Long running procedures must not be modeled as assignments. Instead, they must
+ be started using events, and the result waited on using signals and values.
+ * `emit` first evaluates the value, emits the signal with said value, and
+   terminates.
+ * The body of a loop starts when the loop starts, and on termination, is
+   instantly restarted. To exit a loop, a `trap` must be used,
+   defined as:
+   ```esterel
+   trap T in Statment end
+   // where Statement may contain
+   exit T
+   ```
+  * Watchdog statement `do Statement watching Signal` gives a time limit
+    to the statement. The limit is the next reaction `Signal` is present. If the
+    body terminates before `Signal` occurs, the watchdog statement also
+    termintates. Otherwise it terminates as soon as `Signal` occurs.
+  * a `Trap T` determines the exit point for its body. If the body terminates,
+    or exits a trap, or an outer trap, the entire trap terminates.
 
 
 
