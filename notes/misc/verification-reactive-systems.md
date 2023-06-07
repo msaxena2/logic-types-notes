@@ -186,7 +186,7 @@ $S_1 => S_2$ signifies $S_2$ will be present whenever $S_1$ is present.
 Esterel *variables* and *signals* differ in the semantics only in
 the manner in that only *signals* can be shared. Expressions and statements
 manipulate aforementioned *variables* and *signals*, and are declared locally
-as needed. The distinction between expressions ($<, <=, >=, \&\&$) and statements
+as needed. The distinction between expressions ($<, <=, >=$) and statements
 ($x := exp, halt$) is as expected in any programming language.
 
 
