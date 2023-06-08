@@ -345,3 +345,49 @@ variable used in `produce`.
 Compond statements operate over sub-statements. These include
 `if C then S1 else S2`, where `S1`, `S2` are sub-statements. Concatenation
 `S1;...,Sk` results in sequential execution of sub-statements.
+Selection `S1 or S2 or ... Sk` results in a *non-deterministic selection* of
+one sub-statement from set of enabled sub-statements and its execution.
+`while c do S` evaluates `c` and executes `S` if said evaluation is `T`. The loop
+repeats when S terminates. If `c` is `F`, the statement terminates.
+
+
+Cooperation statements are responsible for parallel execution. Given
+$S_1, S_2, \dots, S_k$,
+    $$ l: [l_1:\hat{S}_1;\hat{l}_1]\ || \dots ||\ [l_k:\hat{S}_k;\hat{l}_k]; \hat{l}: $$
+
+First, label $l$ is executed, resulting in setting up $S_1,\dots,S_k$ for
+execution, while moving from $l$ to $l_1,\dots,l_k$. At the end of all parallel
+executions, a final *exit* step moves $\hat{l}_1, \dots, \hat{l}_k$ to
+$\hat{l}$. Each label $\hat{l}_i$ can be viewed as an empty statement marking
+the end of execution of statement $S_i$.
+
+Grouped statements are compound statements that are executed atomically, i.e,
+without interference from other parallel executions. Such statements are
+specified as $\langle S \rangle$.
+
+
+### Programs
+
+A program consists of declarations, followed by a cooperation statement in which
+processed may be named.
+
+
+$$ P :: \left[\text{declaration}; \left[P_1 :: \left[l_1:S_1;\hat{l}_1\right]\right]\ || \dots ||\
+        \left[P_k :: \left[l_k:S_k;\hat{l}_k\right]\right]\right] $$
+
+$P_1,\dots,P_k$ are referred to as top-level processes. Processed within
+$S_1,\dots,S_k$ are referred to as internal processes.
+
+The *declaration* consists of a sequence of declaration statements of the form:
+`mode variable, ..., variable: type` where $\varphi_i$.
+
+Each declaration specifies the mode of the declarations, which can be `in,
+local, or out`, a list identifiers, and the type of aforementioned
+variables, and $\varphi_i$ the constraints on their initial values .
+`in` variables cannot be modified, while `local` and `out` variables are
+differentiated to help comprehensability, but are similar semantically.
+
+
+
+
+
