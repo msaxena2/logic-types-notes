@@ -241,5 +241,33 @@ The actual semantics can be described as:
     or exits a trap, or an outer trap, the entire trap terminates.
 
 
+Fair Transition Systems
+=======================
+
+Assume $\mathcal{V}$ a set of variables, and a language over
+variables comprising expressions, statements, formulas and assertions.
+Define a state $s$ a mapping from $u \in V$ to a value $s[u]$ in u's domain.
+Let $\Sigma$ be set of all such states.
+
+Define *fair transition system* $\langle V, \Theta, \mathcal{T}, \mathcal{J},
+       \mathcal{C} \rangle$, where:
+
+  * $V \subseteq \mathcal{V}$ a finite set of data and control variables.
+  * $\Theta$ the initial condition satisfied by initial states.
+  * $\mathcal{T}$ a set of transitions $\tau:\Sigma \to 2^{\Sigma}$
+    is a transition function over states. For $s \in \Sigma$, $\tau(s) \subseteq
+    \Sigma$. Say $\tau$ is enabled on state $s$ if $\tau(s) \neq \emptyset$.
+  * $\mathcal{J} \subseteq \mathcal{T}$ a set of *weakly just* transitions.
+    The justice requirement states that for $\tau \in \mathcal{J}$, computations
+    where $\tau$ is continually enabled but not taken are not admissible.
+  * $\mathcal{C} \subseteq \mathcal{T}$ a set of *compassionate* or
+  *strongly-fair* transitions. For $\tau \in \mathcal{C}$, computations
+  where $\tau$ is enabled infinitely many times but taken only finitely many
+  times are not admissible.
+
+
+
+
+
 
 
