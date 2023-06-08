@@ -270,7 +270,8 @@ order formula s.t. for any $s \in \Sigma$ and $s' \in \tau(s)$,
 $s' \in \tau(s)$ if $\rho_{\tau}(V, V')[s(V) / V, s'(V)/V']$ holds.
 
 
-### Computations
+Computations
+------------
 
 Given system P with aforementioned components defined.
 Let $\sigma = s_0, s_1, \dots,$, an infinite sequence of states. We say
@@ -297,6 +298,28 @@ $\sigma$ is said to be a *P-computation* if the following are satisfied:
 
 *Justice* and *compassion* are referred to as *fairness requirements*.
 Computation $\sigma$ that satifies *initiality* and *concecution* but not
-*fairness* is called a *run* of P.
+*fairness* is called a *run* of P. While every *computation* is a *run*,
+vice-versa may not hold. Every *finite* prefix of P is also a prefix of a computation.
+This holds since it's not possible to know in a finite prefix whether the
+complete run is fair or not. Every state in a run of P is P-accessible.
 
+### Variants
+
+Let $U \subseteq \mathcal{V}$ be a set of variables. State $\hat{s}$ is a
+*U-variant* of state $s$ if $\hat{s}$ and $s$ agree on all variables
+$\mathcal{V} \setminus U$, i.e. $\hat{s}[x] = s[x]$ for all $x \in (\mathcal{V}
+\setminus U)$. Sequence  $\hat{\sigma} = \hat{s_1}, \hat{s_2}, \dots$ is a
+*U-variant* of $\sigma$ if $\hat{s_i}$ is a *U-variant* of $s_i$ for $i \in 0,
+1, \dots$.
+
+Recall $V \subseteq \mathcal{V}$ are system variables, i.e., variables
+manipulated by the program text, or holding control information such as program
+locations. Suppose $U \cap V = \emptyset$. Since the transition relation
+$\rho_{\tau}(V, V')$ is only determined by the set $V$, we get:
+
+ * If $s_{i + 1}$ is a $\tau$-successor of $s_i$, then every *U-variant*
+ $\hat{s}_{i+1}$ is a $\tau$-successor of every *U-variant* $\hat{s}_i$ of $s_i$.
+ * If $\sigma = s_1, s_2, \dots,$ is a computation, then every *U-variant* $\hat{\sigma} =
+ \hat{s}_1, \hat{s}_2, \dots$ is also a computation.
+ * If $s_i$ is P-accessible, then so is $\hat{s}_i$.
 
