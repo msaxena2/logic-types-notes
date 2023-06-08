@@ -1,7 +1,10 @@
 Reactive Systems Verification
 =============================
 
-Some notes based on Verfication of Reactive Systems.
+Some notes based on Verfication of Reactive Systems from the following sources:
+
+ - Temporal Verification or Reactive Systems (Safety) by Amir Pnuelli and Zohar Manna.
+ - Verification of Reactive Systems by Klaus Schneider.
 
 Generalogy of verification
 --------------------------
@@ -323,3 +326,22 @@ $\rho_{\tau}(V, V')$ is only determined by the set $V$, we get:
  \hat{s}_1, \hat{s}_2, \dots$ is also a computation.
  * If $s_i$ is P-accessible, then so is $\hat{s}_i$.
 
+
+Simple Programming Language (SPL)
+---------------------------------
+
+Consists of assignments, `await c` that awaits until condition is true,
+$\alpha \Leftarrow e$ for sending $e$ on channel $\alpha$, $\alpha \Rightarrow
+u$, for receiving into variable $u$ on channel $\alpha$, `request r` which
+awaits until $r \geq 0$, and `release r` which increases r by 1. Together
+the permit implementation of semaphores.
+
+Apart from these, SPL has schematic statements such as `noncritical` to denote
+non-critical activity in mutual exclusion, and `critical` to denote mutual
+exclusion. `produce x (consume x)` represents production (consumption) of activity in producer-consumer
+programs. Schematic statements don't modify program variables, except for the
+variable used in `produce`.
+
+Compond statements operate over sub-statements. These include
+`if C then S1 else S2`, where `S1`, `S2` are sub-statements. Concatenation
+`S1;...,Sk` results in sequential execution of sub-statements.
