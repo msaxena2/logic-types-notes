@@ -265,7 +265,20 @@ Define *fair transition system* $\langle V, \Theta, \mathcal{T}, \mathcal{J},
   where $\tau$ is enabled infinitely many times but taken only finitely many
   times are not admissible.
 
+For each $\tau \in \mathcal{T}$, define $\rho_{\tau}(V, V')$ to be a first
+order formula s.t. for any $s \in \Sigma$ and $s' \in \tau(s)$,
+$s' \in \tau(s)$ if $\rho_{\tau}(V, V')[s(V) / V, s'(V)/V']$ holds.
 
+
+### Computations
+
+Given $\sigma = s_0, s_1, \dots,$, an infinite sequence of states. We say
+$\tau \in \mathcal{T}$ is enabled at position $k$ of $\sigma$ if $\tau$ is
+enabled at $s_k$, i.e., $\tau(s_k) \neq \emptyset$. $\tau$ is taken
+at position $k$ if $s_{k+1} \in \tau(s_k)$. Multiple transitions may be taken
+at the same point, i.e., for $\tau_1, \tau_2$ and $s_k, s_{k+1}$, both
+$\rho_{\tau_1}[s_k[V]/V, s_{k+1}[V]/V']$ and $\rho_{\tau_2}[s_k[V]/V, s_{k+1}[V]/V']$
+hold.
 
 
 
