@@ -272,7 +272,8 @@ $s' \in \tau(s)$ if $\rho_{\tau}(V, V')[s(V) / V, s'(V)/V']$ holds.
 
 ### Computations
 
-Given $\sigma = s_0, s_1, \dots,$, an infinite sequence of states. We say
+Given system P with aforementioned components defined.
+Let $\sigma = s_0, s_1, \dots,$, an infinite sequence of states. We say
 $\tau \in \mathcal{T}$ is enabled at position $k$ of $\sigma$ if $\tau$ is
 enabled at $s_k$, i.e., $\tau(s_k) \neq \emptyset$. $\tau$ is taken
 at position $k$ if $s_{k+1} \in \tau(s_k)$. Multiple transitions may be taken
@@ -280,7 +281,22 @@ at the same point, i.e., for $\tau_1, \tau_2$ and $s_k, s_{k+1}$, both
 $\rho_{\tau_1}[s_k[V]/V, s_{k+1}[V]/V']$ and $\rho_{\tau_2}[s_k[V]/V, s_{k+1}[V]/V']$
 hold.
 
+$\sigma$ is said to be a *P-computation* if the following are satisfied:
 
+- *Initiality*: $s_0$ is initial.
+- *Consecution*: For $j = 0, 1, \dots,$, $s_{j + 1} \in \tau(s_j)$ for $\tau \in
+\mathcal{T}$.
+- *Justice*:  For each $\tau \in \mathcal{J}$, it is not the case that $\tau$
+  is continually enabled beyond some position $j$ in $\sigma$, i.e.,
+  for every $k \geq j$, $\tau$ is enabled at $k$ but not taken.
+  In other words, an enabled transition must be eventually taken.
+- *Compassion*: For every $\tau \in \mathcal{C}$, it is not the case that
+  $\tau$ is enabled at infinitely many positions, but taken at finitely many
+  positions. In other words, a transition that is enabled infinitely often is
+  taken infintely often.
 
+*Justice* and *compassion* are referred to as *fairness requirements*.
+Computation $\sigma$ that satifies *initiality* and *concecution* but not
+*fairness* is called a *run* of P.
 
 
