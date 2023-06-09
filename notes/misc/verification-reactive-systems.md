@@ -387,7 +387,38 @@ variables, and $\varphi_i$ the constraints on their initial values .
 `in` variables cannot be modified, while `local` and `out` variables are
 differentiated to help comprehensability, but are similar semantically.
 
+Channel declarations may be of the form:
 
+$$
+\text{mode } \alpha_1, \alpha_2, \dots, \alpha_n: \text{ channel of type }
+$$
+$$
+\text{mode } \alpha_1, \alpha_2, \dots, \alpha_n: \text{ channel[1] of type where } \varphi_i
+$$
 
+The former declaration corresponds to a *synchronous channel* where the sender
+and receiver execute their statements on the same step.
 
+The latter is an *asynchronous channel* declaration, where the message may be
+buffered before the receiver processes it. An initial value for the buffer may
+be specified, which is by default assumed to be empty.
 
+### Labels
+
+It is assumed that all statements in the program have labels, but only
+relevant ones may be presented for brevity. Labels identify positions of control
+in the program. Due to parallel execution, different labels may identify the
+same control location.
+
+To deal with redundancy of distinct labels identifying the same location,
+an equivalence relation $\sim_L$ is defined as:
+
+ * For $l:[l_1:S_1; l_2:S_2, \dots, l_k:S_k]$, $l \sim_L l_1$. k$.
+ * For $l:[l_1:S_1\ \text{or}\  l_2:S_2\ \text{or}\  \dots\ \text{or}\ l_k:S_k]$, $l \sim_L l_1
+ \sim_L l_2 \sim_L \dots \sim_L l_k$.
+ * For block $l: [\text{declarations};\ l_1:S_1]$, $l \sim_L l_1$.
+ * For cooperative statements $l:[[l_1:S1;\hat{l}_1]\ ||\ [l_2:S_2;\hat{l}_2]];\hat{l}$,
+   $l$ is neither equivalent to $l_1$ or $l_2$.
+
+A location is defined to be the equivalence class of labels $[l]$ s.t.
+for $l_1,l_2 \in [l]$ $l_1 \sim_L l_2$.
