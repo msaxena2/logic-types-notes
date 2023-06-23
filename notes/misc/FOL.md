@@ -3,8 +3,6 @@ title: Miscellaneous Notes on First Order Logic
 header-includes: |
   \include{header.tex}
 ---
-Miscellaneous Notes on First Order Logic
-========================================
 
 Based on a Mathematical Introduction to Logic by Herbert Enderton.
 
