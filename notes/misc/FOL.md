@@ -8,16 +8,18 @@ Based on a Mathematical Introduction to Logic by Herbert Enderton.
 
 
 Preliminaries
--------------
+=============
 
-### Inductive Principle
+Inductive Principle
+-------------------
 
 Assume a set $C$ generated from some set $B$ (of base elements)
 using a set $\mathcal{F}$ (of functions). If a set $S \subseteq C$ is
 inductive, i.e., $B \subseteq S$, and closed under $\mathcal{F}$, then
 $S = C$.
 
-### Structures/Models
+Structures/Models
+-----------------
 
 Given a FO-Signature $\Sigma$, and a *structure* or *model* $\structure = \left(\domain, \__{\structure}\right)$
 s.t.
@@ -47,7 +49,7 @@ Formally, to define satisfaction, define extended-valuation $\overline{s}$ recur
 *Proof:*
 
 Definability
-------------
+============
 
 Suppose a FOL *signature* $\Sigma = \{ E \}$, where $E$ intuitively
 is a binary relation signifying an *edge* on the model.
