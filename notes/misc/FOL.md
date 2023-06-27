@@ -46,7 +46,34 @@ Formally, to define satisfaction, define extended-valuation $\overline{s}$ recur
 **Theorem 1.** For valuation s, there always exists a unique
 *extended-valuation* $\overline{s}$.
 
-*Proof:*
+*Proof:* A generalization of the proof of the recursion theorem.
+Consider set $U$ (of all expressions), and set $B \subseteq U$.
+Functions $f: U \to U$ and $g: U \times U \to U$ are defined over $U$.
+Let set $C$ be a set *generated* from B. The set $C$ can be defined
+either *bottom-up* or *top-down* as:
+
+ - **(Top Down)** $C^{\star} = \bigcap_{C_i}$  where $C_i$ is inductive, i.e. *closed*
+   under $f, g$, and $B \subseteq C_i$.
+ - **(Bottom Up)** $C_{\star} = \bigcup_{i\in \mathbb{N}}(C_i)$, where:
+    * $C_0 = B$.
+    * $C_i = \left\{ f(x) \mid x \in C_{i-1} \right\} \cup \left\{g(x,x) \mid x
+    \in C_{i-1} \right\} \cup C_{i-1}$.
+
+It's well-known that $C = C^{\star} = C_{\star}$.
+
+Consider set $C$, generated *freely* from $f, g$, i.e., $f, g$ are *one-to-one*
+and their ranges are *disjoint*. Furthermore, consider set $V$, and functions
+$F: V \to V, G: V \times V \to V, h: B \to V$,
+then there exists a *unique* homomorphism $\overline{h}$ s.t.
+
+ - $\overline{h} = h(x)$ for $x \in B$.
+ - $\overline{h}(f(x)) = F(\overline{h}(x))$ for $x \in C$.
+ - $\overline{h}(g(x, y)) = G(\overline{h}(x, y))$ for $x, y \in C$.
+
+It's obvious that given an interpretation $\nu$ over variables in a
+propositional/First-order language, there exists a unique homomorphism/
+extended interpretation $\overline{\nu}$ into $\{\top,\bot\}$ for the WFFs.
+
 
 Definability
 ============
