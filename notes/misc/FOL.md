@@ -59,12 +59,21 @@ either *bottom-up* or *top-down* as:
     * $C_i = \left\{ f(x) \mid x \in C_{i-1} \right\} \cup \left\{g(x,x) \mid x
     \in C_{i-1} \right\} \cup C_{i-1}$.
 
-It's well-known that $C = C^{\star} = C_{\star}$. The forward direction
+It's well-known that $C = C^{\star} = C_{\star}$.
+
+The forward direction
 $C^{\star} \subseteq C_{\star}$ can be shown by showing $C_{\star}$ is
 *inductive*. As $C^{\star}$ is the *intersection* of all *inductive* sets,
-it must be contained in $C_{\star}$. The other direction can be showing
-$C_i \subseteq C^{\star}$ by induction on $i$, where $C_i$ is defined as above.
+it must be contained in $C_{\star}$.
 
+The other direction can be showing
+$C_i \subseteq C^{\star}$ by induction on $i$, where $C_i$ is defined as above.
+For $i=0$, $C_0 = B$, thus $C_0 \subseteq C^{\star}$ For $i \geq 1$,
+if $C_{i-1} \subseteq C^{\star}$, then $C_{i} = \{ g(x, y) \mid x, y \in C_i \}
+\cup \{f(x) \mid x \in C_i \}$. Since $C_i \subseteq C^{\star}$ and $C^{\star}$
+is closed under $f, g$, $C^{i+1} \subseteq C^{\star}$.
+
+*Formal Definition of Recursion Theorem:*
 Consider set $C$, generated *freely* from $f, g$, i.e., $f, g$ are *one-to-one*
 and their ranges are *disjoint*. Furthermore, consider set $V$, and functions
 $F: V \to V, G: V \times V \to V, h: B \to V$,
@@ -77,10 +86,10 @@ then there exists a *unique* homomorphism $\overline{h}$ s.t.
 Using the above, it becomes obvious that given an interpretation $\nu$ over variables in a
 propositional/First-order language, there exists a unique homomorphism/
 extended interpretation $\overline{\nu}$ into $\{\top,\bot\}$ for the WFFs in
-said language. Both the existence and uniqueness of the function is given
-by the theorem.
+said language. Both the existence and uniqueness of the function follows from
+this theorem.
 
-*Proof of existence using approximating functions*
+*Corollary 1.1: Proof of existence of $\overline{h}$ using approximating functions*
 
 Let $\overline{h}$ be a union of approximating functions. Say a function
 $\nu$ is *acceptable* iff its domain is a subset of $C$, its range is
