@@ -97,9 +97,9 @@ a subset of $V$, and for $x, y$ in $C$.
 
  i. If $x \in B$, then $\nu(x) = h(x)$.
  ii. If $f(x, y)$ in domain of $\nu$, then so are $x, y$.
-     Moreover, $\nu(f(x, y)) = F(\nu(x), \nu(y))$. Similarly,
-     if $g(x)$ belongs to the domain of $\nu$, then so does $x$,
-     and $\nu(g(x)) = G(\nu(x))$.
+     Moreover, $\nu(g(x, y)) = G(\nu(x), \nu(y))$. Similarly,
+     if $f(x)$ belongs to the domain of $\nu$, then so does $x$,
+     and $\nu(f(x)) = F(\nu(x))$.
 
 Define $K$ to be the set of all *acceptable* functions, and
 say $\overline{h} = \bigcup(K)$.
@@ -117,10 +117,28 @@ To show that $\overline{h}$ satisfies our requirements, we must establish:
 To show (1), say $S = \{ x \in C \mid \overline{h}(x) = z \text{ for at most 1 z} \}$.
 $S = \{ x \in C \mid \text{ all acceptable functions agree at x } \}$.
 
-For $x \in B$, from definition of acceptable functions, we know
-for any $\nu_1, \nu_2 \in K$, $\nu_1(x) = \nu_2(x) = h(x)$.
-Thus, $B \subseteq S$. Next, by definition of *acceptable* functions,
-we know that if $\nu(x) \in S$
+For any $x \in B$, from definition of acceptable functions, we know
+that for $\nu_1, \nu_2 \in K$, $\nu_1(x) = \nu_2(x) = h(x)$. Thus,
+for $x \in B$, all acceptable functions defined at x agree. Thus $B \subseteq S$.
+
+Next, we show that $S$ is closed under $f, g$. Consider any $x, y \in S$.
+We need to show that $f(x), g(x, y) \in S$. Since $x, y \in S$,
+For any acceptable functions $\nu_1, \nu_2$ defined at $x$ and $(x, y)$,
+we know $\nu_1(x) = \nu_2(x)$ from definition of S.
+Since $\nu_1(f(x)) = F(\nu_1(x))$ and $\nu_2(f(x)) = F(\nu_2(x))$.
+Thus, if $\nu_1, \nu_2$ agree on $x$, then $\nu_1$ and $\nu_2$ also agree at $f(x)$.
+Thus, if $x \in S$, then $f(x) \in S$, by definition of S. Similarly,
+for any $x, y \in S$, $\nu_1(g(x, y)) = \nu_2(g(x, y)) = G(\nu_1(x), \nu_1(y)) =
+G(\nu_2(x), \nu_2(y))$. Thus, for $x, y \in S$, $g(x,y) \in S$. Hence $S$
+is inductive. Since $S \subseteq C$, and $C$ is the smallest inductive set,
+$S = C$. Since $\overline{h}$ is the union of all *acceptable* sets,
+it's defined over $C$, and is single valued.
+
+To show (2), we already have shown that $\fdomain(S) = C$.
+To show that $f(x) \in \fdomain(\overline{h})$, then $x \in
+\fdomain(\overline{h})$, we consider an acceptable function $\nu$
+with $f(x) \in \fdomain(\nu)$. Thus $x \in \fdomain(\nu)$, implying
+$x \in \fdomain(\overline{h})$.
 
 
 <!---
