@@ -151,6 +151,20 @@ are disjoint and functions, $f(x, y) \in \dom(\nu_2(x)) \in
 \fdomain{\nu_2}$.
 --->
 
+Compactness
+===========
+
+Given a finite/infinite set of formulas $\Gamma$, $\Gamma$
+is *finitely-satisfiable* iff every finite-subset $\Gamma^0 \subseteq \Gamma$
+is *satisfiable*. Compactness gives *satisfiablility* and *finite-satisfiability* are
+equivalent.
+
+**Proof of Compactnes**
+
+If $\Gamma$ is *satisfiable*, then the satisfying assignment $\nu$ also
+satisfies every finite subset $\Gamma^0$. Thus, if $\Gamma$ is satisfiable,
+it's also finitely satisfiable.
+
 Definability
 ============
 
