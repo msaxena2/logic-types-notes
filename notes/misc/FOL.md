@@ -239,4 +239,15 @@ $h: \structure \to \mathfrak{B}$ is said to be a homomorphism if:
    $h(f^{\structure}(a_1, \dots, a_n)) = f^{\mathfrak{B}}(h(a_1), \dots h(a_n))$.
 
 Thus, homomorphisms are structure-preserving transformations.
+If $h$ is one-to-one then it's called an *isomorphism* of $\mathfrak{U}$
+into $\mathfrak{B}$ if there is an isomorpism of $\mathfrak{U}$ onto
+$\mathfrak{B}$, (i.e. $range(h) = \mid \mathfrak{B} \mid$), then they are said to be *isomorphic*, written $\mathfrak{U}
+\cong \mathfrak{B}$.
+
+Say the language has symbols $+, .$, where $\structure = (\mathbb{N}; +, .)$
+Let $\mathfrak{B} = (\{ e, o \}, +_{\mathfrak{B}}, ._{\mathfrak{B}})$.
+Define $h: \mathbb{N} \to \{e, o \}$ that maps even numbers to e and odd numbers
+to o. Furthermore, map addition of two even numbers to even, and so on.
+This defines a homomorphism from $\mathfrak{U}$ onto $\mathfrak{B}$, but not an
+isomorphism.
 
