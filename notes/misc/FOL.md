@@ -198,8 +198,6 @@ for the language and for every function $s : V \to \mid \structure \mid$,
 if $\structure$ satisfies every sentence of $\Gamma$ with $s$, then
 $\structure$ also satisfies $\varphi$ with $s$.
 
-
-
 Definability of a Class of Structures
 =====================================
 
@@ -212,10 +210,33 @@ A class $\class$ is an *elementary class* iff $\class = \Mod{\tau}$
 for some sentence $\tau$. $\mathcal{K}$ is an elementary class
 in the wider sense if $\mathcal{K} = \Mod{\Sigma}$.
 
+Examples of Class of Structures
+-------------------------------
 
+Assume a language with parameters $\forall$, and $E$, a binary predicate.
+A graph is then a structure $\structure = (V, E^{\structure})$ where
+$V$ is a non-empty set of nodes. The edge relation $E^{\structure}$
+is *irreflexive* and *symmetric*. This can be expressed by the axiom:
 
+$$ \forall x . \left(\left(\neg \left(x E x\right) \right) \wedge \left(\forall y . \left(x E y\right) \implies \neg \left(y E x \right)\right)\right) $$
 
+For a directed graph, the symmetric can be dropped, and for
+a graph with loops, irreflexivity can be dropped.
 
+Homomorphisms
+=============
 
+Given structures $\structure, \mathfrak{B}$, a function from
+$h: \structure \to \mathfrak{B}$ is said to be a homomorphism if:
 
+ - For every predicate symbol $P$, we have $\langle a_1, a_2, \dots, a_n\rangle \in P^{\structure}$
+   $\langle h(a_1), h(a_2), \dots, h(a_n) \rangle \in P^{\mathfrak{B}}$.
+
+ - For every constant $a \in \mid \structure \mid$, we have $h(a) \in \mid
+ \mathfrak{B} \mid$.
+
+ - For every function symbol $f$, we have:
+   $h(f^{\structure}(a_1, \dots, a_n)) = f^{\mathfrak{B}}(h(a_1), \dots h(a_n))$.
+
+Thus, homomorphisms are structure-preserving transformations.
 
