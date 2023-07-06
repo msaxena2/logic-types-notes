@@ -165,6 +165,9 @@ If $\Gamma$ is *satisfiable*, then the satisfying assignment $\nu$ also
 satisfies every finite subset $\Gamma^0$. Thus, if $\Gamma$ is satisfiable,
 it's also finitely satisfiable.
 
+Next, we show that *finite satisfiability* implies *satisfiability*.
+If $\Gamma$ is finite, then compacntess trivially holds.
+
 Definability
 ============
 
@@ -180,6 +183,17 @@ This notion is formally captured as:
 Given *structure* $\structure$ and formula $\varphi$,
 with free variables $v_1,\dots, v_k$, define a *k-ary* relation on $\structure$
 as $\{ (u_1, \dots, u_k)\;\mid \; \vDash_{\structure} \varphi[u_1 / v_1, \dots, u_k /
-v_k ] \}$
+v_k ] \}$. A relation is said to be *definable* if  there is a formula
+$\varphi$ that defines it. In the example above, the set $\{b\}$ would
+not be *definable* as there is no formula that defines it.
+For natural numbers, there are *uncountably infinite* relations, but
+*countably-infinite* formulas, so there must be some relations not definable.
+
+
+
+
+
+
+
 
 
