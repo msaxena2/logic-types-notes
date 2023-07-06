@@ -189,6 +189,28 @@ not be *definable* as there is no formula that defines it.
 For natural numbers, there are *uncountably infinite* relations, but
 *countably-infinite* formulas, so there must be some relations not definable.
 
+Logical Implication
+===================
+
+Get $\Gamma$ be a set of sentences, and $\varphi$ some sentence.
+We say $\Gamma \vDash \varphi$ iff for every structure $\structure$
+for the language and for every function $s : V \to \mid \structure \mid$,
+if $\structure$ satisfies every sentence of $\Gamma$ with $s$, then
+$\structure$ also satisfies $\varphi$ with $s$.
+
+
+
+Definability of a Class of Structures
+=====================================
+
+*Structures* such as graphs, groups, etc., are essentially models
+that satisfy a set of formulas $\Sigma$, also referred to as axioms.
+Let $\Mod{\Sigma}$ be the set of all *models* for the language, i.e.,
+the set of all structures in which every member of $\Sigma$ is true.
+
+A class $\class$ is an *elementary class* iff $\class = \Mod{\tau}$
+for some sentence $\tau$. $\mathcal{K}$ is an elementary class
+in the wider sense if $\mathcal{K} = \Mod{\Sigma}$.
 
 
 
