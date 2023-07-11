@@ -251,3 +251,10 @@ to o. Furthermore, map addition of two even numbers to even, and so on.
 This defines a homomorphism from $\mathfrak{U}$ onto $\mathfrak{B}$, but not an
 isomorphism.
 
+Consider the set of positive integers $\mathbb{P}$ with ordering $<_P$.
+Let $\mathbb{N}$ be the set of natural numbers with order $<_N$.
+Then, there is an *isomorphism* $h$ is from $(\mathbb{P}, <_P)$ onto $(\mathbb{N}, <_N)$
+defined as $h(n) = n - 1$.
+
+
+
