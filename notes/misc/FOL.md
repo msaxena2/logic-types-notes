@@ -256,5 +256,17 @@ Let $\mathbb{N}$ be the set of natural numbers with order $<_N$.
 Then, there is an *isomorphism* $h$ is from $(\mathbb{P}, <_P)$ onto $(\mathbb{N}, <_N)$
 defined as $h(n) = n - 1$.
 
+More generally, given $\structure, \mathfrak{B}$ for some language, where $| \mathfrak{B}|
+\subseteq | \structure |$. The identity map from $|\mathfrak{B}|$ into
+$|\mathfrak{U}|$ is an isomorphism if:
+
+ - For each predicate parameter $P$, $P^{\mathfrak{B}}$ is the restriction
+   of $P^{\mathfrak{U}}$.
+ - For each function symbol $f$, $f^{\mathfrak{B}}$ is the restriction of
+   of $f^{\mathfrak{U}}$, and $c^{\mathfrak{U}} = c^{\mathfrak{B}}$ for each
+   constant $c$.
+
+
+
 
 
