@@ -266,7 +266,25 @@ $|\mathfrak{U}|$ is an isomorphism if:
    of $f^{\mathfrak{U}}$, and $c^{\mathfrak{U}} = c^{\mathfrak{B}}$ for each
    constant $c$.
 
+If these conditions are met, then $\mathfrak{B}$ is a *substructure* of
+$\mathfrak{U}$
 
+**Theorem 2:** Let $h$ be a homomorphism form $\mathfrak{B}$ into
+$\mathfrak{U}$, and let $s$ map the set of variables into $\mathfrak{B}$. Then,
 
+ a. For any term $t$, $h(\overline{s}(t)) = \overline{h \circ s}(t)$, where
+   $\overline{s}(t)$ is composed in $\mathfrak{B}$, and $\overline{h \circ s}(t)$
+   is computed in $\mathfrak{U}$.
+ b. For a quantifier free formula $\alpha$ not containing the equality symbol:
+    $$\vDash_{\mathfrak{B}} \overline{s}(\alpha) \text{ iff } \vDash_{\mathfrak{U}} \overline{h \circ s}(\alpha)$$
+ c. If $h$ is an isomorphism, then the restriction on equality may be removed.
+ d. If $h$ is onto, then the restriction on $\alpha$ being quantifier free may be removed.
+
+*Proof 2.a:*
+
+Need to show for any term $t$, $h(\overline{s}(t)) = \overline{h \circ s}(t)$.
+By induction on the term $t$.
+
+*Base Case:* If $t$ is a variable, then $h(\overline{s}(t)) = h(s(t))$.
 
 
