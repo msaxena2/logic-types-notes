@@ -270,7 +270,7 @@ If these conditions are met, then $\mathfrak{B}$ is a *substructure* of
 $\mathfrak{U}$
 
 **Theorem 2:** Let $h$ be a homomorphism form $\mathfrak{B}$ into
-$\mathfrak{U}$, and let $s$ map the set of variables into $\mathfrak{B}$. Then,
+$\mathfrak{U}$, and let $s$ map the set of variables $\Var$ into $\mathfrak{B}$. Then,
 
  a. For any term $t$, $h(\overline{s}(t)) = \overline{h \circ s}(t)$, where
    $\overline{s}(t)$ is composed in $\mathfrak{B}$, and $\overline{h \circ s}(t)$
@@ -283,8 +283,27 @@ $\mathfrak{U}$, and let $s$ map the set of variables into $\mathfrak{B}$. Then,
 *Proof 2.a:*
 
 Need to show for any term $t$, $h(\overline{s}(t)) = \overline{h \circ s}(t)$.
+Since $h \circ s$ is a map from the variables $\Var$ to $| \mathfrak{B} |$,
+there exists a unique homomorphism $\overline{h \circ s}$ s.t.
+
+ - $\overline{h \circ s}(v) = h \circ s(v)$ for $v \in \Var$
+ - $\overline{h \circ s}(f(a_1, \dots, a_n)) = f^{\mathfrak{B}}(\overline{h \circ s}(a_1), \dots, \overline{h \circ s}(a_n))$
+
+
 By induction on the term $t$.
 
-*Base Case:* If $t$ is a variable, then $h(\overline{s}(t)) = h(s(t))$.
+*Base Case:* If $t$ is variable $v$, then $h(\overline{s}(v)) = h(s(v)) = h \circ
+s(v) = \overline{h \circ s}(v)$, by definition of $\overline{h \circ s}$ above.
+
+If $t$ is a constant $c$, then let $\overline{s}(c) = c^{\structure}$.
+By definition, $h(c^{\structure}) = c^{\mathfrak{B}}$. By definition of
+$\overline{h \circ s}(c) = c^{\mathfrak{B}}$.
+
+
+
+
+
+
+
 
 
