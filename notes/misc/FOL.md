@@ -300,9 +300,40 @@ By definition, $h(c^{\structure}) = c^{\mathfrak{B}}$. By definition of
 $\overline{h \circ s}(c) = c^{\mathfrak{B}}$.
 
 
+*Inductive Case:* Let $t=f(a_1,\dots,a_n)$. We have:
 
+$$
+\begin{aligned}
+= &\  h(\overline{s}(f(a_1,\dots,a_n))) &  \\
+= &\  h(f^{\structure}(\overline{s}(a_1),\dots,\overline{s}(a_n))) & \;(\text{by definition of s}) \\
+= &\  f^{\mathfrak{B}}(h(\overline{s}(a_1)), \dots, h(\overline{s}(a_n))) & \; (\text{by definition of h}) \\
+= &\  f^{\mathfrak{B}}(\overline{h \circ s}(a_1)), \dots, \overline{h \circ s}(a_n)) & \; (\text{by inductive hypothesis}) \\
+= &\  \overline{h \circ s}(f(a_1,\dots, a_n)) & \; (\text{by defintion of }\ \overline{h \circ s}) \\
+\end{aligned}
+$$
 
+*Proof 2.b:*
 
+Let $\alpha$ be quantifier-free, and not contain any equalities.
+
+*Base Case:* Let $\alpha$ be an atomic formula $f(a_1, \dots, a_n)$.
+$$
+\begin{aligned}
+            & \vDash_{\mathfrak{U}} f(a_1, \dots, a_n)[s] \\
+\text{iff}\ & \langle \overline{s}(a_1), \dots, \overline{s}(a_n) \rangle \in f^{\mathfrak{U}} &\ \text{(by definition of satisfaction)} \\
+\text{iff}\ & \langle h(\overline{s}(a_1)), \dots, h(\overline{s}(a_n)) \rangle \in f^{\mathfrak{B}} &\ \text{(by defintion of } h) \\
+\text{iff}\ & \langle \overline{h \circ s}(a_1)), \dots, \overline{h \circ s}(a_n) \rangle \in f^{\mathfrak{B}} &\ \text{(using proof 2.a)} \\
+\text{iff}\ & \vDash_{\mathfrak{B}} f(a_1, \dots, a_n)[h \circ s] &\ (\text{by definition of satisfaction}) \\
+\end{aligned}
+$$
+
+*Inductive Case:* Suppose $t = \neg \alpha$. We know,
+$\vDash_{\mathfrak{U}} \neg \alpha[s]$ iff $\not{\vDash_{\mathfrak{U}}} \alpha[s]$.
+By inductive hypothesis, $\not{\vDash_{\mathfrak{U}}} \alpha[s]$ iff
+$\not{\vDash_{\mathfrak{B}}} \alpha[h \circ s]$. Thus, by definition
+of satisfaction for $\neg \varphi$, we have $\vDash_{\mathfrak{B}} \neg \alpha[h \circ s]$.
+
+We omit the $\to$ case - a similar argument can be employed.
 
 
 
