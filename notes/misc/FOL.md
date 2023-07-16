@@ -46,7 +46,7 @@ Formally, to define satisfaction, define extended-valuation $\overline{s}$ recur
 **Theorem 1.** For valuation s, there always exists a unique
 *extended-valuation* $\overline{s}$.
 
-*Proof:* A generalization of the proof of the recursion theorem.
+*\underline{Proof 1:}* A generalization of the proof of the recursion theorem.
 Consider set $U$ (of all expressions), and set $B \subseteq U$.
 Functions $f: U \to U$ and $g: U \times U \to U$ are defined over $U$.
 Let set $C$ be a set *generated* from B. The set $C$ can be defined
@@ -89,7 +89,7 @@ extended interpretation $\overline{\nu}$ into $\{\top,\bot\}$ for the WFFs in
 said language. Both the existence and uniqueness of the function follows from
 this theorem.
 
-*Corollary 1.1: Proof of existence of $\overline{h}$ using approximating functions*
+*\underline{Corollary 1.1:} Proof of existence of $\overline{h}$ using approximating functions*
 
 Let $\overline{h}$ be a union of approximating functions. Say a function
 $\nu$ is *acceptable* iff its domain is a subset of $C$, its range is
@@ -280,7 +280,7 @@ $\mathfrak{U}$, and let $s$ map the set of variables $\Var$ into $\mathfrak{B}$.
  c. If $h$ is an isomorphism, then the restriction on equality may be removed.
  d. If $h$ is onto, then the restriction on $\alpha$ being quantifier free may be removed.
 
-*Proof 2.a:*
+*\underline{Proof 2.a:}*
 
 Need to show for any term $t$, $h(\overline{s}(t)) = \overline{h \circ s}(t)$.
 Since $h \circ s$ is a map from the variables $\Var$ to $| \mathfrak{B} |$,
@@ -312,7 +312,7 @@ $$
 \end{aligned}
 $$
 
-*Proof 2.b:*
+*\underline{Proof 2.b:}*
 
 Let $\alpha$ be quantifier-free, and not contain any equalities.
 
@@ -335,6 +335,41 @@ of satisfaction for $\neg \varphi$, we have $\vDash_{\mathfrak{B}} \neg \alpha[h
 
 We omit the $\to$ case - a similar argument can be employed.
 
+*\underline{Proof 2.c:}*
+If $h$ is one-to-one, then $\alpha$ may contain equality.
+Suppose $\alpha \equiv \alpha_1 = \alpha_2$. We have,
 
+$$
+\begin{aligned}
+            & \vDash_{\mathfrak{B}} \alpha_1 = \alpha_2[h \circ s] & \\
+\text{iff}\ & \overline{h \circ s}(\alpha_1) = \overline{h \circ s}(\alpha_2) & \\
+\text{iff}\ & h(\overline{s}(\alpha_1)) = h(\overline{s}(\alpha_2)) &\ \text{ using 2.a } \\
+\text{iff}\ & \overline{s}(\alpha_1) = \overline{s}(\alpha_2) &\ \text{ since h is one-to-one} \\
+\text{iff}\ & \vDash_{\mathfrak{U}} \alpha_1 = \alpha_2[s]
+\end{aligned}
+$$
 
+*\underline{Proof 2.d}:*
+
+Assuming $\alpha \equiv \forall x . \varphi$, we need to show:
+
+$$\vDash_{\mathfrak{U}} \forall x. \varphi[s] \text{ iff } \vDash_{\mathfrak{B}} \forall x . \varphi [ h \circ s] $$
+
+The proof follows as an extension of arguments from *2.b*.
+
+From definition of $\forall$ satisfaction, we have
+$\vDash_{\mathfrak{U}} \varphi[s]$ iff for any $u \in |U|$,
+$\vDash_{\mathfrak{U}} \varphi[s(x \mid u)]$. By inductive hypothesis,
+we know $\vDash_{\mathfrak{U}} \varphi[s(x \mid u)]$ iff
+$\vDash_{\mathfrak{B}} \varphi[(h \circ s)(x \mid h(u))]$.
+Thus, we get $\vDash_{\mathfrak{U}} \forall x. \varphi [s]$ iff
+for all $u \in |U|$, $\vDash_{\mathfrak{B}} \varphi[(h \circ s)(x \mid h(u))]$,
+which can be rephrased as: for all $b \in R_h$,
+$\vDash_{\mathfrak{B}} \varphi[(h \circ s)(x \mid b)]$ where $R_h = \left\{ h(u) \mid u \in U \right \}$.
+If $h$ is onto, $R_h = |B|$. Thus,
+$\vDash_{\mathfrak{U}} \forall x . \varphi [s]$ iff
+for all $b \in |B|$, $\vDash_{\mathfrak{B}} \varphi[(h \circ s)(x \mid b)]$. By
+definition of $\forall$ satisfaction, we have
+$\vDash_{\mathfrak{U}} \forall x .  \varphi [s]$ iff
+$\vDash_{\mathfrak{B}} \forall x . \varphi[h \circ s]$.
 
