@@ -365,11 +365,30 @@ $\vDash_{\mathfrak{B}} \varphi[(h \circ s)(x \mid h(u))]$.
 Thus, we get $\vDash_{\mathfrak{U}} \forall x. \varphi [s]$ iff
 for all $u \in |U|$, $\vDash_{\mathfrak{B}} \varphi[(h \circ s)(x \mid h(u))]$,
 which can be rephrased as: for all $b \in R_h$,
-$\vDash_{\mathfrak{B}} \varphi[(h \circ s)(x \mid b)]$ where $R_h = \left\{ h(u) \mid u \in U \right \}$.
+$\vDash_{\mathfrak{B}} \varphi[(h \circ s)(x \mid b)]$ where
+$R_h = \left\{ h(u) \mid u \in U \right \}$.
 If $h$ is onto, $R_h = |B|$. Thus,
 $\vDash_{\mathfrak{U}} \forall x . \varphi [s]$ iff
 for all $b \in |B|$, $\vDash_{\mathfrak{B}} \varphi[(h \circ s)(x \mid b)]$. By
 definition of $\forall$ satisfaction, we have
 $\vDash_{\mathfrak{U}} \forall x .  \varphi [s]$ iff
 $\vDash_{\mathfrak{B}} \forall x . \varphi[h \circ s]$.
+
+
+Definability using Automorphisms
+--------------------------------
+
+Recall that set $A$ is set to be definable in $\structure$ iff there is a WFF
+$\varphi(x_1, \dots, x_n)$ s.t. $A = \left\{ \langle a_1, \dots, a_n
+\rangle \in |\structure|^n
+\mid\ \vDash_{\structure} \varphi(a_1, \dots, a_n) \right \}$, where $x_1, \dots, x_n$
+are free in $\varphi$.
+
+Suppose $h: |\structure| \to |\structure|$ is an automorphism. Let $A$
+be definable using WFF $\varphi(x_1, \dots, x_n)$. For $\langle a_1, \dots a_n
+\rangle \in A$, we have $\vDash_{\structure} \varphi(a_1, \dots, a_n)$ iff
+$\vDash_{\structure} \varphi(h(a_1), \dots, h(a_n))$. Thus, if
+$\langle h(a_1), \dots, h(a_n) \rangle \not \in A$, we have a contradiction.
+Thus, to establish non-definability, we need to find such an automorphism
+that leads to a contradiction.
 
