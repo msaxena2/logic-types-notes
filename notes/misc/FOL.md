@@ -437,12 +437,28 @@ for some $n \geq 0$ and variables $x_1, \dots, x_n$ $\varphi = \forall x_1
 \forall x_2, \dots, \forall x_n \psi$. If $n = 0$, the WFF $\varphi$ is
 considered to be a generalization of itself.
 
+The set $\Lambda$ of logical axioms can then be defined, for
+variables $x, y$  are variables and $\alpha, \beta$ are WFFs as:
+
+ - Tautologies
+ - $\forall x\ \alpha \to \alpha_{t}^{x}$ (substitute $t$ for $x$).
+ - $\forall x(\alpha \to \beta) \to (\forall x\ \alpha \to \forall x\ \beta)$
+
+If equality is also a part of the langauge:
+
+ - $x = x
+ - $x = y \to (\alpha \to \alpha')$ where $\alpha'$ is obtained by replacing
+   $\alpha$ in zero or more places by y, and $\alpha$ is atomic.
 
 
+Substitution $\forall x\ \alpha \to \alpha_{t}^{x}$ can also be defined
+recursively:
 
-
-
-
-
+ - For atomic formula $\alpha$, $\alpha_{t}^{x}$ is just replacement of $t$
+ for $x$.
+ - $(\neg \alpha)_{t}^{x} = \neg (\alpha_{t}^{x})$
+ - $(\alpha \to \beta)_{t}^{x} = (\alpha_{t}^{x} \to \beta_{t}^{x})$
+ - $(\forall y\ \alpha)_{t}^{x} = (\forall y\ \alpha_{t}^{x})$ if $x \neq y$
+    $\forall y\ \alpha$.
 
 
