@@ -446,19 +446,27 @@ variables $x, y$  are variables and $\alpha, \beta$ are WFFs as:
 
 If equality is also a part of the langauge:
 
- - $x = x
+ - $x = x$
  - $x = y \to (\alpha \to \alpha')$ where $\alpha'$ is obtained by replacing
    $\alpha$ in zero or more places by y, and $\alpha$ is atomic.
 
-
-Substitution $\forall x\ \alpha \to \alpha_{t}^{x}$ can also be defined
-recursively:
+Substitution $\forall x\ \alpha \to \alpha_{t}^{x}$ can also be defined recursively:
 
  - For atomic formula $\alpha$, $\alpha_{t}^{x}$ is just replacement of $t$
  for $x$.
  - $(\neg \alpha)_{t}^{x} = \neg (\alpha_{t}^{x})$
  - $(\alpha \to \beta)_{t}^{x} = (\alpha_{t}^{x} \to \beta_{t}^{x})$
  - $(\forall y\ \alpha)_{t}^{x} = (\forall y\ \alpha_{t}^{x})$ if $x \neq y$
-    $\forall y\ \alpha$.
+    and $\forall y\ \alpha$ otherwise.
+
+
+Note that $\forall x\ \varphi \to \varphi_{t}^{x}$ may not always hold.
+For instance, consider the following example, when $\alpha$ is $\neg \forall y\ x = y$.
+We get $\forall x\ (\neg \forall y\ x = y) \to \neg \forall y\ y = y$, which
+is false. Thus, while making substitutions, it's important to avoid
+*variable capture* or the introduction of unintended quantification.
+
+
+
 
 
