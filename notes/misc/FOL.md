@@ -392,3 +392,30 @@ $\langle h(a_1), \dots, h(a_n) \rangle \not \in A$, we have a contradiction.
 Thus, to establish non-definability, we need to find such an automorphism
 that leads to a contradiction.
 
+Deductive System
+================
+
+A system that allows us to establish systematically a
+statement of the form $\Gamma \vDash \varphi$ by constructing
+a *proof*. A proof has to be finitely long, and if the set of
+hypothesis $\Sigma$ is inifinite, they cannot all be used.
+By compactness, we can use some finite set $\Sigma_0 \subseteq \Sigma$
+such that $\Sigma_0 \vDash \tau$. To enable proof checking to occur,
+it must also be the case the set of formulas provable without
+hypothesis is enumerable.
+
+Formal Deductions
+-----------------
+
+Let $\Lambda$ be the set of axioms. Then for a set $\Gamma$ of
+formulas, the theorems of $\Gamma$ are the set of formulas
+that can be derived from $\Lambda \cup \Gamma$ using finite
+applications of rule of inference. If $\varphi$ is a theorem
+of $\Gamma$ (written $\Gamma \vdash \varphi$), then a sequence of
+formulas describing how $\varphi$ is obtained from $\Lambda \cup \Gamma$
+using rules of inference is called a *deduction* of $\varphi$ from
+$\Gamma$.
+
+
+
+
