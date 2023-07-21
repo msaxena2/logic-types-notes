@@ -416,6 +416,33 @@ formulas describing how $\varphi$ is obtained from $\Lambda \cup \Gamma$
 using rules of inference is called a *deduction* of $\varphi$ from
 $\Gamma$.
 
+*Definition of a deduction:* A deduction of $\varphi$ from $\Gamma$
+is a finite sequence $\langle \alpha_0, \alpha_1, \dots, \alpha_n \rangle$
+of formulas such that:
+
+ - $\varphi = \alpha_n$ and for each $k \leq n$, either:
+   * $\alpha_k$ is in $\Gamma \cup \Lambda$, or
+   * $\alpha_k$ is obtained by using modus ponens on two earlier
+   formulas in the sequence, that is form some $i,j < k$, $\alpha_j$
+   is $\alpha_i \to \alpha_k$.
+
+If such a deduction exists, $\varphi$ is said to be deducible from
+$\Gamma$.
+
+A set $S$ of formulas is said to be closed under modus ponens if
+whenever $\alpha$ and $\alpha \to \beta \in S$, then $\beta \in S$.
+
+Given a WFF $\varphi$, say $\varphi$ is a generalization of $\psi$
+for some $n \geq 0$ and variables $x_1, \dots, x_n$ $\varphi = \forall x_1
+\forall x_2, \dots, \forall x_n \psi$. If $n = 0$, the WFF $\varphi$ is
+considered to be a generalization of itself.
+
+
+
+
+
+
+
 
 
 
