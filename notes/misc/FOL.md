@@ -6,7 +6,6 @@ header-includes: |
 
 Based on a Mathematical Introduction to Logic by Herbert Enderton.
 
-
 Preliminaries
 =============
 
@@ -158,6 +157,11 @@ Given a finite/infinite set of formulas $\Gamma$, $\Gamma$
 is *finitely-satisfiable* iff every finite-subset $\Gamma^0 \subseteq \Gamma$
 is *satisfiable*. Compactness gives *satisfiablility* and *finite-satisfiability* are
 equivalent.
+
+Note that *compactness* isn't obvious. Compactness doesn't say that each
+finite subset is satisfiable by the same model, but that as long as
+all finite subsets are satisfiable (by models that may be different), there
+exists some model that also satisfies the inifinite set.
 
 **Proof of Compactnes**
 
@@ -459,14 +463,23 @@ Substitution $\forall x\ \alpha \to \alpha_{t}^{x}$ can also be defined recursiv
  - $(\forall y\ \alpha)_{t}^{x} = (\forall y\ \alpha_{t}^{x})$ if $x \neq y$
     and $\forall y\ \alpha$ otherwise.
 
-
 Note that $\forall x\ \varphi \to \varphi_{t}^{x}$ may not always hold.
 For instance, consider the following example, when $\alpha$ is $\neg \forall y\ x = y$.
 We get $\forall x\ (\neg \forall y\ x = y) \to \neg \forall y\ y = y$, which
 is false. Thus, while making substitutions, it's important to avoid
 *variable capture* or the introduction of unintended quantification.
 
+The following rules apply to evaluate substitutability:
 
+ - For atomic formula, $t$ is always substitutable for $x$ in $\alpha$.
+ - For $\neg \alpha$, $t$ is substitutable for $x$ if it's substitutable for $x$
+ in $\alpha$.
+ - For $\alpha \to \beta$, $t$ is subsitutable if it's substitutable in both
+ $\alpha$ and $\beta$.
+ - For $\forall y\ \alpha$, $t$ is substitutable for $x$ in $\alpha$ if
+   $x$ does not occur free in $\alpha$, or, $y$ doesn't occur in $t$ and
+   $t$ is substitutable for $x$ in $\alpha$. This accounts for the possibility
+   of variable capture.
 
 
 
