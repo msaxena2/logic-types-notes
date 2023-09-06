@@ -104,27 +104,29 @@ A Semantics First Approach to Building Correct Systems
 Building *correct* systems, i.e. systems that always work as *expected*,
 is challenging. To do so, one must be utilize languages that enable
 specifying such systems both *precisely* and *formally*.
-The *semantics first* approach dictates that
+The *semantics-first* approach dictates that
 such languages must have a *formal
 semantics* from which tools such as interpreter, compilers, model
 checkers and deductive verifiers, are derived in a *correct-by-construction*
 manner. These can subsequently be used to run the system, and analyze
 it to ensure desired properties are satisfied.
 
-Often, the semantics-first approach is used to ensure
-systems in an existing commonly used language
-satisfy desired properties.
+Often, the *semantics-first* approach is used to analyze systems in
+an existing commonly used language. To enable this,
+said language's executable semantics are developed using
+existing *informal* semantics.
 For example, ensuring financial transactions
 on the Ethereum blockchain implemented as smart contracts
 were free of exploits motivated the development of the
 $\K$ semantics of the Ethereum Virtual Machine (EVM), or KEVM [@csf-18].
-The $\K$ derived tools can be used to analyze EVM programs,
-and the executable semantics serve viable alternative
+The $\K$ derived tools can be used to ensure EVM programs satisfy
+desired properties. But, beyond program analysis,
+the executable semantics also serve as a viable alternative
 to the informal paper-based semantics.
 
-While existing languages present attractive targets for
-the semantics-first approach, using it to develop
-new languages has many benefits. It forces one
+However, while existing languages present attractive targets for
+the *semantics-first* approach, it truly shines when it is used to
+develop new languages. It forces one
 to carefully consider and flush out nuances of the language
 that may be ignored in an informal paper-based description
 of the language. For instance, in [@fse-18], a new
@@ -137,7 +139,7 @@ the KEVM ecosystem.
 My work seeks expands the *semantics-first* approach
 beyond traditional programming languages into thinking about
 the *semantics of systems* themselves. For instance, consider
-Clinical Decision Support Systems that encode Best Practice Guidelines (BPGs) to
+Clinical Decision Support Systems (CDSSs) that encode Best Practice Guidelines (BPGs) to
 assist healthcare practitioners (HCPs) with situation specific advice
 for various clinical scenarios. BPGs are systematically developed,
 evidence-based statements that inform HCPs of appropriate treatment
@@ -154,14 +156,16 @@ outcomes, and decrease HCP confidence in the system.
 
 The aforementioned gap can be addressed if medical knowledge in
 a CDSS is expressed in a manner that HCPs can *comprehend*, enabling
-them to *validate* that the system has intended semantics.
+them to *validate* that the system indeed has intended semantics.
 This can be challenging as CDSSs are complex multi-agent systems
 that also contain execution-related details.
 In [@k-guidelines-tr], instead of using a traditional programming language,
-we used $\K{}$-rules to express medical knowledge. While $\K{}'s$
-configuration abstraction entailed *concise* representations of
-medical logic, the $\K{}$-based definition was no more *comprehensible*
-to HCPs than an equivalent program in a conventional programming language .
+we used $\K{}$-rules to express medical knowledge.
+$\K$'s support for contextual rewriting and
+configuration abstraction enabled *concise* representations of
+medical logic. But, while the $\K{}$-based definition was
+*concise*, it was no more *comprehensible*
+to HCPs than an equivalent program in a conventional programming language.
 
 To address *comprehensibility*, we looked at
 existing paper based BPGs, and extracted *constructs* commonly used to
