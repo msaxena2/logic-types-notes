@@ -137,8 +137,8 @@ contracts, but was limited in scope to verification of smart contracts in
 the KEVM ecosystem.
 
 My work seeks expands the *semantics-first* approach
-beyond traditional programming languages into thinking about
-the *semantics of systems* themselves. For instance, consider
+beyond traditional programming languages into domains such as clinical medicine.
+Specifically, it focuses on building
 Clinical Decision Support Systems (CDSSs) that encode Best Practice Guidelines (BPGs) to
 assist healthcare practitioners (HCPs) with situation specific advice
 for various clinical scenarios. BPGs are systematically developed,
@@ -178,16 +178,20 @@ semantics-first paradigm ensures that our language has analysis tools, such as
 a model-checker, that we used to ensure that the CDSS satisfies desired safety
 properties.
 
-My proposed work aims to futher expand on our *semantics-first* approach
-along the following lines:
+My proposed work aims to futher expand on the $\MediK{}$-based approach to
+building robust CDSSs to address the following research challenges:
 
- * Use of *semantics-based compilation* to generate *correct-by-construction*
-   summaries of programs that HCPs can use to validate medical knowledge in a
-   CDSS.
- * Incorporation of Learning Enabled Components (LEC) using *simplex*
- architecture, where the LEC's recommendation are rejected if they are unaligned
- with known best practice specified in $\MediK{}$.
- * Generation of execution proof objects that serve as evidence of adherence to
-   known best practices.
+**(R1) Language Design:** Is $\MediK{}'s$ design, i.e. its syntax and semantics, conducive
+to expressing medical logic in a *natural* manner? Specifically, can it be used to express
+medical logic in a way that is both *executable* and *comprehensible* to HCPs?
+
+
+**(R2) Applicability and Scale:** Can $\MediK{}$ be utilized to build and analyze
+complex, real-world CDSSs that measurably improve clinical outcomes?
+
+**(R3) Formal Analysis:** Does the $\MediK{}$ ecosystem of semantics-derived
+tools enable establishing relevant liveness and safety properties?
+Can we utilize techniques such as *semantics-based compilation* to generate
+graphical representations of programs to aid *comprehensibility*?
 
 # References
