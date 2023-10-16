@@ -1,7 +1,8 @@
 \documentclass{beamer}
-\usetheme{Madrid}
+\usetheme[sectionpage=none,progressbar=head,numbering=counter]{metropolis}
 %\usecolortheme{seagull}
 %\setbeamertemplate{page number in head/foot}{}
+\setbeamertemplate{bibliography item}{\insertbiblabel}
 \usepackage{dirtytalk}
 \usepackage{lmodern}
 \usepackage{listings}
@@ -15,18 +16,44 @@
 \usefonttheme[onlymath]{serif}
 \graphicspath{{./images/}}
 \input{newcommands}
-
+\bibliographystyle{IEEEtran}
 %Information to be included in the title page:
-\title[]{\MediK{}: Towards Safe Guidelines-based Clinical Decision Support}
-\author[]{\textbf{Manasvi Saxena} \and Shuang Song \and Lui Sha}
-\institute[]{University of Illinois at Urbana Champaign}
-\setbeamerfont{caption}{size=\scriptsize}
+\title{\MediK{}: Towards Safe Guidelines-based Clinical Decision Support}
 \date{}
+\author{%
+\texorpdfstring{
+\begin{columns}[onlytextwidth]
+\column{0.33\textwidth}
+  \textbf{Manasvi Saxena} \inst{1}\\
+  \footnotesize{msaxena2@illinois.edu}
+\column{0.33\textwidth}
+  Shuang Song \inst{1}\\
+  \footnotesize{shuangs3@illinois.edu}
+\column{0.33\textwidth}
+  Lui Sha \inst{1}\\
+  \footnotesize{lrs@illinois.edu}
+\end{columns}
+}{Authors}}%
+\institute[]{\textsuperscript{1}University of Ilinois at Urbana Champaign}
 \begin{document}
-\begin{frame}
-  \vfill
-  \titlepage
-  \vfill
-  \usebeamerfont{institute} Contact: \url{msaxena2@illinois.edu}
+\maketitle
+\section{Introduction}
+\begin{frame}{Preventable Medical Errors (PMEs)}
+
+  PMEs are characterized by \emph{incorrect intended treatment} or
+  \emph{incorrect execution of intended treatment}.
+
+  \pause
+  Studies estimate that PMEs caused:
+  \begin{itemize}
+    \item \alert{44,000 - 98,000} deaths in 1997
+      \cite{DonaldsonBook00}, and \alert{$>$ 250,000} deaths in 2013 \cite{MakaryBMJ16} in the U.S
+      alone.
+    \item a financial burden of \alert{19.5 billion} dollars in 2008
+      \cite{AndelJHCF12}.
+  \end{itemize}
+\end{frame}
+\begin{frame}{References}
+  \bibliography{references}
 \end{frame}
 \end{document}

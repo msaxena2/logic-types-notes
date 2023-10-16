@@ -1,0 +1,956 @@
+@preamble{"\providecommand{\noopsort}[1]{}"}
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+% JOURNAL ABBREVIATIONS
+%%%%%%%%%%%%%%%%%%%%%%%%
+@STRING{ACP       = "Atmos.\ Chem.\ Phys."}
+@STRING{AG        = "Acta\ Geophys."}
+@STRING{AMS 	  = "Amer.\ Meteor.\ Soc."}
+@STRING{AGU 	  = "Amer.\ Geophys.\ Union"}
+@STRING{AIP 	  = "Amer. Inst. Phys."}
+@STRING{ADGEO     = "Adv.\ Geosci."}
+@STRING{AWR       = "Adv.\ Water\ Resour."}
+@STRING{AFM       = "Agric.\ For.\ Meteor."}
+@STRING{AM        = "Ann.\ Meteor."}
+@STRING{AN        = "Astrophys.\ Norv."}					% Astrophysica Norvegica
+@STRING{AE        = "Atmos.\ Environ."}
+@STRING{AO        = "Atmos.--Ocean"}						% Atmosphere--Ocean, published by Canadian Meteorological Society (CMOS)
+@STRING{AR        = "Atmos.\ Res."}							% Atmospheric Research
+@STRING{ARFM      = "Annu.\ Rev.\ Fluid Mech."}
+@STRING{AUMET     = "Aust.\ Meteor.\ Mag."}
+@STRING{BAMS      = "Bull.\ Amer.\ Meteor.\ Soc."}
+@STRING{BLM       = "Bound.-Layer\ Meteor."}
+@STRING{CAP       = "Contrib.\ Atmos.\ Phys."}
+@STRING{CC        = "Climate Change"}						% Climate Change
+@STRING{CCH       = "Climatic Change"}						% Climatic Change
+@STRING{CDYN      = "Climate Dyn."}
+@STRING{CHAOS     = "Chaos"}
+@STRING{COL       = "Collier's"}
+@STRING{CRS       = "Cont.\ Shelf Res."}
+@STRING{DAO       = "Dyn.\ Atmos.\ Oceans"}
+@STRING{ECO       = "Ecology"}
+@STRING{EI        = "Earth Interact."}
+@STRING{EFM       = "Environ.\ Fluid\ Mech."}               % Environmental Fluid Mechanics
+@STRING{FES       = "Front.\ Environ.\ Sci."}               % Frontiers in Environmental Sciences
+@STRING{GA        = "Geophysica"}							% Geophysica, published by Geophysical Society of Finland
+@STRING{GEOMAG    = "Geophys.\ Mag."}
+@STRING{GN        = "Geophys.\ Norv."}						% Geophysica Norvegica
+@STRING{GRL       = "Geophys.\ Res.\ Lett."}
+@STRING{GEOINT    = "Geofis.\ Int."}						% Geofisica Internacional (Mexican journal -- vols. 3--5 contained proceedings from a hurricane conference
+@STRING{GEOPUB    = "Geofys.\ Publ."}
+@STRING{GPC       = "Global Planet.\ Change"}
+@STRING{GMD       = "Geosci.\ Model\ Dev."}					% Geoscientific Model Developments
+@STRING{HP        = "Health Phys."}
+@STRING{IAOP      = "Izv.\ Atmos.\ Ocean.\ Phys.\ (Engl.\ Transl.)"}
+@STRING{IJC       = "Int.\ J.\ Climatol."}
+@STRING{IJHFF     = "Int.\ J.\ Heat\ Fluid\ Fl."}
+@STRING{JAM       = "J.\ Appl.\ Meteor."}					% renamed to name below in 2006
+@STRING{JAMC      = "J.\ Appl.\ Meteor.\ Climatol."}		% Journal of Applied Meteorology and Climatology (this journal used to be called the Journal of Applied Meteorology before 2006)
+@STRING{JAS       = "J.\ Atmos.\ Sci."}
+@STRING{JAOT      = "J.\ Atmos.\ Oceanic Technol."}
+@STRING{JCAM      = "J.\ Climate Appl.\ Meteor."}			% from 1983--87, now JAMC
+@STRING{JCLI      = "J.\ Climate"}
+@STRING{JCP       = "J.\ Comput.\ Phys."}
+@STRING{JCR       = "J.\ Coastal Res."}
+@STRING{JFM       = "J.\ Fluid\ Mech."}
+@STRING{JEM       = "J.\ Eng.\ Math."}						% Journal of Engineering Mathematics
+@STRING{JGR       = "J.\ Geophys.\ Res."}
+@STRING{JGRA      = "J.\ Geophys.\ Res.-Atmos."}
+@STRING{JGRO      = "J.\ Geophys.\ Res.-Oceans"}
+@STRING{JHM       = "J.\ Hydrometeor."}
+@STRING{JMS       = "J.\ Mar.\ Syst."}
+@STRING{JM        = "J.\ Meteor."}
+@STRING{JMR       = "J.\ Mar.\ Res."}
+@STRING{JMSJ      = "J.\ Meteor.\ Soc.\ Japan"}
+@STRING{JPO       = "J.\ Phys.\ Oceanogr."}
+@STRING{JOCEAN    = "J.\ Oceanogr."}						% Journal of Oceanography
+@STRING{JOSA      = "J.\ Opt.\ Soc.\ Am."}					% Journal of Optical Society of America
+@STRING{JOSJ      = "J.\ Oceanogr.\ Soc.\ Japan"}
+@STRING{JSE       = "J.\ Struct.\ Eng."}					% Journal of Structural Engineering at ASCE
+@STRING{JT        = "J.\ Turbul."}
+@STRING{JTM       = "J.\ Tropical Meteor."}
+@STRING{JWEIA     = "J.\ Wind Eng.\ Ind.\ Aerodyn."}
+@STRING{MA        = "Meteor.\ Appl."}
+@STRING{MAP       = "Meteor.\ Atmos.\ Phys."}
+@STRING{METMON    = "Meteor.\ Monogr."}
+@STRING{METZEIT   = "Meteor.\ Z."}
+@STRING{MWL       = "Mar.\ Wea.\ Log"}
+@STRING{MWR       = "Mon.\ Wea.\ Rev."}
+@STRING{NAT       = "Nature"}
+@STRING{NHR       = "Nat.\ Hazards Rev."}
+@STRING{NWD       = "Natl.\ Weather Dig."}
+@STRING{OA        = "Oceanol. Aeta"}
+@STRING{OCEAN     = "Oceanography"}							% a quarterly journal of The Oceanography Society
+@STRING{PAG       = "Pure Appl.\ Geophys."}
+@STRING{PF        = "Phys.\ Fluids"}
+@STRING{PHYSD     = "Physica D"}
+@STRING{PMG       = "Pap.\ Meteor.\ Geophys."}				% Papers in Meteorology and Geophysics
+@STRING{PNAS      = "Proc.\ Natl.\ Acad.\ Sci.\ (USA)"}
+@STRING{PRE       = "Phys.\ Rev.\ E"}
+@STRING{PRL       = "Phys.\ Rev.\ Lett."}
+@STRING{PRSA      = "Proc.\ Roy.\ Soc."}
+@STRING{PT        = "Phys.\ Today"}
+@STRING{PTRS      = "Philos.\ Trans.\ Roy.\ Soc.\ London"}
+@STRING{QJRMS     = "Quart.\ J.\ Roy.\ Meteor.\ Soc."}
+@STRING{RGEO      = "Rev. Geophys."}
+@STRING{SCI       = "Science"}
+@STRING{SOLA      = "SOLA"}									% Scientific Online Letters on the Atmosphere
+@STRING{TAGU      = "Eos, Trans.\ Amer.\ Geophys.\ Union"}
+@STRING{TELLUS    = "Tellus"}
+@STRING{TCFD      = "Theor.\ Comput.\ Fluid Dyn."}
+@STRING{WEA       = "Weather"}
+@STRING{WRR       = "Water\ Res.\ Research"}                % Water Resources Research
+@STRING{WW        = "Weatherwise"}
+@STRING{WF        = "Wea.\ Forecasting"}
+@STRING{WMOB      = "WMO Bull."}
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+% REFERENCES
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+@article {MakaryBMJ16,
+  author = {Makary, Martin A and Daniel, Michael},
+  title = {Medical error{\textemdash}the third leading cause of death in the US},
+  volume = {353},
+  year = {2016},
+  doi = {10.1136/bmj.i2139},
+  publisher = {BMJ Publishing Group Ltd},
+  URL = {https://www.bmj.com/content/353/bmj.i2139},
+  eprint = {https://www.bmj.com/content/353/bmj.i2139.full.pdf},
+  journal = {The BMJ}
+}
+
+@InProceedings{ChenLICS19,
+  author = {Xiaohong Chen and Grigore Rosu},
+  booktitle = {2019 34th Annual ACM/IEEE Symposium on Logic in Computer Science (LICS)},
+  title = {Matching mu-Logic},
+  year = {2019},
+  pages = {1-13},
+  keywords = {pattern matching;semantics;syntactics;cognition;computer languages;standards},
+  doi = {10.1109/LICS.2019.8785675},
+  publisher = {IEEE Computer Society},
+  address = {Los Alamitos, CA, USA},
+  month = {jun}
+}
+
+@misc{ClinicalGuidelinesURL,
+  title = {Clinical Practice Guidelines},
+  url = {https://www.nccih.nih.gov/health/providers/clinicalpractice}
+}
+
+@article{RosuJLAP10,
+  title = {An overview of the K semantic framework},
+  journal = {The Journal of Logic and Algebraic Programming},
+  volume = {79},
+  number = {6},
+  pages = {397-434},
+  year = {2010},
+  issn = {1567-8326},
+  doi = {10.1016/j.jlap.2010.03.012},
+  author = {Grigore Roșu and Traian Florin Șerbănută}
+}
+
+@article{WoolfBMJ99,
+  title={Potential benefits, limitations, and harms of clinical guidelines},
+  author={Woolf, Steven H and Grol, Richard and Hutchinson, Allen and Eccles, Martin and Grimshaw, Jeremy},
+  journal={The BMJ},
+  volume={318},
+  number={7182},
+  pages={527--530},
+  year={1999},
+  doi={10.1136/bmj.318.7182.527}
+}
+
+@article{SerbanutaETNCS14,
+  title = {The {K} Primer (version 3.3)},
+  journal = {Electronic Notes in Theoretical Computer Science},
+  volume = {304},
+  pages = {57-80},
+  year = {2014},
+  note = {Proceedings of the Second International Workshop on the K Framework and its Applications (K 2011).},
+  issn = {1571-0661},
+  doi = {10.1016/j.entcs.2014.05.003},
+  author = {Traian Florin Şerbănuţă and Andrei Arusoaie and David Lazar and Chucky Ellison and Dorel Lucanu and Grigore Roşu},
+}
+
+
+
+@inproceedings{HathhornPLDI15,
+  author = {Hathhorn, Chris and Ellison, Chucky and Ro\c{s}u, Grigore},
+  title = {Defining the Undefinedness of C},
+  year = {2015},
+  isbn = {9781450334686},
+  publisher = {Association for Computing Machinery},
+  address = {New York, NY, USA},
+  doi = {10.1145/2737924.2737979},
+  booktitle = {Proceedings of the 36th ACM SIGPLAN Conference on Programming Language Design and Implementation},
+  pages = {336–345},
+  series = {PLDI '15}
+}
+
+@inproceedings{BogdanasPOPL15,
+    author = "Bogd\u{a}na\c{s}, Denis and Ro\c{s}u, Grigore",
+    publisher = "ACM",
+    doi = {10.1145/2676726.2676982},
+    title = {K-{Java}: A complete semantics of {Java}},
+    booktitle = "Proceedings of the 42nd Symposium on Principles of Programming Languages (POPL'15)",
+    month = "January",
+    year = "2015",
+    pages = "445-456"
+}
+
+@inproceedings{ParkPLDI15,
+  author = {Park, Daejun and Stef\u{a}nescu, Andrei and Ro\c{s}u, Grigore},
+  title = {KJS: A complete formal semantics of JavaScript},
+  year = {2015},
+  isbn = {9781450334686},
+  publisher = {Association for Computing Machinery},
+  address = {New York, NY, USA},
+  doi = {10.1145/2737924.2737991},
+  booktitle = {Proceedings of the 36th ACM SIGPLAN Conference on Programming Language Design and Implementation},
+  pages = {346–356},
+  numpages = {11},
+  location = {Portland, OR, USA},
+  series = {PLDI '15}
+}
+@inproceedings{HildenbrandtCSF18,
+  author={E. {Hildenbrandt} and M. {Saxena} and N. {Rodrigues} and X. {Zhu} and P. {Daian} and D. {Guth} and B. {Moore} and D. {Park} and Y. {Zhang} and A. {Stefanescu} and G. {Rosu}},
+  booktitle={2018 IEEE 31st Computer Security Foundations Symposium (CSF)},
+  title={{KEVM}: A complete formal semantics of the {Ethereum Virtual Machine}},
+  year={2018},
+  pages={204-217},
+  doi={10.1109/CSF.2018.00022}}
+}
+
+@misc{AHAUrl,
+  title={American Heart Association Emergency Cardiovascular Care},
+  url={https://cpr.heart.org/en/resuscitation-science/cpr-and-ecc-guidelines/algorithms}
+}
+
+@inproceedings{MeseguerACM91,
+  author = {Meseguer, Jos\'{e}},
+  title = {Rewriting as a unified model of concurrency},
+  year = {1991},
+  isbn = {0897914112},
+  publisher = {Association for Computing Machinery},
+  address = {New York, NY, USA},
+  doi = {10.1145/127056.127091},
+  booktitle = {Proceedings of the Workshop on Object-Based Concurrent Programming},
+  pages = {86–88},
+  numpages = {3},
+  location = {Ottawa, Canada},
+  series = {OOPSLA/ECOOP '90}
+}
+
+@article{KawamotoBMJ05,
+  title={Improving clinical practice using clinical decision support systems: a systematic review of trials to identify features critical to success},
+  author={Kawamoto, Kensaku and Houlihan, Caitlin A and Balas, E Andrew and Lobach, David F},
+  journal={The BMJ},
+  volume={330},
+  number={7494},
+  pages={765},
+  year={2005},
+  doi={10.1136/bmj.38398.500764.8F}
+}
+@article{ShortliffeJAMA18,
+  title={Clinical decision support in the era of artificial intelligence},
+  author={Shortliffe, Edward H and Sep{\'u}lveda, Martin J},
+  journal={Journal of American Medical Association},
+  volume={320},
+  number={21},
+  pages={2199--2200},
+  year={2018},
+  publisher={American Medical Association},
+  doi={10.1001/jama.2018.17163 }
+}
+@article{SamwaldJBI12,
+  title={The Arden Syntax standard for clinical decision support: experiences and directions},
+  author={Samwald, Matthias and Fehre, Karsten and De Bruin, Jeroen and Adlassnig, Klaus-Peter},
+  journal={Journal of Biomedical Informatics},
+  volume={45},
+  number={4},
+  pages={711--718},
+  year={2012},
+  publisher={Elsevier},
+  doi={10.1016/j.jbi.2012.02.001}
+}
+
+@article{FoxCMP97,
+  title={PROforma: a general technology for clinical decision support systems},
+  author={Fox, John and Johns, Nicky and Lyons, Colin and Rahmanzadeh, Ali and Thomson, Richard and Wilson, Peter},
+  journal={Computer Methods and Programs in Biomedicine},
+  volume={54},
+  number={1-2},
+  pages={59--67},
+  year={1997},
+  publisher={Elsevier},
+  doi={10.1016/s0169-2607(97)00034-5}
+}
+
+@article{RahmaniherisTR16,
+  title={Model-driven Design of clinical guidance systems},
+  author={Maryam Rahmaniheris and Yu Jiang and Lui Sha},
+  journal={ArXiv},
+  year={2016},
+  volume={abs/1610.06895}
+}
+
+@article{Eisenberg2021JP,
+  title={Comparison of manual and automated sepsis screening tools in a pediatric emergency department},
+  author={Eisenberg, Matthew and Freiman, Eli and Capraro, Andrew and Madden, Kate and Monuteaux, Michael C and Hudgins, Joel and Harper, Marvin},
+  journal={Pediatrics},
+  volume={147},
+  number={2},
+  year={2021},
+  publisher={American Academy of Pediatrics}
+}
+
+@article{Weiss2014CCM,
+  title={Delayed antimicrobial therapy increases mortality and organ dysfunction duration in pediatric sepsis},
+  author={Weiss, Scott L and Fitzgerald, Julie C and Balamuth, Fran and Alpern, Elizabeth R and Lavelle, Jane and Chilutti, Marianne and Grundmeier, Robert and Nadkarni, Vinay M and Thomas, Neal J},
+  journal={Critical Care Medicine},
+  volume={42},
+  number={11},
+  pages={2409},
+  year={2014},
+  publisher={NIH Public Access}
+}
+
+@article{Evans2018JAMA,
+  title={Association between the New York sepsis care mandate and in-hospital mortality for pediatric sepsis},
+  author={Evans, Idris VR and Phillips, Gary S and Alpern, Elizabeth R and Angus, Derek C and Friedrich, Marcus E and Kissoon, Niranjan and Lemeshow, Stanley and Levy, Mitchell M and Parker, Margaret M and Terry, Kathleen M and others},
+  journal={Journal of American Medicine (JAMA)},
+  volume={320},
+  number={4},
+  pages={358--367},
+  year={2018},
+  publisher={American Medical Association}
+}
+@article{Goldstein2005PCCM,
+  title={International pediatric sepsis consensus conference: definitions for sepsis and organ dysfunction in pediatrics},
+  author={Goldstein, Brahm and Giroir, Brett and Randolph, Adrienne and others},
+  journal={Pediatric Critical Care Medicine},
+  volume={6},
+  number={1},
+  pages={2--8},
+  year={2005},
+  publisher={LWW}
+}
+
+@article{Balamuth2017EM,
+  title={Improving recognition of pediatric severe sepsis in the emergency department: contributions of a vital sign--based electronic alert and bedside clinician identification},
+  author={Balamuth, Fran and Alpern, Elizabeth R and Abbadessa, Mary Kate and Hayes, Katie and Schast, Aileen and Lavelle, Jane and Fitzgerald, Julie C and Weiss, Scott L and Zorc, Joseph J},
+  journal={Annals of Emergency Medicine},
+  volume={70},
+  number={6},
+  pages={759--768},
+  year={2017},
+  publisher={Elsevier}
+}
+
+@article{Sepanski2014FP,
+  title={Designing a pediatric severe sepsis screening tool},
+  author={Sepanski, Robert J and Godambe, Sandip A and Mangum, Christopher D and Bovat, Christine S and Zaritsky, Arno L and Shah, Samir H},
+  journal={Frontiers in Pediatrics},
+  volume={2},
+  pages={56},
+  year={2014},
+  publisher={Frontiers Media SA}
+}
+@article{Carcillo2002CCM,
+  title={Clinical practice parameters for hemodynamic support of pediatric and neonatal patients in septic shock},
+  author={Carcillo, Joseph A and Fields, Alan I and others},
+  journal={Critical Care Medicine},
+  volume={30},
+  number={6},
+  pages={1365--1378},
+  year={2002},
+  publisher={LWW}
+}
+
+@misc{AHAFlowcharts,
+  title = {CPR and Emergency Cardiovascular Care Algorithms},
+  url = {https://cpr.heart.org/en/resuscitation-science/cpr-and-ecc-guidelines/algorithms}
+}
+
+@misc{CancerCareFlowcharts,
+  title = {Clinical Practice Algorithms},
+  url = {https://www.mdanderson.org/for-physicians/clinical-tools-resources/clinical-practice-algorithms.html}
+}
+@misc{jsonUrl,
+  title = {ECMA-404 The JSON Data Interchange Standard.},
+  url = {https://www.json.org/json-en.html}
+}
+@misc{medikUrl,
+  title = {The {K} Semantics of {MediK}},
+  URL = {https://github.com/fmcad-78/medik-semantics.git}
+}
+
+@misc{psepsis-url,
+  title = {Sepsis Screening and Management Application},
+  URL = {https://github.com/fmcad-78/psepsis.git}
+}
+@article{EisenbergAAP21,
+    author = {Eisenberg, Matthew and Freiman, Eli and Capraro, Andrew and Madden, Kate and Monuteaux, Michael C. and Hudgins, Joel and Harper, Marvin},
+    title = "{Comparison of Manual and Automated Sepsis Screening Tools in a Pediatric Emergency Department}",
+    journal = {Pediatrics},
+    volume = {147},
+    number = {2},
+    year = {2021},
+    month = {02},
+    abstract = "{10.1542/6209695215001Video AbstractPEDS-VA\_2020-0225906209695215001To compare the performance and test characteristics of an automated sepsis screening tool with that of a manual sepsis screen in patients presenting to a pediatric emergency department (ED).We conducted a retrospective cohort study of encounters in a pediatric ED over a 2-year period. The automated sepsis screening algorithm replaced the manual sepsis screen 1 year into the study. A positive case was defined as development of severe sepsis or septic shock within 24 hours of disposition from the ED. We calculated the sensitivity, specificity, positive predictive value (PPV), negative predictive value (NPV), and positive and negative likelihood ratios with 95\\% confidence intervals (CIs) for each.There were 122 221 ED encounters during the study period and 273 cases of severe sepsis. During year 1 of the study, the manual screen was performed in 8910 of 61 026 (14.6\\%) encounters, resulting in the following test characteristics: sensitivity of 64.6\\% (95\\% CI 54.2\\%–74.1\\%), specificity of 91.1\\% (95\\% CI 90.5\\%–91.7\\%), PPV of 7.3\\% (95\\% CI 6.3\\%–8.5\\%), and NPV of 99.6\\% (95\\% CI 99.5\\%–99.7\\%). During year 2 of the study, the automated screen was performed in 100\\% of 61 195 encounters, resulting in the following test characteristics: sensitivity of 84.6\\% (95\\% CI 77.4\\%–90.2\\%), specificity of 95.1\\% (95\\% CI 94.9\\%–95.2\\%), PPV of 3.7\\% (95\\% CI 3.4\\%–4\\%), and NPV of 99.9\\% (95\\% CI 99.9\\%–100\\%).An automated sepsis screening algorithm had higher sensitivity and specificity than a widely used manual sepsis screen and was performed on 100\\% of patients in the ED, ensuring continuous sepsis surveillance throughout the ED stay.}",
+    issn = {0031-4005},
+    doi = {10.1542/peds.2020-022590},
+    url = {https://doi.org/10.1542/peds.2020-022590},
+    note = {e2020022590},
+    eprint = {https://publications.aap.org/pediatrics/article-pdf/147/2/e2020022590/1082703/peds\_2020022590.pdf},
+}
+
+@article{AndersenJAMA19,
+    author = {Andersen, Lars W. and Holmberg, Mathias J. and Berg, Katherine M. and Donnino, Michael W. and Granfeldt, Asger},
+    title = "{In-Hospital Cardiac Arrest: A Review}",
+    journal = {JAMA},
+    volume = {321},
+    number = {12},
+    pages = {1200-1210},
+    year = {2019},
+    month = {03},
+    abstract = "{In-hospital cardiac arrest is common and associated with a high mortality rate. Despite this, in-hospital cardiac arrest has received little attention compared with other high-risk cardiovascular conditions, such as stroke, myocardial infarction, and out-of-hospital cardiac arrest.In-hospital cardiac arrest occurs in over 290 000 adults each year in the United States. Cohort data from the United States indicate that the mean age of patients with in-hospital cardiac arrest is 66 years, 58\\% are men, and the presenting rhythm is most often (81\\%) nonshockable (ie, asystole or pulseless electrical activity). The cause of the cardiac arrest is most often cardiac (50\\%-60\\%), followed by respiratory insufficiency (15\\%-40\\%). Efforts to prevent in-hospital cardiac arrest require both a system for identifying deteriorating patients and an appropriate interventional response (eg, rapid response teams). The key elements of treatment during cardiac arrest include chest compressions, ventilation, early defibrillation, when applicable, and immediate attention to potentially reversible causes, such as hyperkalemia or hypoxia. There is limited evidence to support more advanced treatments. Post–cardiac arrest care is focused on identification and treatment of the underlying cause, hemodynamic and respiratory support, and potentially employing neuroprotective strategies (eg, targeted temperature management). Although multiple individual factors are associated with outcomes (eg, age, initial rhythm, duration of the cardiac arrest), a multifaceted approach considering both potential for neurological recovery and ongoing multiorgan failure is warranted for prognostication and clinical decision-making in the post–cardiac arrest period. Withdrawal of care in the absence of definite prognostic signs both during and after cardiac arrest should be avoided. Hospitals are encouraged to participate in national quality-improvement initiatives.An estimated 290 000 in-hospital cardiac arrests occur each year in the United States. However, there is limited evidence to support clinical decision making. An increased awareness with regard to optimizing clinical care and new research might improve outcomes.}",
+    issn = {0098-7484},
+    doi = {10.1001/jama.2019.1696},
+    url = {https://doi.org/10.1001/jama.2019.1696},
+    eprint = {https://jamanetwork.com/journals/jama/articlepdf/2728930/jama\_andersen\_2019\_rv\_190002.pdf},
+}
+
+@misc{acls-url,
+  title = {Advanced Cardiac Life Support Algorithms},
+  url = {https://cpr.heart.org/en/resuscitation-science/cpr-and-ecc-guidelines/algorithms}
+}
+
+@misc{ClinicalDecisionSupportURL,
+  title = {Implementing Clinical Decision Support Systems},
+  url = {https://www.cdc.gov/dhdsp/pubs/guides/best-practices/clinical-decision-support.htm}
+}
+
+@book{field1990clinical,
+  title={Clinical practice guidelines},
+  author={Field, Marilyn J and Lohr, Kathleen N and others},
+  journal={Directions for a new program},
+  pages={1990},
+  year={1990},
+  publisher={National Academies Press (US) Washington, DC, USA}
+}
+
+@article{AHAGuidelinePed,
+  title={Part 4: Pediatric basic and advanced life support: 2020 American Heart Association guidelines for cardiopulmonary resuscitation and emergency cardiovascular care},
+  author={Topjian, Alexis A and Raymond, Tia T and Atkins, Dianne and Chan, Melissa and Duff, Jonathan P and Joyner Jr, Benny L and Lasa, Javier J and Lavonas, Eric J and Levy, Arielle and Mahgoub, Melissa and others},
+  journal={Circulation},
+  volume={142},
+  number={16\_Suppl\_2},
+  pages={S469--S523},
+  year={2020},
+  publisher={American Heart Association}
+}
+
+@article{AHAGuidelineAdult,
+  title={Part 3: adult basic and advanced life support: 2020 American Heart Association guidelines for cardiopulmonary resuscitation and emergency cardiovascular care},
+  author={Panchal, Ashish R and Bartos, Jason A and Caba{\~n}as, Jos{\'e} G and Donnino, Michael W and Drennan, Ian R and Hirsch, Karen G and Kudenchuk, Peter J and Kurz, Michael C and Lavonas, Eric J and Morley, Peter T and others},
+  journal={Circulation},
+  volume={142},
+  number={16\_Suppl\_2},
+  pages={S366--S468},
+  year={2020},
+  publisher={American Heart Association}
+}
+
+@article{Ornato2012DeviationAdult,
+  title={Impact of resuscitation system errors on survival from in-hospital cardiac arrest},
+  author={Ornato, Joseph P and Peberdy, Mary Ann and Reid, Renee D and Feeser, V Ramana and Dhindsa, Harinder S and NRCPR investigators and others},
+  journal={Resuscitation},
+  volume={83},
+  number={1},
+  pages={63--69},
+  year={2012},
+  publisher={Elsevier}
+}
+
+@article{Wolfe2020DeviationPediatric,
+  title={Deviations from AHA guidelines during pediatric cardiopulmonary resuscitation are associated with decreased event survival},
+  author={Wolfe, Heather A and Morgan, Ryan W and Zhang, Bingqing and Topjian, Alexis A and Fink, Ericka L and Berg, Robert A and Nadkarni, Vinay M and Nishisaki, Akira and Mensinger, Janell and Sutton, Robert M and others},
+  journal={Resuscitation},
+  volume={149},
+  pages={89--99},
+  year={2020},
+  publisher={Elsevier}
+}
+
+@article{Crowley2020DeviationAdult,
+  title={The association between ACLS guideline deviations and outcomes from in-hospital cardiac arrest},
+  author={Crowley, Conor P and Salciccioli, Justin D and Kim, Edy Y},
+  journal={Resuscitation},
+  volume={153},
+  pages={65--70},
+  year={2020},
+  publisher={Elsevier}
+}
+
+@article{Honarmand2018Adherence,
+  title={Adherence to advanced cardiovascular life support (ACLS) guidelines during in-hospital cardiac arrest is associated with improved outcomes},
+  author={Honarmand, Kimia and Mepham, Chantal and Ainsworth, Craig and Khalid, Zahira},
+  journal={Resuscitation},
+  volume={129},
+  pages={76--81},
+  year={2018},
+  publisher={Elsevier}
+}
+
+@article{Mcevoy2014Adherence,
+  title={The effect of adherence to ACLS protocols on survival of event in the setting of in-hospital cardiac arrest},
+  author={McEvoy, Matthew D and Field, Larry C and Moore, Haley E and Smalley, Jeremy C and Nietert, Paul J and Scarbrough, Sheila H},
+  journal={Resuscitation},
+  volume={85},
+  number={1},
+  pages={82--87},
+  year={2014},
+  publisher={Elsevier}
+}
+
+@misc{FullCodePro,
+    title={Full code pro},
+    url={https://cpr.heart.org/en/cpr-courses-and-kits/healthcare-professional/full-code-pro},
+    journal={cpr.heart.org},
+    author={American Heart Association, Inc},
+    year={2021},
+    month={Oct}
+}
+
+@article{PediAppRREST2020,
+  title={Development and usability of a novel interactive tablet APP (PediAppRREST) to support the management of pediatric cardiac arrest: pilot high-fidelity simulation-based study},
+  author={Corazza, Francesco and Snijders, Deborah and Arpone, Marta and Stritoni, Valentina and Martinolli, Francesco and Daverio, Marco and Losi, Maria Giulia and Soldi, Luca and Tesauri, Francesco and Da Dalt, Liviana and others},
+  journal={JMIR mHealth and uHealth},
+  volume={8},
+  number={10},
+  pages={e19070},
+  year={2020},
+  publisher={JMIR Publications Inc., Toronto, Canada}
+}
+
+@article{PediAppRREST2021,
+  title={PediAppRREST: effectiveness of an interactive cognitive support tablet app in reducing deviations from guidelines in the management of paediatric cardiac arrest: protocol for a simulation-based randomised controlled trial},
+  author={Corazza, Francesco and Arpone, Marta and Snijders, Deborah and Cheng, Adam and Stritoni, Valentina and Ingrassia, Pier Luigi and De Luca, Marco and Tortorolo, Luca and Frigo, Anna Chiara and Da Dalt, Liviana and others},
+  journal={BMJ open},
+  volume={11},
+  number={7},
+  pages={e047208},
+  year={2021},
+  publisher={British Medical Journal Publishing Group}
+}
+
+@article{GuidingPad2017,
+  title={Adherence to AHA guidelines when adapted for augmented reality glasses for assisted pediatric cardiopulmonary resuscitation: a randomized controlled trial},
+  author={Siebert, Johan N and Ehrler, Frederic and Gervaix, Alain and Haddad, Kevin and Lacroix, Laurence and Schrurs, Philippe and Sahin, Ayhan and Lovis, Christian and Manzano, Sergio},
+  journal={J Med Internet Res},
+  volume={19},
+  number={5},
+  pages={e183},
+  year={2017}
+}
+
+@article{GuidingPad2019,
+  title={A mobile device application to reduce medication errors and time to drug delivery during simulated paediatric cardiopulmonary resuscitation: a multicentre, randomised, controlled, crossover trial},
+  author={Siebert, Johan N and Ehrler, Fr{\'e}d{\'e}ric and Combescure, Christophe and Lovis, Christian and Haddad, Kevin and Hugon, Florence and Luterbacher, Fanny and Lacroix, Laurence and Gervaix, Alain and Manzano, Sergio and others},
+  journal={The Lancet Child \& Adolescent Health},
+  volume={3},
+  number={5},
+  pages={303--311},
+  year={2019},
+  publisher={Elsevier}
+}
+
+@article{GuidingPad2020,
+  title={The impact of a tablet APP on adherence to American heart association guidelines during simulated pediatric cardiopulmonary resuscitation: randomized controlled trial},
+  author={Siebert, Johan N and Lacroix, Laurence and Cantais, Aymeric and Manzano, Sergio and Ehrler, Frederic},
+  journal={Journal of medical Internet research},
+  volume={22},
+  number={5},
+  pages={e17792},
+  year={2020},
+  publisher={JMIR Publications Inc., Toronto, Canada}
+}
+
+@article{DST2014,
+  title={Use of an electronic decision support tool improves management of simulated in-hospital cardiac arrest},
+  author={Field, Larry C and McEvoy, Matthew D and Smalley, Jeremy C and Clark, Carlee A and McEvoy, Michael B and Rieke, Horst and Nietert, Paul J and Furse, Cory M},
+  journal={Resuscitation},
+  volume={85},
+  number={1},
+  pages={138--142},
+  year={2014},
+  publisher={Elsevier}
+}
+
+@article{DST2019,
+  title={Use of an Electronic Decision Support Tool Improves Team Performance During in-situ Simulation of In-hospital Cardiac Arrest},
+  author={Chang, Rachel S and Kam, Sharon and Angaramo, Santiago and McEvoy, Matthew D and Raymond, Britany},
+  journal={Circulation},
+  volume={140},
+  number={Suppl\_1},
+  pages={A10151--A10151},
+  year={2019},
+  publisher={Am Heart Assoc}
+}
+
+@article{ROSCo2021,
+  title={Innovation in resuscitation: A novel clinical decision display system for advanced cardiac life support},
+  author={Crabb, David B and Hurwitz, Joshua E and Reed, Austin C and Smith, Zachary J and Martin, Emmett T and Tyndall, J Adrian and Taasan, Michael V and Plourde, Michelle A and Beattie, Lars K},
+  journal={The American Journal of Emergency Medicine},
+  volume={43},
+  pages={217--223},
+  year={2021},
+  publisher={Elsevier}
+}
+
+@article{TeamScreen2019,
+  title={Does electronic decision support influence advanced life support in simulated cardiac arrest?},
+  author={Jones, Ian and Ann Hayes, Julie and Williams, Janet and Lonsdale, Hannah},
+  journal={British Journal of Cardiac Nursing},
+  volume={14},
+  number={2},
+  pages={72--79},
+  year={2019},
+  publisher={MA Healthcare London}
+}
+
+@article{Wu2017,
+  title={Supporting emergency medical care teams with an integrated status display providing real-time access to medical best practices, workflow tracking, and patient data},
+  author={Wu, PoLiang and Nam, Min-Young and Choi, Jeonghwan and Kirlik, Alex and Sha, Lui and Berlin, Richard B},
+  journal={Journal of medical systems},
+  volume={41},
+  number={12},
+  pages={1--19},
+  year={2017},
+  publisher={Springer}
+}
+
+@article{BenettJAMIA16,
+    author = {Bennett, Paula and Hardiker, Nicholas R},
+    title = "{The use of computerized clinical decision support systems in emergency care: a substantive review of the literature}",
+    journal = {Journal of the American Medical Informatics Association (JAMIA)},
+    volume = {24},
+    number = {3},
+    pages = {655-668},
+    year = {2016},
+    month = {12},
+    doi = {10.1093/jamia/ocw151},
+}
+
+@article{SahotaJIS11,
+  author = {Sahota, Navdeep and Lloyd, Rob and Ramakrishna, Anita and Mackay, Jean and Prorok, Jeanette and Weise-Kelly, Lorraine and Navarro-Ruan, Tamara and Wilczynski, Nancy and Haynes, bhaynes@mcmaster.ca},
+  year = {2011},
+  month = {08},
+  pages = {91},
+  title = {Computerized clinical decision support systems for acute care management: A decision-maker-researcher partnership systematic review of effects on process of care and patient outcomes},
+  volume = {6},
+  journal = {Implementation Science (IS)},
+  doi = {10.1186/1748-5908-6-91}
+}
+
+@article{RandJAMA99,
+  title={Why don’t physicians follow clinical practice guidelines},
+  author={Rand, C and Powe, N and Wu, AW and Wilson, MH},
+  journal={Journal of the American Medical Association (JAMA)},
+  volume={282},
+  pages={14581465},
+  year={1999}
+}
+
+@article{DavisCMAJ97,
+  title={Translating guidelines into practice: a systematic review of theoretic concepts, practical experience and research evidence in the adoption of clinical practice guidelines},
+  author={Davis, David A and Taylor-Vaisey, Anne},
+  journal={Canadian Medical Association Journal (CMAJ)},
+  volume={157},
+  number={4},
+  pages={408--416},
+  year={1997},
+}
+
+@article{KwokEMA09,
+  title={Improving adherence to asthma clinical guidelines and discharge documentation from emergency departments: implementation of a dynamic and integrated electronic decision support system},
+  author={Kwok, Raymond and Dinh, Michael and Dinh, David and Chu, Matthew},
+  journal={Emergency Medicine Australasia},
+  volume={21},
+  number={1},
+  pages={31--37},
+  year={2009},
+}
+
+@article{PelegJBI13,
+  title={Computer-interpretable clinical guidelines: A methodological review},
+  author={Mor Peleg},
+  keywords={Computer-interpretable clinical guidelines, Clinical practice guidelines, Knowledge representation, Decision-support systems},
+  journal={Journal of Biomedical Informatics (JBI)},
+  volume={46},
+  number={4},
+  pages={744-763},
+  year={2013},
+  issn={1532-0464},
+  doi={https://doi.org/10.1016/j.jbi.2013.06.009}
+}
+
+@inproceedings{PelegAMIA00,
+  title={GLIF3: the evolution of a guideline representation format.},
+  author={Peleg, Mor and Boxwala, Aziz A and Ogunyemi, Omolola and Zeng, Qing and Tu, Samson and Lacson, Ronilda and Bernstam, Elmer and Ash, Nachman and Mork, Peter and Ohno-Machado, Lucila and others},
+  booktitle={Proceedings of the AMIA Symposium},
+  pages={645},
+  year={2000},
+  organization={American Medical Informatics Association}
+}
+
+@article{BoxwalaJBI04,
+  title={GLIF3: a representation format for sharable computer-interpretable clinical practice guidelines},
+  author={Boxwala, Aziz A and Peleg, Mor and Tu, Samson and Ogunyemi, Omolola and Zeng, Qing T and Wang, Dongwen and Patel, Vimla L and Greenes, Robert A and Shortliffe, Edward H},
+  journal={Journal of Biomedical Informatics (JBI)},
+  volume={37},
+  number={3},
+  pages={147--161},
+  year={2004},
+  publisher={Elsevier}
+}
+
+@article{SamwaldJBI12,
+  title = {The Arden Syntax standard for clinical decision support: Experiences and directions},
+  journal = {Journal of Biomedical Informatics},
+  volume = {45},
+  number = {4},
+  pages = {711-718},
+  year = {2012},
+  issn = {1532-0464},
+  doi = {https://doi.org/10.1016/j.jbi.2012.02.001},
+  author = {Matthias Samwald and Karsten Fehre and Jeroen {de Bruin} and Klaus-Peter Adlassnig},
+}
+
+@article{HripcsakCBM94,
+  title={Writing Arden Syntax medical logic modules},
+  author={Hripcsak, George},
+  journal={Computers in biology and medicine},
+  volume={24},
+  number={5},
+  pages={331--363},
+  year={1994},
+  publisher={Elsevier}
+}
+@article{PelegJBI01,
+  title={Sharable representation of clinical guidelines in GLIF: relationship to the Arden Syntax},
+  author={Peleg, Mor and Boxwala, Aziz A and Bernstam, Elmer and Tu, Samson and Greenes, Robert A and Shortliffe, Edward H},
+  journal={Journal of biomedical informatics},
+  volume={34},
+  number={3},
+  pages={170--181},
+  year={2001},
+  publisher={Elsevier}
+}
+@article{SuttonAMIA03,
+  title={The syntax and semantics of the PRO forma guideline modeling language},
+  author={Sutton, David R and Fox, John},
+  journal={Journal of the American Medical Informatics Association (AMIA)},
+  volume={10},
+  number={5},
+  pages={433--443},
+  year={2003},
+  publisher={BMJ Group BMA House, Tavistock Square, London, WC1H 9JR}
+}
+
+@InProceedings{BaumlerSPIN06,
+  author="B{\"a}umler, Simon
+  and Balser, Michael
+  and Dunets, Andriy
+  and Reif, Wolfgang
+  and Schmitt, Jonathan",
+  editor="Valmari, Antti",
+  title="Verification of Medical Guidelines by Model Checking -- A Case Study",
+  booktitle="Model Checking Software",
+  year="2006",
+  publisher="Springer Berlin Heidelberg",
+  pages="219--233",
+  isbn="978-3-540-33103-2"
+}
+
+@inproceedings{ShaharAMIA96,
+  title={An intention-based language for representing clinical guidelines.},
+  author={Shahar, Yuval and Miksch, Silvia and Johnson, Peter},
+  booktitle={Proceedings of the AMIA Annual Fall Symposium},
+  pages={592},
+  year={1996},
+  organization={American Medical Informatics Association}
+}
+
+@incollection{TuSAGE04,
+  title={The SAGE guideline modeling: motivation and methodology},
+  author={Tu, Samson W and Campbell, James and Musen, Mark A},
+  booktitle={Computer-based Support for Clinical Guidelines and Protocols},
+  pages={167--171},
+  year={2004},
+  publisher={IOS Press}
+}
+
+@inproceedings{NoyAMIA03,
+  title={Prot{\'e}g{\'e}-2000: an open-source ontology-development and knowledge-acquisition environment.},
+  author={Noy, Natalya Fridman and Crub{\'e}zy, Monica and Fergerson, Ray W and Knublauch, Holger and Tu, Samson W and Vendetti, Jennifer and Musen, Mark A},
+  booktitle={AMIA... annual symposium proceedings. AMIA Symposium},
+  pages={953--953},
+  year={2003}
+}
+
+@inproceedings{BakRTAS09,
+  title={The system-level simplex architecture for improved real-time embedded system safety},
+  author={Bak, Stanley and Chivukula, Deepti K and Adekunle, Olugbemiga and Sun, Mu and Caccamo, Marco and Sha, Lui},
+  booktitle={2009 15th IEEE Real-Time and Embedded Technology and Applications Symposium},
+  pages={99--107},
+  year={2009},
+  organization={IEEE}
+}
+
+@inproceedings{GiordanoAMIA06,
+  title={Model checking for clinical guidelines: an agent-based approach},
+  author={Giordano, Laura and Terenziani, Paolo and Bottrighi, Alessio and Montani, Stefania and Donzella, Loredana},
+  booktitle={Amia annual symposium proceedings},
+  volume={2006},
+  pages={289},
+  year={2006},
+  organization={American Medical Informatics Association}
+}
+
+@incollection{TerenzianiBook04,
+  title={The GLARE approach to clinical guidelines: main features},
+  author={Terenziani, Paolo and Montani, Stefania and Bottrighi, Alessio and Torchio, Mauro and Molino, Gianpaolo and Correndo, Gianluca},
+  booktitle={Computer-based Support for Clinical Guidelines and Protocols},
+  pages={162--166},
+  year={2004},
+  publisher={IOS Press}
+}
+
+@INPROCEEDINGS{ArcainiMEMCODE15,
+  author={Arcaini, Paolo and Bonfanti, Silvia and Gargantini, Angelo and Mashkoor, Atif and Riccobene, Elvinia},
+  booktitle={2015 ACM/IEEE International Conference on Formal Methods and Models for Codesign (MEMOCODE)},
+  title={Formal validation and verification of a medical software critical component},
+  year={2015},
+  volume={},
+  number={},
+  pages={80-89},
+  doi={10.1109/MEMCOD.2015.7340473}
+}
+
+@book{DonaldsonBook00,
+  title={To err is human: building a safer health system},
+  author={Donaldson, Molla S and Corrigan, Janet M and Kohn, Linda T and others},
+  year={2000},
+  publisher={National Academies Press}
+}
+
+@article{ClerqAIM03,
+  title={Approaches for creating computer-interpretable guidelines that facilitate decision support},
+  author={De Clercq, Paul A and Blom, Johannes A and Korsten, Hendrikus HM and Hasman, Arie},
+  journal={Artificial Intelligence in Medicine (AIM)},
+  volume={31},
+  number={1},
+  pages={1--27},
+  year={2004},
+  publisher={Elsevier}
+}
+
+@article{JamesNEJM01,
+  title={Making it easy to do it right},
+  author={James, Brent C},
+  journal={New England Journal of Medicine (NEJM)},
+  volume={345},
+  number={13},
+  pages={991--993},
+  year={2001},
+}
+
+@book{KubbenBook19,
+  title={Fundamentals of clinical data science},
+  author={Kubben, Pieter and Dumontier, Michel and Dekker, Andre},
+  year={2019},
+  publisher={Springer}
+}
+
+@article{SuttonNature20,
+  title={An overview of clinical decision support systems: benefits, risks, and strategies for success},
+  author={Sutton, Reed T and Pincock, David and Baumgart, Daniel C and Sadowski, Daniel C and Fedorak, Richard N and Kroeker, Karen I},
+  journal={npj Digital Medicine},
+  volume={3},
+  number={1},
+  pages={17},
+  year={2020},
+  publisher={Nature Publishing Group}
+}
+
+@inproceedings{DesaiPLDI13,
+author = {Desai, Ankush and Gupta, Vivek and Jackson, Ethan and Qadeer, Shaz and Rajamani, Sriram and Zufferey, Damien},
+title = {P: Safe Asynchronous Event-Driven Programming},
+year = {2013},
+isbn = {9781450320146},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/2491956.2462184},
+doi = {10.1145/2491956.2462184},
+booktitle = {Proceedings of the 34th ACM SIGPLAN Conference on Programming Language Design and Implementation},
+pages = {321–332},
+series = {PLDI '13}
+}
+@article{AhsaniFrontiers22,
+  title={Interventions to reduce the incidence of medical error and its financial burden in health care systems: A systematic review of systematic reviews},
+  author={Ahsani-Estahbanati, Ehsan and Sergeevich Gordeev, Vladimir and Doshmangir, Leila},
+  journal={Frontiers in Medicine},
+  volume={9},
+  pages={875426},
+  year={2022},
+  publisher={Frontiers Media SA}
+}
+
+@book{RodziewiczStatsPearls18,
+	Title = {Medical Error Reduction and Prevention},
+	Author = {Rodziewicz, Thomas L. and Houseman, Benjamin and Hipskind, John E.},
+	Publisher = {StatPearls Publishing, Treasure Island (FL)},
+	Year = {2022},
+	URL = {http://europepmc.org/books/NBK499956},
+  title={Medical error reduction and prevention},
+  author={Rodziewicz, Thomas L and Houseman, Benjamin and Hipskind, John E},
+  year={2018}
+}
+
+@article{AndelJHCF12,
+  title={The economics of health care quality and medical errors},
+  author={Andel, Charles and Davidow, Stephen L and Hollander, Mark and Moreno, David A},
+  journal={Journal of health care finance},
+  volume={39},
+  number={1},
+  pages={39},
+  year={2012}
+}
+
+@book{SteinbergNAP11,
+  title={Clinical practice guidelines we can trust},
+  author={Steinberg, Earl and Greenfield, Sheldon and Wolman, Dianne Miller and Mancher, Michelle and Graham, Robin and others},
+  year={2011},
+  publisher={National Academies Press}
+}
+@article{GargJAMA06,
+  title={Effects of computerized clinical decision support systems on practitioner performance and patient outcomes: a systematic review},
+  author={Garg, Amit X and Adhikari, Neill KJ and McDonald, Heather and Rosas-Arellano, M Patricia and Devereaux, Philip J and Beyene, Joseph and Sam, Justina and Haynes, R Brian},
+  journal={Journal of the American Medical Association (JAMA)},
+  volume={293},
+  number={10},
+  pages={1223--1238},
+  year={2005},
+}
+@article{RhodesICM17,
+  title={Surviving sepsis campaign: international guidelines for management of sepsis and septic shock: 2016},
+  author={Rhodes, Andrew and Evans, Laura E and Alhazzani, Waleed and Levy, Mitchell M and Antonelli, Massimo and Ferrer, Ricard and Kumar, Anand and Sevransky, Jonathan E and Sprung, Charles L and Nunnally, Mark E and others},
+  journal={Intensive Care Medicine},
+  volume={43},
+  pages={304--377},
+  year={2017},
+  publisher={Springer}
+}
