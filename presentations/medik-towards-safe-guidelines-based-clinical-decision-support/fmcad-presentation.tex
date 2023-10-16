@@ -14,7 +14,7 @@
 \usepackage{xcolor}
 \usepackage{forest}
 \usefonttheme[onlymath]{serif}
-\graphicspath{{./images/}}
+\graphicspath{{./figs/}}
 \input{newcommands}
 \bibliographystyle{IEEEtran}
 %Information to be included in the title page:
@@ -41,7 +41,7 @@
 \begin{frame}{Preventable Medical Errors (PMEs)}
 
   PMEs are characterized by \emph{incorrect intended treatment} or
-  \emph{incorrect execution of intended treatment}.
+  \emph{incorrect execution} of \emph{intended treatment}.
 
   \pause
   Studies estimate that PMEs caused:
@@ -53,7 +53,92 @@
       \cite{AndelJHCF12}.
   \end{itemize}
 \end{frame}
-\begin{frame}{References}
+
+\begin{frame}{Best Practice Guidelines (BPGs)}
+
+  Evidence-based statements that codify recommended treatment for various
+  clinical scenarios.
+
+  \begin{itemize}
+    \item Utilize results from latest clinical trials.
+    \item Make latest diagnosis and treatment information accessible.
+    \item Can \alert{mitigate Preventable Medical Errors (PMEs)}.
+  \end{itemize}
+\end{frame}
+
+\section{Motivating Example}
+\begin{frame}{BPG Example - Pediatric Sepsis}
+  \begin{itemize}
+    \item Sepsis is caused by an extreme response to an infection.
+    \item Prompt screening and management can improve outcomes.
+  \end{itemize}
+  \pause
+  \begin{columns}
+    \column{0.55\textwidth}
+    \begin{figure}
+      \includegraphics[width=\textwidth]{sepsis-screening-osf}
+    \end{figure}
+  \column{0.45\textwidth}
+    \tiny
+    \begin{tabular}{ | c || c | c | }
+      \hline
+      \textbf{Age}            & \textbf{Heart Rate}    & \textbf{Temp}  \\
+      \hline
+      $0d - 1m$               & $>205$                 & $<36 \text{ or } >38$ \\
+      \hline
+      $\geq 1m - 3m$          & $>205$                 & $<36 \text{ or } >38$ \\
+      \hline
+      $\geq 3m - 1y$          & $>190$                 & $<36 \text{ or } >38.5$ \\
+      \hline
+      $\dots$                 & $\dots$                & $\dots$ \\
+      \hline
+      $\geq 13y$              & $>100$                 & $<36 \text{ or } >38.5$ \\
+      \hline
+    \end{tabular}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Guidelines-based Computerized Decision Support (CDSS)}
+  Systems that codify BPGs to provide healthcare providers with situation-specific advice.
+  \begin{itemize}
+    \item BPG-adherence is difficult to achieve in practice.
+    \item CDSSs integrate BPGs with existing care-flow and make them readily
+      accessible.
+    \item Reduce Preventable Medical Errors \cite{GargJAMA06,KawamotoBMJ05} and improve adherence to BPGs \cite{BenettJAMIA16,SahotaJIS11}.
+  \end{itemize}
+  \pause
+  A typical CDSS consists of:
+  \begin{itemize}
+    \item A translation of the BPG into a computable medium (medical-logic).
+    \item Integration with external data sources such as sensors and electronic
+      records.
+   \item A User-Interface for healthcare providers.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Computer Interpretable Guidelines}
+  \begin{itemize}
+    \item Typically, a conventional programming language
+      is used for medical-logic, leading to an
+      \alert{specification-implementation} gap.
+    \pause
+    \item Computer Interpretable Guidelines address this gap.
+    \item Ensures that medical-logic has intended semantics.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Computer Interpretable Guidelines}
+  \begin{itemize}
+    \item Typically, a conventional programming language
+      is used for medical-logic, leading to an
+      \alert{specification-implementation} gap.
+    \pause
+    \item Computer Interpretable Guidelines address this gap.
+    \item Ensures that medical-logic has intended semantics.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[allowframebreaks]{References}
   \bibliography{references}
 \end{frame}
 \end{document}
