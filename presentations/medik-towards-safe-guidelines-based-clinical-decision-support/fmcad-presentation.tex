@@ -24,17 +24,17 @@
 \texorpdfstring{
 \begin{columns}[onlytextwidth]
 \column{0.33\textwidth}
-  \textbf{Manasvi Saxena} \inst{1}\\
-  \footnotesize{msaxena2@illinois.edu}
+  \textbf{Manasvi Saxena} \\
+  \footnotesize{\href{mailto:msaxena2@illinois.edu}{\textbf{msaxena2@illinois.edu}}}
 \column{0.33\textwidth}
-  Shuang Song \inst{1}\\
-  \footnotesize{shuangs3@illinois.edu}
+  Shuang Song \\
+  \footnotesize{\href{mailto:shuangs3@illinois.edu}{shuangs3@illinois.edu}}
 \column{0.33\textwidth}
-  Lui Sha \inst{1}\\
-  \footnotesize{lrs@illinois.edu}
+  Lui Sha \\
+  \footnotesize{\href{mailto:lrs@illinois.edu}{lrs@illinois.edu}}
 \end{columns}
 }{Authors}}%
-\institute[]{\textsuperscript{1}University of Ilinois at Urbana Champaign}
+\institute[]{University of Ilinois at Urbana Champaign}
 \begin{document}
 \maketitle
 \section{Introduction}
@@ -116,19 +116,87 @@
 %  \end{itemize}
 %\end{frame}
 
-\begin{frame}{Guidelines-based Computerized Decision Support (CDSS)}
+\begin{frame}{Guidelines-based Clinical Decision Support (CDSS)}
   \input{cdss-diagram}
 \end{frame}
 
-\begin{frame}{Computer Interpretable Guidelines}
+\begin{frame}{Guidelines-based Clinical Decision Support (CDSS)}
+  Broadly, a CDSS will have:
   \begin{itemize}
-    \item Typically, a conventional programming language
-      is used for medical-logic, leading to an
-      \alert{specification-implementation} gap.
-    \pause
-    \item Computer Interpretable Guidelines address this gap.
-    \item Ensures that medical-logic has intended semantics.
+    \item \textbf{knowledge-base}: BPG translation in a computable medium
+    \item \textbf{User Interface}: to enable system interaction
+    \item \textbf{Supporting Infrastructure}: to integrate with sensors, patient
+      records, and connect components.
   \end{itemize}
+  \pause
+  Conventionally, to develop a CDSS:
+  \begin{itemize}
+    \item medical domain experts collaborate with software engineers to
+      translate BPG to a programming language
+    \item BPG serves as the functional specification
+    \item Leads to an \alert{specification-implementation gap}.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Executable Guidelines}
+  \begin{itemize}
+    \item Both \alert{Comprehensible} to healthcare providers and \alert{executable}
+    \item Can directly be used in a CDSS
+    \item Address \alert{specification-implementation gap}
+      \pause
+    \item Existing languages lack complete executable formal semantics,
+      and a comprehensive suite of analysis tools.
+  \end{itemize}
+  \pause
+  The \MediK{} language for expressing CDSS knowledge-base:
+  \begin{itemize}
+    \item Has a complete $\K$-based execuable semantics
+    \item \emph{Correct-by-construction} tools (including interpreter)
+      derived from its semantics
+    \item Evolve rapidly to incorporate medical domain experts' feedback
+
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{\MediK{}: Executable Guidelines}
+  Common characteristics of BPGs:
+  \begin{itemize}
+    \item \textbf{Concurrent workflows} such as administering
+      drugs, performing treatment, monitoring vitals.
+    \item \textbf{Flowchart-like notation} for workflows.
+    \item \textbf{Heterogenous agents} such as inputs from sensors, healthcare
+      providers.
+    \item \textbf{Tables} indexed by parameters like age, weight to indicate
+      normal measurement ranges or drug doses.
+  \end{itemize}
+  \pause
+  In \MediK{} guidelines are:
+  \begin{itemize}
+    \item Expressed as concurrently Finite State Machines (FSMs)
+    \item Each flowchart expressed as a FSM
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{\MediK{}: Executable Guidelines}
+  Common characteristics of BPGs:
+  \begin{itemize}
+    \item \textbf{Concurrent workflows} such as administering
+      drugs, performing treatment, monitoring vitals.
+    \item \textbf{Flowchart-like notation} for workflows.
+    \item \textbf{Heterogenous agents} such as inputs from sensors, healthcare
+      providers.
+    \item \textbf{Tables} indexed by parameters like age, weight to indicate
+      normal measurement ranges or drug doses.
+  \end{itemize}
+  \pause
+  In \MediK{} guidelines are:
+  \begin{itemize}
+    \item Expressed as concurrently Finite State Machines (FSMs)
+    \item Each flowchart expressed as a FSM
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Example \MediK{} Guideline}
 \end{frame}
 
 \begin{frame}[allowframebreaks]{References}
