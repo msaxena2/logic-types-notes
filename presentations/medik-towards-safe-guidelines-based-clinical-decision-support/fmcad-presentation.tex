@@ -4,6 +4,7 @@
 %\setbeamertemplate{page number in head/foot}{}
 \setbeamertemplate{bibliography item}{\insertbiblabel}
 \usepackage{dirtytalk}
+\usepackage{listings}
 \usepackage{lmodern}
 \usepackage{listings}
 \usepackage{mathtools}
@@ -16,6 +17,8 @@
 \usefonttheme[onlymath]{serif}
 \graphicspath{{./figs/}}
 \input{newcommands}
+\input{medik-lst}
+\input{k-lst}
 \bibliographystyle{IEEEtran}
 %Information to be included in the title page:
 \title{\MediK{}: Towards Safe Guidelines-based Clinical Decision Support}
@@ -76,7 +79,7 @@
   \begin{columns}
     \column{0.55\textwidth}
     \begin{figure}
-      \includegraphics[width=\textwidth]{sepsis-screening-osf}
+      \includegraphics[width=0.8\textwidth]{sepsis-screening-osf}
     \end{figure}
   \column{0.45\textwidth}
     \tiny
@@ -177,28 +180,111 @@
   \end{itemize}
 \end{frame}
 
-\begin{frame}{\MediK{}: Executable Guidelines}
-  Common characteristics of BPGs:
+\begin{frame}[fragile]{Example \MediK{} Guideline}
+  \begin{columns}
+    \column{0.5\textwidth}
+      \input{medik-example}
+    \column{0.5\textwidth}
+    \begin{onlyenv}<2>
+      \begin{lstlisting}[language=medik, style=mediksty, basicstyle=\ttfamily\tiny]
+state ObtainAge {
+  entry {
+    send tablet, Instruct, ("get age");
+  } on ConfirmAgeEntered do {
+    goto ObtainWeight;
+  }
+}
+    \end{lstlisting}
+    \end{onlyenv}
+    \begin{onlyenv}<3>
+      \begin{lstlisting}[language=medik, style=mediksty, basicstyle=\ttfamily\tiny]
+state CalculateScore {
+  var hrAbnormal = !isInNormalRange(...);
+  var bucket1    = hrAbnormal || ...
+
+  var sepsisSuspected
+    = bucket1 && bucket2 && bucket3;
+
+  send tablet, SepsisDiagnosis
+    , (sepsisSuspected);
+}
+      \end{lstlisting}
+    \end{onlyenv}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{\MediK{}: Formal Semantics}
+  \MediK{}'s semantics foramlized in the $\K{}$-framework
   \begin{itemize}
-    \item \textbf{Concurrent workflows} such as administering
-      drugs, performing treatment, monitoring vitals.
-    \item \textbf{Flowchart-like notation} for workflows.
-    \item \textbf{Heterogenous agents} such as inputs from sensors, healthcare
-      providers.
-    \item \textbf{Tables} indexed by parameters like age, weight to indicate
-      normal measurement ranges or drug doses.
+    \item All tools (including interpreter) derived from semantics,
+      hence \emph{correct-by-construction}
+    \item Rapidly incorporate physician feedback - only
+      semantics need to be changed. Tools evolve automatically.
   \end{itemize}
   \pause
-  In \MediK{} guidelines are:
+  The semantics have three components:
   \begin{itemize}
-    \item Expressed as concurrently Finite State Machines (FSMs)
-    \item Each flowchart expressed as a FSM
+    \item \textbf{Syntax:} Specified
+    \item \textbf{Configuration:} Nested \say{cells} that hold execution state
+    \item \textbf{Rules:} Transition system over configuration
   \end{itemize}
 \end{frame}
+\begin{frame}[fragile]{\MediK{} Configuration}
 
-\begin{frame}{Example \MediK{} Guideline}
+\begin{lstlisting}[
+  style=ksty
+  ,language=k
+  ,basicstyle=\ttfamily\scriptsize
+  ]
+configuration
+  <instance multiplicity="*" type="Map"> ...
+    <k> createMachineDefs($PGM)
+     ~> createInitInstances </k>
+    <genv> .Map </genv>
+    <env> .Map </env>
+    <inBuffer> .List </inBuffer>
+    <activeState> . </activeState>
+  </instance>
+  <machine multiplicity="*" type="Map"> ...
+    <machineName> . </machineName>
+    <states>
+      <state multiplicity="*" type="Map">
+        <stateName> . </stateName>
+        <entryBlock> . </entryBlock>
+        <eventHandlers> ... </eventHandlers>
+      </state>
+    </states>
+  </machine>
+\end{lstlisting}
 \end{frame}
-
+\begin{frame}[fragile]{\MediK{}: Formal Semantics}
+  Variable Lookup
+  \begin{lstlisting}[language=k,style=ksty,basicstyle=\ttfamily\tiny]
+rule <k> I:Id = V:Val => V ... </k>
+     <env> (I |-> Loc) ... </env>
+     <store> Store => Store[Loc <- V] </store>
+  \end{lstlisting}
+  \pause
+  Sending Events
+  \begin{lstlisting}[language=k,style=ksty,basicstyle=\ttfamily\tiny]
+rule <instance>
+     <k> send instance(RecvId) , EventName:Id , ( Args ) =>  done ... </k>
+      ...
+    </instance>
+    <instance>
+     <id> RecvId </id> ....
+     <inBuffer> ...
+        (.List => ListItem( eventArgsPair(EventName | Args | Epoch + 1)))
+     </inBuffer> ...
+    </instance>
+    <epoch> Epoch </epoch>
+  \end{lstlisting}
+\end{frame}
+\begin{frame}{\MediK{}: Model Checking}
+  \begin{itemize}
+    \item External components are modeled as \alert{Ghost} machines.
+  \end{itemize}
+\end{frame}
 \begin{frame}[allowframebreaks]{References}
   \bibliography{references}
 \end{frame}
