@@ -153,7 +153,7 @@
   \pause
   The \MediK{} language for expressing CDSS knowledge-base:
   \begin{itemize}
-    \item Has a complete $\K$-based execuable semantics
+    \item Has a complete $\K$-based executable semantics
     \item \emph{Correct-by-construction} tools (including interpreter)
       derived from its semantics
     \item Evolve rapidly to incorporate medical domain experts' feedback
@@ -167,7 +167,7 @@
     \item \textbf{Concurrent workflows} such as administering
       drugs, performing treatment, monitoring vitals.
     \item \textbf{Flowchart-like notation} for workflows.
-    \item \textbf{Heterogenous agents} such as inputs from sensors, healthcare
+    \item \textbf{Heterogeneous agents} such as inputs from sensors, healthcare
       providers.
     \item \textbf{Tables} indexed by parameters like age, weight to indicate
       normal measurement ranges or drug doses.
@@ -213,8 +213,46 @@ state CalculateScore {
   \end{columns}
 \end{frame}
 
-\begin{frame}{\MediK{}: Formal Semantics}
-  \MediK{}'s semantics foramlized in the $\K{}$-framework
+\begin{frame}[fragile]{Example \MediK{} Guideline}
+  \begin{columns}
+  \column{0.33\textwidth}
+    \tiny
+    \begin{tabular}{ | c || c | c | }
+      \hline
+      \textbf{Age}            & \textbf{Heart Rate} \\
+      \hline
+      $0d - 1m$               & $>205$              \\
+      \hline
+      $\geq 1m - 3m$          & $>205$              \\
+      \hline
+      $\geq 3m - 1y$          & $>190$              \\
+      \hline
+      $\dots$                 & $\dots$             \\
+      \hline
+      $\geq 13y$              & $>100$              \\
+      \hline
+    \end{tabular}
+    \column{0.67\textwidth}
+\begin{lstlisting}[
+  style=mediksty
+  ,language=medik
+  ,basicstyle=\ttfamily\tiny
+  ]
+fun isHeartRateNormal() {
+  days(age) in {
+    interval(days(0)  , months(1)): return hr > 205;
+    interval(months(1), months(3)): return hr > 205;
+    // omitting other cases
+    default                       : return hr > 100;
+  }
+}
+\end{lstlisting}
+  \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{\MediK{}: Formal Semantics}
+  %Add a slide on $\K{}$
+  \MediK{}'s semantics formalized in the $\K{}$-framework
   \begin{itemize}
     \item All tools (including interpreter) derived from semantics,
       hence \emph{correct-by-construction}
@@ -238,12 +276,10 @@ state CalculateScore {
   ]
 configuration
   <instance multiplicity="*" type="Map"> ...
-    <k> createMachineDefs($PGM)
-     ~> createInitInstances </k>
+    <k> ... </k>
     <genv> .Map </genv>
     <env> .Map </env>
     <inBuffer> .List </inBuffer>
-    <activeState> . </activeState>
   </instance>
   <machine multiplicity="*" type="Map"> ...
     <machineName> . </machineName>
@@ -280,10 +316,60 @@ rule <instance>
     <epoch> Epoch </epoch>
   \end{lstlisting}
 \end{frame}
+\begin{frame}[fragile]{\MediK{}: Model Checking}
+  \begin{itemize}
+    \item Accomplished by \emph{searching} the transition system for
+      an \emph{erroneous} pattern
+    \item One important pattern in \MediK{}'s context is \emph{stuck}
+    \item Reached when an event does not have an associated handler
+  \end{itemize}
+  \pause
+  \begin{lstlisting}[language=medik,style=mediksty,basicstyle=\ttfamily\tiny]
+  rule <k> handleEvents ~> _ => stuck </k>
+       <activeState> ActiveState </activeState>
+       <class> MachineName </class>
+       <inBuffer> ListItem(event(InputEvent | _ | _ )) ... </inBuffer>
+       <machine>
+        <machineName> MachineName </machineName>
+        <state>
+         <stateName> ActiveState </stateName>
+         <handledEventIds> HandledEvents </handledEventIds> ...
+        </state> ...
+       </machine>
+    requires notBool(InputEvent in HandledEvents)
+  \end{lstlisting}
+\end{frame}
 \begin{frame}{\MediK{}: Model Checking}
   \begin{itemize}
-    \item External components are modeled as \alert{Ghost} machines.
+    \item External components treated as Finite State Machines
+    \item For model checking, \MediK{} uses \alert{ghost machines}
+      to close the system
   \end{itemize}
+  Ghost machines additionally support:
+  \begin{itemize}
+    \item Statements to express \alert{non-determinism}
+    \item Abstract encodings for patient parameters
+  \end{itemize}
+\end{frame}
+\begin{frame}[fragile]{\MediK{}: Model Checking}
+Abstract Encodings
+  \begin{lstlisting}[language=medik,style=mediksty]
+on Instruct(instruction) do {
+  if (instruction == "get age") {
+    broadcast AgeEntered, (#nondet);
+    goto Main;
+  }
+}
+\end{lstlisting}
+\pause
+Non-determinism
+\begin{lstlisting}[language=medik,style=mediksty]
+either {
+  broadcast StartFluidTherapy;
+} or {
+  broadcast StartAntibioticTherapy;
+}
+\end{lstlisting}
 \end{frame}
 \begin{frame}[allowframebreaks]{References}
   \bibliography{references}
