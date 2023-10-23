@@ -1,0 +1,41 @@
+\lstset {
+basicstyle=\tiny\ttfamily
+,escapeinside= {!}{!}
+}
+
+
+\begin{overprint}
+\begin{tikzpicture}[remember picture, stop jumping, constrain]
+  \node (code) [anatomy] at (0,0) {
+    \begin{lstlisting}[
+      style=ksty
+      ,language=k
+      ,basicstyle=\ttfamily\scriptsize
+      ]
+    configuration
+     !\mtPoint{mostLeft}! <instance multiplicity="*" type="Map"> ... !\extremPoint{mostRight}!
+        <k> ... </k>
+        <genv> .Map </genv>
+        <env> .Map </env>
+        <inBuffer> .List </inBuffer>
+      </instance>!\mbPoint{mostBottom}!
+      <machine multiplicity="*" type="Map"> ...
+        <machineName> . </machineName>
+        <states>
+          <state multiplicity="*" type="Map">
+            <stateName> . </stateName>
+            <entryBlock> . </entryBlock>
+            <eventHandlers> ... </eventHandlers>
+          </state>
+        </states>
+      </machine>
+    \end{lstlisting}
+  };
+\only<2->{
+  \fitExtrem{instanceBox}{(mostLeft) (mostRight) (mostBottom)}
+  \codeAnnotation{instanceBoxAnnotation} (10.35,5) {State of \\ running instance} {[on background layer]
+  \draw[->,annotation] (instanceBox) -- (instanceBoxAnnotation);
+};
+}
+\end{tikzpicture}
+\end{overprint}
