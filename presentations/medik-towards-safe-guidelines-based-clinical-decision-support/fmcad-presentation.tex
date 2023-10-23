@@ -12,6 +12,7 @@
 \usepackage{caption}
 \usepackage{stmaryrd}
 \usepackage{tikz}
+\usepackage{codeanatomy}
 \usepackage{xcolor}
 \usepackage{forest}
 \usefonttheme[onlymath]{serif}
@@ -269,29 +270,7 @@ fun isHeartRateNormal() {
 \end{frame}
 \begin{frame}[fragile]{\MediK{} Configuration}
 
-\begin{lstlisting}[
-  style=ksty
-  ,language=k
-  ,basicstyle=\ttfamily\scriptsize
-  ]
-configuration
-  <instance multiplicity="*" type="Map"> ...
-    <k> ... </k>
-    <genv> .Map </genv>
-    <env> .Map </env>
-    <inBuffer> .List </inBuffer>
-  </instance>
-  <machine multiplicity="*" type="Map"> ...
-    <machineName> . </machineName>
-    <states>
-      <state multiplicity="*" type="Map">
-        <stateName> . </stateName>
-        <entryBlock> . </entryBlock>
-        <eventHandlers> ... </eventHandlers>
-      </state>
-    </states>
-  </machine>
-\end{lstlisting}
+  \input{medik-configuration}
 \end{frame}
 \begin{frame}[fragile]{\MediK{}: Formal Semantics}
   Variable Lookup
