@@ -22,6 +22,7 @@
 \input{k-lst}
 \bibliographystyle{IEEEtran}
 \usetikzlibrary{rulercompass}
+\lstset{ literate={~}{{\raisebox{0.5ex}{\texttildelow}}}{1} }
 %Information to be included in the title page:
 \title{\MediK{}: Towards Safe Guidelines-based Clinical Decision Support}
 \date{}
@@ -163,7 +164,7 @@
   \end{itemize}
 \end{frame}
 
-\begin{frame}{\MediK{}: Executable Guidelines}
+\begin{frame}{Executable Guidelines}
   Common characteristics of BPGs:
   \begin{itemize}
     \item \textbf{Concurrent workflows} such as administering
@@ -182,18 +183,19 @@
   \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{Example \MediK{} Guideline}
+\begin{frame}[fragile]{\MediK{}: Example Guideline}
   \begin{columns}
     \column{0.5\textwidth}
       \input{medik-example}
     \column{0.5\textwidth}
     \begin{onlyenv}<2>
       \begin{lstlisting}[language=medik, style=mediksty, basicstyle=\ttfamily\tiny]
-state ObtainAge {
+state ObtainWeight {
   entry {
-    send tablet, Instruct, ("get age");
-  } on ConfirmAgeEntered do {
-    goto ObtainWeight;
+    send tablet, Instruct, ("get Weight");
+  }
+  on ConfirmWeightEntered do {
+    goto CalculateScore;
   }
 }
     \end{lstlisting}
@@ -201,21 +203,23 @@ state ObtainAge {
     \begin{onlyenv}<3>
       \begin{lstlisting}[language=medik, style=mediksty, basicstyle=\ttfamily\tiny]
 state CalculateScore {
-  var hrAbnormal = !isInNormalRange(...);
-  var bucket1    = hrAbnormal || ...
+  entry {
+    var hrAbnormal = !isInNormalRange(...);
+    var bucket1    = hrAbnormal || ...
 
-  var sepsisSuspected
-    = bucket1 && bucket2 && bucket3;
+    var sepsisSuspected
+      = bucket1 && bucket2 && bucket3;
 
-  send tablet, SepsisDiagnosis
-    , (sepsisSuspected);
+    send tablet, SepsisDiagnosis
+      , (sepsisSuspected);
+  }
 }
       \end{lstlisting}
     \end{onlyenv}
   \end{columns}
 \end{frame}
 
-\begin{frame}[fragile]{Example \MediK{} Guideline}
+\begin{frame}[fragile]{\MediK{}: Example Guideline}
   \begin{columns}
   \column{0.33\textwidth}
     \tiny
@@ -264,24 +268,24 @@ fun isHeartRateNormal() {
   \pause
   The semantics have three components:
   \begin{itemize}
-    \item \textbf{Syntax:} Specified
-    \item \textbf{Configuration:} Nested \say{cells} that hold execution state
-    \item \textbf{Rules:} Transition system over configuration
+    \item \textbf{Syntax:} Specified in BNF-like notation
+    \item \textbf{Configuration:} Nested \emph{cells} that hold execution state
+    \item \textbf{Rules:} Rewrite rules of the form $\varphi \Rightarrow \psi$,
+      where $\varphi$, $\psi$ are \emph{patterns} over configuration segments.
   \end{itemize}
 \end{frame}
-\begin{frame}[fragile]{\MediK{} Configuration}
-
+\begin{frame}[fragile]{\MediK{}: Configuration}
   \input{medik-configuration}
 \end{frame}
-\begin{frame}[fragile]{\MediK{}: Formal Semantics}
-  Variable Lookup
+\begin{frame}[fragile]{\MediK{}: Example Rules}
+  Variable Assignment
   \begin{lstlisting}[language=k,style=ksty,basicstyle=\ttfamily\tiny]
 rule <k> I:Id = V:Val => V ... </k>
      <env> (I |-> Loc) ... </env>
      <store> Store => Store[Loc <- V] </store>
   \end{lstlisting}
   \pause
-  Sending Events
+  Events Passing
   \begin{lstlisting}[language=k,style=ksty,basicstyle=\ttfamily\tiny]
 rule <instance>
      <k> send instance(RecvId) , EventName:Id , ( Args ) =>  done ... </k>
@@ -298,13 +302,13 @@ rule <instance>
 \end{frame}
 \begin{frame}[fragile]{\MediK{}: Model Checking}
   \begin{itemize}
-    \item Accomplished by \emph{searching} the transition system for
-      an \emph{erroneous} pattern
-    \item One important pattern in \MediK{}'s context is \emph{stuck}
-    \item Reached when an event does not have an associated handler
+    \item Accomplished by searching for an \emph{error pattern}
+    \item For \MediK{} programs, an important property is \emph{responsiveness}
+    \item A machine is \emph{non-responsive} if the event at the head of the
+      input buffer does not have an associated handler
   \end{itemize}
   \pause
-  \begin{lstlisting}[language=medik,style=mediksty,basicstyle=\ttfamily\tiny]
+  \begin{lstlisting}[language=k,style=ksty,basicstyle=\ttfamily\tiny]
   rule <k> handleEvents ~> _ => stuck </k>
        <activeState> ActiveState </activeState>
        <class> MachineName </class>
@@ -321,36 +325,61 @@ rule <instance>
 \end{frame}
 \begin{frame}{\MediK{}: Model Checking}
   \begin{itemize}
-    \item External components treated as Finite State Machines
-    \item For model checking, \MediK{} uses \alert{ghost machines}
-      to close the system
+    \item \MediK{} programs interact with diverse \emph{external components}
+    \item All \emph{external components} treated as Finite State Machines (FSMs)
+    \item \alert{Ghost machines} model external components to close the system
+    \item Used for model checking, discarded at runtime
+    \item Support both \alert{non-determinism} and \alert{abstract encodings}
   \end{itemize}
-  Ghost machines additionally support:
-  \begin{itemize}
-    \item Statements to express \alert{non-determinism}
-    \item Abstract encodings for patient parameters
-  \end{itemize}
+\end{frame}
+\begin{frame}[fragile]{\MediK{}: Example Ghost Machine}
+  \input{ghost-example.tex}
 \end{frame}
 \begin{frame}[fragile]{\MediK{}: Model Checking}
 Abstract Encodings
-  \begin{lstlisting}[language=medik,style=mediksty]
-on Instruct(instruction) do {
-  if (instruction == "get age") {
-    broadcast AgeEntered, (#nondet);
-    goto Main;
-  }
-}
+\begin{lstlisting}[language=k,style=ksty,basicstyle=\ttfamily\tiny]
+rule #nondet + _:Val    => #nondet
+rule _:Val   <= #nondet => #nondet
+rule #nondet && _       => #nondet
+
+rule if (#nondet) Block => Block
+rule if (#nondet) _     => .
 \end{lstlisting}
 \pause
 Non-determinism
-\begin{lstlisting}[language=medik,style=mediksty]
-either {
-  broadcast StartFluidTherapy;
-} or {
-  broadcast StartAntibioticTherapy;
-}
+\begin{lstlisting}[language=medik,style=mediksty,basicstyle=\ttfamily\tiny]
+  rule either B or _ => B
+  rule either _ or B => B
 \end{lstlisting}
+\pause
+\begin{itemize}
+  \item When model checking, $\K{}$ all possible branches
+  \item \MediK{}-based sepsis Clinical Decision Support System bounded model checked
+    for responsiveness
+\end{itemize}
 \end{frame}
+\begin{frame}{Conclusion}
+\begin{itemize}
+  \item Preventable Medical Errors (PMEs) have \emph{signicant costs}
+  \item Guidelines-based Clinical Decision Support Systems (CDSSs) can mitigate PMEs
+\end{itemize}
+  \pause
+  The \MediK{} language:
+\begin{itemize}
+  \item provides a medium for executable Best Practice Guidelines that is
+    \alert{executable} and \emph{comprehensible} to healthcare providers
+  \item has a complete, executable formal semantics defined in $\K{}$
+  \item has a suite of \emph{correct by construction} tools, including
+    an \emph{interpreter} and \emph{model checker}
+  \item utilized to build a real-world CDSS for pediatric sepsis management
+\end{itemize}
+\begin{tiny}
+  The \MediK{} tools are available at \url{https://github.com/medik-framework/medik-semantics}.
+\end{tiny}
+
+\end{frame}
+
+
 \begin{frame}[allowframebreaks]{References}
   \bibliography{references}
 \end{frame}

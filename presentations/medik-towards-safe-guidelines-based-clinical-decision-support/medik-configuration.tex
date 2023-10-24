@@ -14,12 +14,12 @@ basicstyle=\tiny\ttfamily
       ]
     configuration
      !\mtPoint{mostLeft}! <instance multiplicity="*" type="Map"> ... !\extremPoint{mostRight}!
-        <k> ... </k>
+      !\mtPoint{mostLeftK}!<k> ... </k>!\extremPoint{mostRightK}\mbPoint{mostBottomK}!
         <genv> .Map </genv>
         <env> .Map </env>
         <inBuffer> .List </inBuffer>
       </instance>!\mbPoint{mostBottom}!
-      <machine multiplicity="*" type="Map"> ...
+     !\mtPoint{mostLeftMachine}! <machine multiplicity="*" type="Map"> ... !\extremPoint{mostRightMachine}!
         <machineName> . </machineName>
         <states>
           <state multiplicity="*" type="Map">
@@ -28,14 +28,24 @@ basicstyle=\tiny\ttfamily
             <eventHandlers> ... </eventHandlers>
           </state>
         </states>
-      </machine>
+      </machine>!\mbPoint{mostBottomMachine}!
     \end{lstlisting}
   };
 \only<2->{
   \fitExtrem{instanceBox}{(mostLeft) (mostRight) (mostBottom)}
-  \codeAnnotation{instanceBoxAnnotation} (10.35,5) {State of \\ running instance} {[on background layer]
+  \codeAnnotation{instanceBoxAnnotation} (10.35,5) {State of \\ running instance} {[on background layer]}
   \draw[->,annotation] (instanceBox) -- (instanceBoxAnnotation);
 };
-}
+\only<3->{
+  \fitExtrem{KBox}{(mostLeftK) (mostRightK) (mostBottomK)}
+  \codeAnnotation{KBoxAnnotation} (6.45,5.6) {\MediK{} Program} {[on background layer]}
+  \draw[->,annotation] (KBox) -- (KBoxAnnotation);
+};
+
+\only<4->{
+  \fitExtrem{MachineBox}{(mostLeftMachine) (mostRightMachine) (mostBottomMachine)}
+  \codeAnnotation{MachineBoxAnnotation} (10.25,2.3) {Machine \\ Definitions} {[on background layer]}
+  \draw[->,annotation] (MachineBox) -- (MachineBoxAnnotation);
+};
 \end{tikzpicture}
 \end{overprint}

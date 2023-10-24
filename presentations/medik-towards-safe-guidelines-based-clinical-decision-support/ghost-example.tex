@@ -1,0 +1,50 @@
+\lstset {
+basicstyle=\tiny\ttfamily
+,escapeinside= {!}{!}
+}
+
+
+\begin{overprint}
+\begin{tikzpicture}[remember picture, stop jumping, constrain]
+  \node (code) [anatomy] at (0,0) {
+    \begin{lstlisting}[
+      style=mediksty
+      ,language=medik
+      ,basicstyle=\ttfamily\scriptsize
+      ]
+ghost machine TabletGhost {
+  state Main {
+    ...
+    on Instruct(instruction) {
+      !\mtPoint{mostLeftAge}! if (instruction == "get weight") {
+        broadcast WeightEntered, #nondet; !\extremPoint{mostRightAge}!
+      } !\mbPoint{mostBottomAge}!
+    }
+  }
+  ...
+  state HandleTreatment {
+    ...
+  !\mtPoint{mostLeftTreatment}! either {
+      broadcast StartFluidTherapy;
+      broadcast StartAntibioticTherapy;
+    } or {
+      broadcast StartAntibioticTherapy; !\extremPoint{mostRightTreatment}!
+      broadcast StartFluidTherapy;
+    } !\mbPoint{mostBottomTreatment}!
+  }
+}
+  \end{lstlisting}
+  };
+
+\only<2->{
+  \fitExtrem{ageBox}{(mostLeftAge) (mostRightAge) (mostBottomAge)}
+  \codeAnnotation{ageBoxAnnotation} (9.35,6.1) {Return an \\ abstract value} {[on background layer]}
+  \draw[->,annotation] (ageBox) -- (ageBoxAnnotation);
+};
+\only<3->{
+  \fitExtrem{treatmentBox}{(mostLeftTreatment) (mostRightTreatment) (mostBottomTreatment)}
+  \codeAnnotation{treatmentBoxAnnotation} (9.35,2.1) {Non deterministically \\ choose an action} {[on background layer]}
+  \draw[->,annotation] (treatmentBox) -- (treatmentBoxAnnotation);
+};
+\end{tikzpicture}
+\end{overprint}
