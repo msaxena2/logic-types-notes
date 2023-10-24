@@ -54,9 +54,9 @@
   \begin{itemize}
     \item \alert{44,000 - 98,000} deaths in 1997
       \cite{DonaldsonBook00}, and \alert{$>$ 250,000} deaths in 2013 \cite{MakaryBMJ16} in the U.S
-      alone.
+      alone
     \item a financial burden of \alert{19.5 billion} dollars in 2008
-      \cite{AndelJHCF12}.
+      \cite{AndelJHCF12}
   \end{itemize}
 \end{frame}
 
@@ -66,14 +66,14 @@
   clinical scenarios.
 
   \begin{itemize}
-    \item Utilize results from latest clinical trials.
-    \item Make latest diagnosis and treatment information accessible.
-    \item Can \alert{mitigate Preventable Medical Errors (PMEs)}.
+    \item Utilize results from latest clinical trials
+    \item Make latest diagnosis and treatment information accessible
+    \item Can \alert{mitigate Preventable Medical Errors (PMEs)}
   \end{itemize}
 \end{frame}
 
 \section{Motivating Example}
-\begin{frame}{BPG Example - Pediatric Sepsis}
+\begin{frame}{BPG Example: Pediatric Sepsis}
   \begin{itemize}
     \item Sepsis is caused by an extreme response to an infection.
     \item Prompt screening and management can improve outcomes.
@@ -204,7 +204,7 @@ state ObtainWeight {
       \begin{lstlisting}[language=medik, style=mediksty, basicstyle=\ttfamily\tiny]
 state CalculateScore {
   entry {
-    var hrAbnormal = !isInNormalRange(...);
+    var hrAbnormal = isHeartRateAbnormal()
     var bucket1    = hrAbnormal || ...
 
     var sepsisSuspected
@@ -244,7 +244,7 @@ state CalculateScore {
   ,language=medik
   ,basicstyle=\ttfamily\tiny
   ]
-fun isHeartRateNormal() {
+fun isHeartRateAbnormal() {
   days(age) in {
     interval(days(0)  , months(1)): return hr > 205;
     interval(months(1), months(3)): return hr > 205;
@@ -273,6 +273,9 @@ fun isHeartRateNormal() {
     \item \textbf{Rules:} Rewrite rules of the form $\varphi \Rightarrow \psi$,
       where $\varphi$, $\psi$ are \emph{patterns} over configuration segments.
   \end{itemize}
+\end{frame}
+\begin{frame}[fragile]{\MediK{}: Syntax}
+  \input{medik-syntax}
 \end{frame}
 \begin{frame}[fragile]{\MediK{}: Configuration}
   \input{medik-configuration}
@@ -367,7 +370,7 @@ Non-determinism
   The \MediK{} language:
 \begin{itemize}
   \item provides a medium for executable Best Practice Guidelines that is
-    \alert{executable} and \emph{comprehensible} to healthcare providers
+    \emph{executable} and \emph{comprehensible} to healthcare providers
   \item has a complete, executable formal semantics defined in $\K{}$
   \item has a suite of \emph{correct by construction} tools, including
     an \emph{interpreter} and \emph{model checker}

@@ -1,0 +1,43 @@
+\lstset {
+basicstyle=\tiny\ttfamily
+,escapeinside= {!}{!}
+}
+
+
+\begin{overprint}
+\begin{tikzpicture}[remember picture, stop jumping, constrain]
+  \node (code) [anatomy] at (0,1) {
+    \begin{lstlisting}[
+      style=ksty
+      ,language=k
+      ,basicstyle=\ttfamily\scriptsize
+      ]
+
+  !\mtPoint{mostLeftExp}!syntax Exp ::= Id | Val | Rat !\extremPoint{mostRightExp}!
+               > Exp "+" Exp
+               | Exp "-" Exp
+               | Exp ">" Exp
+               | Exp "<" Exp
+  !\mbPoint{mostBottomExp}!
+
+
+  !\mtPoint{mostLeftStmt}!syntax Stmt :: "if" "(" Exp ")" Block "else" Block
+                | "while" "(" Exp ")" Block
+                | "send" Exp "," Id "," "(" Exps ")" ";" !\extremPoint{mostRightStmt}!
+                | "machine" Id "receives" Ids Block !\mbPoint{mostBottomStmt}!
+    \end{lstlisting}
+    };
+
+\only<2->{
+  \fitExtrem{expBox}{(mostLeftExp) (mostRightExp) (mostBottomExp)}
+  \codeAnnotation{expBoxAnnotation} (8.35,5.5) {\MediK{} expressions} {[on background layer]}
+  \draw[->,annotation] (expBox) -- (expBoxAnnotation);
+};
+\only<3->{
+  \fitExtrem{stmtBox}{(mostLeftStmt) (mostRightStmt) (mostBottomStmt)}
+  \codeAnnotation{stmtBoxAnnotation} (3,0.5) {\MediK{} statements} {[on background layer]}
+  \draw[->,annotation] (stmtBox) -- (stmtBoxAnnotation);
+};
+
+\end{tikzpicture}
+\end{overprint}

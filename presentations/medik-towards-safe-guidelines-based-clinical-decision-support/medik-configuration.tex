@@ -14,8 +14,7 @@ basicstyle=\tiny\ttfamily
       ]
     configuration
      !\mtPoint{mostLeft}! <instance multiplicity="*" type="Map"> ... !\extremPoint{mostRight}!
-      !\mtPoint{mostLeftK}!<k> ... </k>!\extremPoint{mostRightK}\mbPoint{mostBottomK}!
-        <genv> .Map </genv>
+      !\mtPoint{mostLeftK}!<k> $PGM </k>!\extremPoint{mostRightK}\mbPoint{mostBottomK}!
         <env> .Map </env>
         <inBuffer> .List </inBuffer>
       </instance>!\mbPoint{mostBottom}!
@@ -38,7 +37,7 @@ basicstyle=\tiny\ttfamily
 };
 \only<3->{
   \fitExtrem{KBox}{(mostLeftK) (mostRightK) (mostBottomK)}
-  \codeAnnotation{KBoxAnnotation} (6.45,5.6) {\MediK{} Program} {[on background layer]}
+  \codeAnnotation{KBoxAnnotation} (6.45,5.25) {\MediK{} Program} {[on background layer]}
   \draw[->,annotation] (KBox) -- (KBoxAnnotation);
 };
 
